@@ -2,7 +2,7 @@ import { Actor, Color, vec } from 'excalibur';
 import { Resources } from '@/resources';
 import {transform} from "terser-webpack-plugin/types/minify";
 
-export class Player extends Actor {
+export class Board extends Actor {
   constructor() {
     super({
       color: new Color(255, 255, 255)
@@ -11,8 +11,7 @@ export class Player extends Actor {
 
 
   onInitialize() {
-    this.graphics.use(Resources.Piece.toSprite());
-    this.pos = vec(0,0)
+
   }
 
 

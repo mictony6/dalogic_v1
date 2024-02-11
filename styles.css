@@ -1,0 +1,79 @@
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.fluid {
+    width:100% !important;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+#startButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 10px 20px;
+    font-size: 2rem;
+    background: linear-gradient(180deg, #d8f500, #F56263);
+    color: #531359;
+    border: solid 2px #531359;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+#startButton:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+
+#root {
+    /* When this is relative, child elements positioned absolutely will
+       be relative to this element, not the document providing more accurate
+       positioning, since the canvas will be at (0, 0) */
+    position: relative;
+}
+#root #ui {
+    /* This will make the UI appear on top of the canvas */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/* These are scene-based UI styles */
+#ui.MainMenu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+#ui.MainMenu button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: linear-gradient(180deg, #d8f500, #F56263);
+    color: #531359;
+    border: solid 2px #531359;
+    cursor: pointer;
+    border-radius: 15px;
+}
