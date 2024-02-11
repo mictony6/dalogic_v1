@@ -2,7 +2,7 @@ import { Engine, Loader, DisplayMode } from 'excalibur';
 import { Resources } from './resources';
 import {MainMenu} from "@/scenes/main-menu/main-menu";
 import {SplashLoader} from "@/loaders/splash-loader";
-import {PractiveLevel0} from "@/scenes/practice/practive-level-0";
+import {PracticeLevel0} from "@/scenes/practice/practice-level0";
 import {LevelOne} from "@/scenes/level-one/level-one";
 import '../styles.css';
 
@@ -18,7 +18,7 @@ class Game extends Engine {
   public start() {
 
     game.add('mainMenu', new MainMenu());
-    game.add('practice0', new PractiveLevel0());
+    game.add('practice0', new PracticeLevel0());
 
     // Automatically load all default resources
     const loader = new SplashLoader(Object.values(Resources));

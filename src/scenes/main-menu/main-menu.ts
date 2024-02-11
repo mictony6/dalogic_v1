@@ -1,4 +1,4 @@
-import {Actor, Color, Engine, Scene, vec} from "excalibur";
+import {Actor, Color, Engine, ImageSource, Scene, vec} from "excalibur";
 import {Resources} from "@/resources";
 
 export class MainMenu extends Scene {
@@ -6,17 +6,17 @@ export class MainMenu extends Scene {
   // This would probably be encapsulated in a UIManager module
   private ui : HTMLElement = document.getElementById('ui')
   options:string[] = ['Practice', 'Story', 'Multiplayer' ,'Options']
+  private backgroundImage : Actor;
 
   onInitialize(engine:Engine) {
     this.backgroundColor = Color.Black
-    const backGroundImage = new Actor()
-    console.log(engine.canvasWidth, engine.canvasHeight)
-    backGroundImage.graphics.use(Resources.BackGround2.toSprite());
-    backGroundImage.scale = vec(0.325, 0.325);
-    backGroundImage.pos = engine.screen.center;
+    this.backgroundImage = new Actor({width:engine.canvasWidth, height:engine.canvasHeight})
+    this.backgroundImage.graphics.use(Resources.BackGround2.toSprite());
+    this.backgroundImage.scale = vec(0.325, 0.325);
+    this.backgroundImage.pos = engine.screen.center;
 
 
-    this.add(backGroundImage);
+    this.add(this.backgroundImage);
     // Add a CSS class to `ui` that helps indicate which scene is being displayed
     this.ui.classList.add('MainMenu')
     for (let i = 0; i < this.options.length; i++) {
@@ -39,4 +39,6 @@ export class MainMenu extends Scene {
     }
     return btn
   }
+
+
 }
