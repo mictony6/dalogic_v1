@@ -5,6 +5,7 @@ import {SplashLoader} from "@/loaders/splash-loader";
 import {PracticeLevel0} from "@/scenes/practice/practice-level0";
 import {LevelOne} from "@/scenes/level-one/level-one";
 import '../styles.css';
+import {Authenticate} from "@/scenes/authenticate/authenticate";
 
 /**
  * Managed game class
@@ -17,8 +18,10 @@ class Game extends Engine {
 
   public start() {
 
+
     game.add('mainMenu', new MainMenu());
     game.add('practice0', new PracticeLevel0());
+    game.add('authenticate', new Authenticate());
 
     // Automatically load all default resources
     const loader = new SplashLoader(Object.values(Resources));
@@ -30,5 +33,5 @@ class Game extends Engine {
 
 const game = new Game();
 game.start().then(() => {
-  game.goToScene('mainMenu');
+  game.goToScene('authenticate');
 });
