@@ -3,9 +3,9 @@ import { Resources } from './resources';
 import {MainMenu} from "@/scenes/main-menu/main-menu";
 import {SplashLoader} from "@/loaders/splash-loader";
 import {PracticeLevel0} from "@/scenes/practice/practice-level0";
-import {LevelOne} from "@/scenes/level-one/level-one";
 import '../styles.css';
 import {Authenticate} from "@/scenes/authenticate/authenticate";
+import {DevTool} from "@excaliburjs/dev-tools";
 
 /**
  * Managed game class
@@ -32,6 +32,7 @@ class Game extends Engine {
 }
 
 const game = new Game();
+// const devtool = new DevTool(game);
 game.start().then(() => {
-  game.goToScene('authenticate');
+  game.goToScene('practice0');
 });

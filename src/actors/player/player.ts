@@ -1,19 +1,13 @@
-import { Actor, Color, vec } from 'excalibur';
+import { Component, Engine, Entity, TransformComponent } from 'excalibur';
 import { Resources } from '@/resources';
-import {transform} from "terser-webpack-plugin/types/minify";
+import {PieceOwnerComponent} from "@/components/piece-owner-component";
 
-export class Player extends Actor {
+export class Player extends Entity{
   constructor() {
-    super({
-      color: new Color(255, 255, 255)
-    });
+    super();
   }
+  onInitialize(engine: Engine) {
+    this.addComponent(new PieceOwnerComponent());
 
-
-  onInitialize() {
-    this.graphics.use(Resources.Piece.toSprite());
-    this.pos = vec(0,0)
   }
-
-
 }

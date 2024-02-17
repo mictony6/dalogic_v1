@@ -1,4 +1,5 @@
 import {Actor, Color, Engine, vec} from 'excalibur';
+import {Piece} from "@/actors/piece/piece";
 
 
 export class BoardTile extends Actor {
@@ -7,6 +8,7 @@ export class BoardTile extends Actor {
   defaultColor:Color;
   highlightedColor :Color = Color.Orange
   isBlack:boolean = false;
+  piece: Piece = null;
   constructor(row: number, col: number) {
     super({
       width: 75,
