@@ -8,13 +8,14 @@ export class MainMenu extends Scene {
   private ui : HTMLElement = document.getElementById('ui')
   options:string[] = ['Practice', 'Story', 'Multiplayer' ,'Options']
   private backgroundImage : Actor;
+  private logoPlaceholder: HTMLHeadingElement;
   private playerName : string;
 
   onInitialize(engine:Engine) {
     this.backgroundColor = Color.Black
-    this.backgroundImage = new Actor({width:Resources.BackGround2.width, height:Resources.BackGround2.height})
-    this.backgroundImage.graphics.use(Resources.BackGround2.toSprite());
-    this.backgroundImage.scale = vec(0.35, 0.35)
+    this.backgroundImage = new Actor({width:Resources.BackGround3.width, height:Resources.BackGround3.height})
+    this.backgroundImage.graphics.use(Resources.BackGround3.toSprite());
+    this.backgroundImage.scale = vec(0.70, 0.70)
     // this.backgroundImage.scale = vec(engine.canvasWidth/Resources.BackGround2.width, engine.canvasHeight/Resources.BackGround2.height);
     this.backgroundImage.pos = engine.screen.center;
 
@@ -37,6 +38,9 @@ export class MainMenu extends Scene {
 
     }).catch(e =>  console.log(e))
 
+    this.logoPlaceholder = document.createElement('h1');
+    this.logoPlaceholder.textContent = 'DALOGIC';
+    this.ui.appendChild(this.logoPlaceholder);
 
     this.ui.appendChild(playerLabel);
     for (let i = 0; i < this.options.length; i++) {

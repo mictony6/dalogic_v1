@@ -1,3 +1,13 @@
+/* Import custom font */
+@font-face {
+    font-family: 'Upheaval';
+    src: url('/src/images/assets/upheavtt.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Arcade';
+    src: url('/src/images/assets/arcade.ttf') format('truetype');
+}
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -35,9 +45,12 @@
     top: 50%;
     left: 50%;
     padding: 10px 20px;
-    font-size: 2rem;
-    background: linear-gradient(180deg, #d8f500, #F56263);
-    color: #531359;
+    font-size: 3rem;
+    font-family: 'Upheaval', sans-serif;
+    /* background: linear-gradient(180deg, #d8f500, #F56263);
+    color: #531359; */
+    background: linear-gradient(180deg, #ffffff, #bbbbbb);
+    color: #1b0e0e;
     border: solid 2px #531359;
     cursor: pointer;
     border-radius: 15px;
@@ -47,6 +60,8 @@
     background-color: #45a049;
     transform: scale(1.1);
 }
+
+
 
 
 #root {
@@ -64,22 +79,71 @@
 /* These are scene-based UI styles */
 #ui.MainMenu {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 10%;
+    bottom: 20%;
+    left: 10%;
+    right:10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #ui.MainMenu button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background: linear-gradient(180deg, #d8f500, #F56263);
-    color: #531359;
-    border: solid 2px #531359;
+    padding: 6px 10px;
+    font-family: 'Upheaval', sans-serif;
+    font-size: 2rem;
+    color: white;
     cursor: pointer;
-    border-radius: 15px;
+    background-color: transparent;
+    border: none;
+    
 }
+
+#ui.MainMenu button:hover {
+    color: #F0CC4C;
+  }
 
 #ui.authenticate {
     position: absolute;
     top: 50%;
-    left: 50%;
+    bottom: 10%;
+    right: 10%;
+    left: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#ui.authenticate h1,
+#ui.MainMenu h1 {
+    font-family: 'Arcade', sans-serif;
+    font-size: 4rem;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-shadow: 40px 40px 50px black; /* Adjust values as needed */
+}
+
+#ui.authenticate input {
+    font-family: 'Upheaval', sans-serif;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    background: white;
+    color: #000000;
+    border: solid 2px #2e2e2e;
+    cursor: pointer;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+#ui.authenticate button {
+    font-family: 'Upheaval', sans-serif;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    background: white;
+    color: #000000;
+    border: solid 2px #2e2e2e;
+    cursor: pointer;
+    border-radius: 15px;
 }

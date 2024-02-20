@@ -5,7 +5,7 @@ import {SplashLoader} from "@/loaders/splash-loader";
 import {PracticeLevel0} from "@/scenes/practice/practice-level0";
 import '../styles.css';
 import {Authenticate} from "@/scenes/authenticate/authenticate";
-import {DevTool} from "@excaliburjs/dev-tools";
+// import {DevTool} from "@excaliburjs/dev-tools";
 
 /**
  * Managed game class

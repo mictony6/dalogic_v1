@@ -1,17 +1,30 @@
-import { Engine, Scene } from "excalibur";
+import { Actor, Engine, Scene, vec} from "excalibur";
+import {Resources} from "@/resources";
 import axios from "axios";
 
 
 export class Authenticate extends Scene {
   private ui: HTMLElement = document.getElementById('ui');
+  private logoPlaceholder: HTMLHeadingElement;
   private playerNameInput: HTMLInputElement;
   private enterButton: HTMLButtonElement;
+  private backgroundImage : Actor;
 
   onInitialize(engine: Engine) {
+    this.backgroundImage = new Actor({width:Resources.BackGround2.width, height:Resources.BackGround2.height})
+    this.backgroundImage.graphics.use(Resources.BackGround2.toSprite());
+    this.backgroundImage.scale = vec(0.35, 0.35)
+    this.backgroundImage.pos = engine.screen.center;
+    this.add(this.backgroundImage);
+
+    this.logoPlaceholder = document.createElement('h1');
+    this.logoPlaceholder.textContent = 'DALOGIC';
+    this.ui.appendChild(this.logoPlaceholder);
+
     // Create input field for player name
     this.playerNameInput = document.createElement('input');
     this.playerNameInput.type = 'text';
-    this.playerNameInput.placeholder = 'Enter your name';
+    this.playerNameInput.placeholder = 'Player Name';
     this.ui.appendChild(this.playerNameInput);
 
     // Create button
