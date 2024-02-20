@@ -34,5 +34,5 @@ class Game extends Engine {
 const game = new Game();
 // const devtool = new DevTool(game);
 game.start().then(() => {
-  game.goToScene('practice0');
+  game.goToScene('authenticate');
 });

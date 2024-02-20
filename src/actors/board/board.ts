@@ -78,6 +78,7 @@ export class Board extends Actor {
       return
     }
 
+    // select as source cell if it has a piece
     if (piece){
       if (this.selectedSrcCell){
         this.selectedSrcCell.piece.unoutline();
@@ -152,6 +153,7 @@ export class Board extends Actor {
   checkIfValidMove(tile: BoardTile, piece: Piece) {
     return true;
   }
+
 
 
 
