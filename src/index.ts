@@ -13,7 +13,7 @@ import { LevelSelection } from './scenes/level-selection/level-selection';
  */
 class Game extends Engine {
   constructor() {
-    super({ displayMode: DisplayMode.FitScreen,width:1280, height:720, canvasElementId: 'game'});
+    super({ displayMode: DisplayMode.FillScreen,width:1280, height:720, canvasElementId: 'game'});
   }
 
   public start() {
