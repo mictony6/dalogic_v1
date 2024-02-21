@@ -2,15 +2,14 @@ import {Actor, Color, Engine, ImageSource, Scene, SceneActivationContext, vec} f
 import {Resources} from "@/resources";
 import axios from "axios";
 
-export class MainMenu extends Scene {
+export class LevelSelection extends Scene {
   // Hold a reference globally to our UI container
   // This would probably be encapsulated in a UIManager module
   private ui : HTMLElement = document.getElementById('ui')
-  options:string[] = ['Practice', 'Story', 'Multiplayer' ,'Options']
-  sceneNames:string[] = ['practice0', 'story', 'multiplayer', 'options'];
+  options:string[] = ['1', '2', '3' ,'4', '5']
   private backgroundImage : Actor;
-  private logoPlaceholder: HTMLHeadingElement;
   private playerName : string;
+  private gameMode: HTMLHeadingElement;
 
   onInitialize(engine:Engine) {
     this.backgroundColor = Color.Black
@@ -21,18 +20,26 @@ export class MainMenu extends Scene {
     this.backgroundImage.pos = engine.screen.center;
     this.add(this.backgroundImage);
 
-    this.logoPlaceholder = document.createElement('h1');
-    this.logoPlaceholder.textContent = 'DALOGIC';
-    this.ui.appendChild(this.logoPlaceholder);
+
     // Add a CSS class to `ui` that helps indicate which scene is being displayed
 
   }
 
 
   onActivate(context: SceneActivationContext<unknown>) {
-    this.ui.classList.add('MainMenu')
-    let playerLabel = document.createElement("h3");
+    this.ui.classList.add('LevelSelection')
 
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('level-selection-wrapper');
+
+    // Add a title to the scene
+    this.gameMode = document.createElement('h1');
+    this.gameMode.textContent = 'PRACTICE AI';
+    wrapper.appendChild(this.gameMode);
+
+
+    let playerLabel = document.createElement("h3");
+    // get the player name from the server
     axios.get("http://127.0.0.1:3000/auth/player-name").then(res => {
       return res.data.playerName
     }).then((playerName) => {
@@ -41,22 +48,31 @@ export class MainMenu extends Scene {
 
     }).catch(e =>  console.log(e))
 
-    this.ui.appendChild(playerLabel);
+    // this.ui.appendChild(playerLabel);
+
+    // button group wrapper
+    let buttonGroup = document.createElement('div');
+    buttonGroup.classList.add('button-group');
+    wrapper.appendChild(buttonGroup);
+    // Add buttons for each level
     for (let i = 0; i < this.options.length; i++) {
-      this.ui.appendChild(this.createButtonElement(this.options[i], 'levelSelection'))
+      buttonGroup.appendChild(this.createButtonElement(this.options[i], 'practice0'))
     }
+
+    // Add the wrapper to the UI
+    this.ui.appendChild(wrapper);
   }
 
   onDeactivate() {
     // Ensure we clean-up the DOM and remove any children when transitioning scenes
-    this.ui.classList.remove('MainMenu')
+    this.ui.classList.remove('LevelSelection')
     this.ui.innerHTML = ''
   }
 
   private createButtonElement(text:string, scene:string) {
-    const btn = document.createElement('button')
+    const btn = document.createElement('level_button')
     btn.innerText = text
-    btn.className = 'main-menu__button'
+    btn.className = 'level__button'
     btn.onclick = (e) => {
       e.preventDefault()
       this.engine.goToScene(scene)

@@ -9,7 +9,7 @@ export class SplashLoader extends Loader {
     this.logo = Resources.TitleLogo.path;
     this.logoHeight = 424
     this.logoWidth = 2174
-
+    this.backgroundColor = '#31452D';
     
     this.startButtonFactory = () => {
       let myButton = document.createElement('button');
@@ -21,15 +21,14 @@ export class SplashLoader extends Loader {
 
 }
 
-// wont work pa
 export class SplashScenes extends Scene {
-  private backgroundImage : HTMLBodyElement;
+  private backgroundImage : Actor;
   private ui : HTMLElement = document.getElementById('ui')
 
   onInitialize(engine: Engine) {
-    // Get background image id
-    this.backgroundImage = document.getElementById('backgroundImage') as HTMLBodyElement;
-    this.backgroundImage.style.backgroundImage = `url(${Resources.BackGround2.path})`;
-    this.ui.appendChild(this.backgroundImage);
+    this.backgroundColor = Color.Black
+    this.backgroundImage = new Actor({width:Resources.BackGround2.width, height:Resources.BackGround2.height});
+    this.backgroundImage.graphics.use(Resources.BackGround2.toSprite());
+    this.backgroundImage.scale = vec(0.35, 0.35)
   }
 }

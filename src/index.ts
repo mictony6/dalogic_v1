@@ -5,7 +5,7 @@ import {SplashLoader} from "@/loaders/splash-loader";
 import {PracticeLevel0} from "@/scenes/practice/practice-level0";
 import '../styles.css';
 import {Authenticate} from "@/scenes/authenticate/authenticate";
-import {UiManager} from "@/singletons/ui-manager";
+import { LevelSelection } from './scenes/level-selection/level-selection';
 // import {DevTool} from "@excaliburjs/dev-tools";
 
 /**
@@ -19,6 +19,7 @@ class Game extends Engine {
   public start() {
 
     game.add('mainMenu', new MainMenu());
+    game.add('levelSelection', new LevelSelection());
     game.add('practice0', new PracticeLevel0());
     game.add('authenticate', new Authenticate());
 

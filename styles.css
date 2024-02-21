@@ -51,7 +51,7 @@
     color: #531359; */
     background: linear-gradient(180deg, #ffffff, #bbbbbb);
     color: #1b0e0e;
-    border: solid 2px #531359;
+    border:  none;
     cursor: pointer;
     border-radius: 15px;
 }
@@ -73,9 +73,10 @@
 #root #ui {
     /* This will make the UI appear on top of the canvas */
     position: absolute;
-    top: 0;
-    left: 0;
+
 }
+
+
 /* These are scene-based UI styles */
 #ui.MainMenu {
     position: absolute;
@@ -100,13 +101,47 @@
     
 }
 
+#ui.LevelSelection{
+    /*position: absolute;*/
+    top: 10%;
+    bottom: 20%;
+    left: 10%;
+    right:10%;
+
+}
+
+.level-selection-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#ui.LevelSelection level_button {
+    padding: 1rem 2.5rem;
+    font-family: 'Upheaval', sans-serif;
+    font-size: 10rem;
+    color: white;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+
+
+}
+
+#ui.LevelSelection level_button:hover {
+    color: #F0CC4C;
+    cursor: pointer;
+
+}
+
 #ui.MainMenu button:hover {
     color: #F0CC4C;
   }
 
 #ui.authenticate {
     position: absolute;
-    top: 50%;
+    top: 10%;
     bottom: 10%;
     right: 10%;
     left: 10%;
@@ -117,12 +152,14 @@
 }
 
 #ui.authenticate h1,
-#ui.MainMenu h1 {
-    font-family: 'Arcade', sans-serif;
-    font-size: 4rem;
+#ui.MainMenu h1,
+#ui.LevelSelection h1 {
+    font-family: 'Upheaval', sans-serif;
+    font-size: 6rem;
+    letter-spacing: 5px;
     color: #ffffff;
     margin-bottom: 5px;
-    text-shadow: 40px 40px 50px black; /* Adjust values as needed */
+    text-shadow: 5px 5px 4px rgb(39, 27, 7); /* Adjust values as needed */
 }
 
 #ui.authenticate input {
