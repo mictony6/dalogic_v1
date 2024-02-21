@@ -73,9 +73,10 @@
 #root #ui {
     /* This will make the UI appear on top of the canvas */
     position: absolute;
-    top: 0;
-    left: 0;
+
 }
+
+
 /* These are scene-based UI styles */
 #ui.MainMenu {
     position: absolute;
@@ -101,33 +102,37 @@
 }
 
 #ui.LevelSelection{
-    position: absolute;
+    /*position: absolute;*/
     top: 10%;
     bottom: 20%;
     left: 10%;
     right:10%;
-    flex-direction: row;
+
+}
+
+.level-selection-wrapper {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 #ui.LevelSelection level_button {
-    padding: 6px 10px;
+    padding: 1rem 2.5rem;
     font-family: 'Upheaval', sans-serif;
     font-size: 10rem;
     color: white;
     cursor: pointer;
     background-color: transparent;
     border: none;
-    letter-spacing: 60px;
+
 
 }
 
 #ui.LevelSelection level_button:hover {
-    font-size: 13rem;
     color: #F0CC4C;
     cursor: pointer;
-    z-index: 10;
+
 }
 
 #ui.MainMenu button:hover {
@@ -136,7 +141,7 @@
 
 #ui.authenticate {
     position: absolute;
-    top: 50%;
+    top: 10%;
     bottom: 10%;
     right: 10%;
     left: 10%;

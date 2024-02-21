@@ -20,9 +20,7 @@ export class LevelSelection extends Scene {
     this.backgroundImage.pos = engine.screen.center;
     this.add(this.backgroundImage);
 
-    this.gameMode = document.createElement('h1');
-    this.gameMode.textContent = 'PRACTICE AI';
-    this.ui.appendChild(this.gameMode);
+
     // Add a CSS class to `ui` that helps indicate which scene is being displayed
 
   }
@@ -30,8 +28,18 @@ export class LevelSelection extends Scene {
 
   onActivate(context: SceneActivationContext<unknown>) {
     this.ui.classList.add('LevelSelection')
-    let playerLabel = document.createElement("h3");
 
+    let wrapper = document.createElement('div');
+    wrapper.classList.add('level-selection-wrapper');
+
+    // Add a title to the scene
+    this.gameMode = document.createElement('h1');
+    this.gameMode.textContent = 'PRACTICE AI';
+    wrapper.appendChild(this.gameMode);
+
+
+    let playerLabel = document.createElement("h3");
+    // get the player name from the server
     axios.get("http://127.0.0.1:3000/auth/player-name").then(res => {
       return res.data.playerName
     }).then((playerName) => {
@@ -40,10 +48,19 @@ export class LevelSelection extends Scene {
 
     }).catch(e =>  console.log(e))
 
-    this.ui.appendChild(playerLabel);
+    // this.ui.appendChild(playerLabel);
+
+    // button group wrapper
+    let buttonGroup = document.createElement('div');
+    buttonGroup.classList.add('button-group');
+    wrapper.appendChild(buttonGroup);
+    // Add buttons for each level
     for (let i = 0; i < this.options.length; i++) {
-      this.ui.appendChild(this.createButtonElement(this.options[i], 'practice0'))
+      buttonGroup.appendChild(this.createButtonElement(this.options[i], 'practice0'))
     }
+
+    // Add the wrapper to the UI
+    this.ui.appendChild(wrapper);
   }
 
   onDeactivate() {
