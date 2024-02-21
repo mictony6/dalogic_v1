@@ -1,4 +1,4 @@
-import { ImageSource } from 'excalibur';
+import {ImageFiltering, ImageSource} from 'excalibur';
 import piece from './images/assets/pieceSprite.png';
 import bg1 from './images/assets/bg.png';
 import bg2 from './images/assets/bg2.png';

@@ -7,6 +7,7 @@ export class MainMenu extends Scene {
   // This would probably be encapsulated in a UIManager module
   private ui : HTMLElement = document.getElementById('ui')
   options:string[] = ['Practice', 'Story', 'Multiplayer' ,'Options']
+  sceneNames:string[] = ['practice0', 'story', 'multiplayer', 'options'];
   private backgroundImage : Actor;
   private logoPlaceholder: HTMLHeadingElement;
   private playerName : string;
@@ -44,7 +45,7 @@ export class MainMenu extends Scene {
 
     this.ui.appendChild(playerLabel);
     for (let i = 0; i < this.options.length; i++) {
-      this.ui.appendChild(this.createButtonElement(this.options[i], 'practice0'))
+      this.ui.appendChild(this.createButtonElement(this.options[i], this.sceneNames[i]))
     }
   }
 

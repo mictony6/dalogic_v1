@@ -5,6 +5,7 @@ import {SplashLoader} from "@/loaders/splash-loader";
 import {PracticeLevel0} from "@/scenes/practice/practice-level0";
 import '../styles.css';
 import {Authenticate} from "@/scenes/authenticate/authenticate";
+import {UiManager} from "@/singletons/ui-manager";
 // import {DevTool} from "@excaliburjs/dev-tools";
 
 /**
@@ -15,9 +16,7 @@ class Game extends Engine {
     super({ displayMode: DisplayMode.FitScreen,width:1280, height:720, canvasElementId: 'game'});
   }
 
-
   public start() {
-
 
     game.add('mainMenu', new MainMenu());
     game.add('practice0', new PracticeLevel0());

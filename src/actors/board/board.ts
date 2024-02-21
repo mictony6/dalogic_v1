@@ -110,14 +110,17 @@ export class Board extends Actor {
   }
 
   onPostUpdate(engine: Engine, delta: number) {
+    // if both a source and destination cell are selected, finalize the move
     if (this.selectedSrcCell && this.selectedDestCell){
 
+      // create a move object
       this.selectedMove = new Move(this.selectedSrcCell, this.selectedDestCell);
 
 
       // check move validity here
       // finalize move if valid
       this.selectedMove.finalize()
+
       this.resetSelections()
 
 
