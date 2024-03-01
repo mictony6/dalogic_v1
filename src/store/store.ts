@@ -1,4 +1,7 @@
-import {Player} from "@/actors/player/player";
+
+import {GameStateMachine} from "@/components/game-state-machine";
+import {BoardManager} from "@/components/board-manager";
+
 
 export enum GameMode {
   AIVsPlayer = 0,
@@ -9,6 +12,17 @@ export enum GameMode {
 export let state = {
   TILE_SIZE: 75,
   gameMode: GameMode.AIVsPlayer,
-  players: [new Player(), new Player()]
+  player: null,
+  opponent: null ,
+  turnIndex: 0,
+  stateMachine: null,
+  boardManager: null,
+}
+
+
+export function initStore() {
+  state.stateMachine = new GameStateMachine();
+  state.boardManager = new BoardManager();
+
 }
 

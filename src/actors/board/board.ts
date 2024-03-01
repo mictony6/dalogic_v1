@@ -1,9 +1,13 @@
-import {Actor, Color, Engine, vec, Vector} from 'excalibur';
+import {Actor, Color, Engine, Scene, vec, Vector} from 'excalibur';
 import {BoardTile} from "@/actors/tile/tile";
 import {Piece} from "@/actors/piece/piece";
 import BoardCell from "@/components/board-cell";
 import Move from "@/components/move";
-const TILE_SIZE = 75;
+import {state} from "@/store/store";
+import {Player} from "@/actors/player/player";
+import {RandomAi} from "@/actors/ai/random-ai";
+const TILE_SIZE = state.TILE_SIZE;
+
 
 export class Board extends Actor {
   readonly dimension : Vector = vec(8,8)
@@ -12,6 +16,8 @@ export class Board extends Actor {
   selectedDestCell : BoardCell;
   selectedMove: Move;
   grid : BoardCell[][] = [];
+  // piece hash map
+  pieces = new Map<number, Piece>();
 
   constructor() {
     super({
@@ -23,6 +29,7 @@ export class Board extends Actor {
     this.halfSize = vec(this.width/2, this.height/2);
   }
 
+
   get halfHeight(){
     return this.halfSize.y;
   }
@@ -32,9 +39,19 @@ export class Board extends Actor {
   }
 
   onInitialize(engine: Engine) {
-    this.pos = engine.screen.center
+    this.pos = engine.screen.center;
+
+    this.createPlayers()
+
     this.createBoard();
 
+    console.log(this.grid)
+
+  }
+
+  createPlayers(){
+    state.player = new Player(-1);
+    state.opponent = new RandomAi(1);
   }
 
 
@@ -53,6 +70,12 @@ export class Board extends Actor {
         if (!tile.isBlack && (row < 3 || row > 4)){
           piece = new Piece(row, col);
           piece.addTag(`piece:r${row}c${col}`);
+          piece.owner = row > 3 ? state.player : state.opponent;
+          // add the piece id to the player's owned pieces array
+          piece.owner.owns(piece);
+
+          // add the piece to the board's pieces array
+          this.pieces.set(piece.id, piece);
         }
         let currentPos = this.getBoardPosition(row, col)
         let boardPos = new BoardCell(tile, piece);
@@ -97,67 +120,99 @@ export class Board extends Actor {
       return
     }
 
+
   }
 
 
 
   getBoardPosition(row: number, col: number){
+    // return the position of the board cell at the given row and column
     return vec((col * TILE_SIZE) - this.halfWidth + TILE_SIZE / 2, (row * TILE_SIZE) - this.halfHeight + TILE_SIZE / 2);
   }
 
-  getBoardCell(boardObject: Piece | BoardTile){
+  getBoardCellOf(boardObject: Piece | BoardTile){
     return this.grid[boardObject.row][boardObject.col];
   }
 
-  onPostUpdate(engine: Engine, delta: number) {
-    // if both a source and destination cell are selected, finalize the move
-    if (this.selectedSrcCell && this.selectedDestCell){
+  inBounds(row:number, col:number){
+    return (row < 0 || row > this.dimension.y - 1 || col < 0 || col > this.dimension.x - 1)
+  }
 
-      // create a move object
-      this.selectedMove = new Move(this.selectedSrcCell, this.selectedDestCell);
-
-
-      // check move validity here
-      // finalize move if valid
-      this.selectedMove.finalize()
-
-      this.resetSelections()
-
-
-
-      // this.selectedPiece.vel = this.selectedTile.getGlobalPos().sub(this.selectedPiece.getGlobalPos()).normalize().scale(50*delta);
-      // if (this.selectedPiece.getGlobalPos().squareDistance(this.selectedTile.getGlobalPos()) <= 100){
-      //
-      //   let boardPos = this.grid[this.selectedTile.row][this.selectedTile.col];
-      //
-      //
-      //   if (this.selectedTile.children.length > 0){
-      //     throw new Error("Tile already has a piece");
-      //   } else {
-      //     this.selectedTile.addChild(this.selectedPiece);
-      //   }
-      //
-      //   this.selectedPiece.vel = Vector.Zero;
-      //   this.selectedPiece.pos = Vector.Zero;
-      //   this.resetSelections();
-      // }
-
+  getBoardCellAt(row: number, col: number){
+    // return null if the row or col is out of bounds
+    if (this.inBounds(row, col)){
+      return null;
     }
+
+    return this.grid[row][col];
   }
 
   resetSelections(){
-    this.selectedDestCell.piece.unoutline()
+    if (this.selectedSrcCell.piece){
+      this.selectedSrcCell.piece.unoutline()
+    }
+    if (this.selectedDestCell.piece){
+      this.selectedDestCell.piece.unoutline()
+    }
     this.selectedDestCell.tile.unhighlight()
     this.selectedSrcCell = null;
     this.selectedDestCell = null;
   }
 
 
-  checkIfValidMove(tile: BoardTile, piece: Piece) {
-    return true;
+  checkIfValidMove(move:Move) {
+    let validMoves = this.getValidMoves(move.srcPos.piece);
+    return validMoves.some((validMove) => validMove.equal(move));
+  }
+
+  getValidMoves(piece: Piece){
+    let moves: Move[] = [];
+    let forward = piece.forward;
+    let srcPos = this.getBoardCellOf(piece);
+
+    let forwardLeft = this.getBoardCellAt(piece.row + forward, piece.col - 1);
+    let forwardRight = this.getBoardCellAt(piece.row + forward, piece.col + 1);
+
+    if (forwardLeft) {
+      if (!forwardLeft.piece){
+        moves.push(new Move(srcPos, forwardLeft));
+      }else {
+        if (forwardLeft.piece.owner !== piece.owner){
+          let forwardLeftJump = this.getBoardCellAt(piece.row + forward * 2, piece.col - 2);
+          if (forwardLeftJump && !forwardLeftJump.piece){
+            moves.push(new Move(srcPos, forwardLeftJump));
+          }
+        }
+      }
+    }
+
+    if (forwardRight){
+      if (!forwardRight.piece){
+        moves.push(new Move(srcPos, forwardRight));
+      }else {
+        if (forwardRight.piece.owner !== piece.owner){
+          let forwardRightJump = this.getBoardCellAt(piece.row + forward * 2, piece.col + 2);
+          if (forwardRightJump && !forwardRightJump.piece){
+            moves.push(new Move(srcPos, forwardRightJump));
+          }
+        }
+      }
+    }
+    return moves;
+
   }
 
 
+  getAllValidMoves(player: Player){
+    let moves: Move[] = [];
+    let pieceIdArray = player.ownedPieces;
+    pieceIdArray.forEach((pieceId) => {
+      let piece = this.pieces.get(pieceId);
+      let validMoves = this.getValidMoves(piece);
+      moves.push(...validMoves);
+    });
+    return moves;
+  }
 
 
 }

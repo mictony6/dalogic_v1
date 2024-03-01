@@ -1,12 +1,15 @@
 import {Engine, Scene, Color, Actor, vec} from "excalibur";
 import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
+import {GameStateMachine} from "@/components/game-state-machine";
+import {state} from "@/store/store";
 
 export class PracticeLevel0 extends Scene {
   private board : Board;
   private backgroundImage : Actor;
   
   public onInitialize(engine: Engine) {
+
     // Background
     this.backgroundColor = Color.Black;
     this.backgroundImage = new Actor({width:Resources.GameBoardBg.width, height:Resources.BackGround3.height})
@@ -19,15 +22,16 @@ export class PracticeLevel0 extends Scene {
     // Board
     this.board = new Board()
     this.add(this.board)
+    state.boardManager.currentBoard = this.board;
+
+      // Set the initial state
+    state.stateMachine.changeState("playerTurn");
+
   }
 
-  public onActivate() {
+  onPostUpdate(engine: Engine, delta: number) {
+    state.stateMachine.updateStateMachine(engine, delta);
   }
 
-  public onDeactivate() {
-  }
 
-  onPreUpdate(engine: Engine, delta: number) {
-    super.onPreUpdate(engine, delta);
-  }
 }

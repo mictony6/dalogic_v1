@@ -3,7 +3,7 @@ import {Piece} from "@/actors/piece/piece";
 
 export class PieceOwnerComponent extends Component {
   readonly type: string = "PieceOwnerComponent"
-  ownedPieces : Piece[] = []
+  public ownedPieces : Piece[] = []
 
 
   owns(piece: Piece){

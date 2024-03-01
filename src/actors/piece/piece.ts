@@ -60,4 +60,11 @@ export class Piece extends Actor{
   get value(){
     return this._value;
   }
+
+
+  get forward(){
+    if (this.owner){
+      return this.owner.forward;
+    }
+  }
 }

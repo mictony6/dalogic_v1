@@ -1,13 +1,23 @@
 import { Component, Engine, Entity, TransformComponent } from 'excalibur';
-import { Resources } from '@/resources';
-import {PieceOwnerComponent} from "@/components/piece-owner-component";
 
-export class Player extends Entity{
-  constructor() {
-    super();
-  }
-  onInitialize(engine: Engine) {
-    this.addComponent(new PieceOwnerComponent());
+import {Piece} from "@/actors/piece/piece";
 
+export class Player  {
+  forward: number = 1;
+  public ownedPieces= []
+
+  constructor(forward: number) {
+    this.forward = forward;
   }
+  owns(piece: Piece){
+    this.ownedPieces.push(piece.id)
+  }
+
+  remove(piece: Piece){
+    this.ownedPieces = this.ownedPieces.filter(p => p !== piece.id)
+  }
+
+  init(engine: Engine) {
+  }
+
 }
