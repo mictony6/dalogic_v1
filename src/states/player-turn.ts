@@ -33,8 +33,8 @@ export class PlayerTurn extends GameState{
     // if both a source and destination cell are selected, finalize the move
     if (board.selectedSrcCell && board.selectedDestCell){
       // create a move object
-      board.selectedMove = new Move(board.selectedSrcCell, board.selectedDestCell);
-      if(board.checkIfValidMove(board.selectedMove)){
+      board.selectedMove = board.getEquivalentMove(board.selectedSrcCell, board.selectedDestCell)
+      if(board.selectedMove){
         this.nextState = "playerMoving";
       }else {
         console.log("Invalid move");

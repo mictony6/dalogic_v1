@@ -1,6 +1,9 @@
 import {Piece} from "@/actors/piece/piece";
 import {BoardTile} from "@/actors/tile/tile";
 import {Actor, Engine} from "excalibur";
+import {initStore} from "@/store/store";
+
+
 
 export default class BoardCell extends Actor{
   constructor(
@@ -31,4 +34,10 @@ export default class BoardCell extends Actor{
   equal(other:BoardCell){
     return this.tile === other.tile && this.piece === other.piece;
   }
+
+  removePieceFromCell(){
+    this.removeChild(this.piece);
+    this.piece = null;
+  }
+
 }

@@ -6,6 +6,7 @@ import Move from "@/components/move";
 import {state} from "@/store/store";
 import {Player} from "@/actors/player/player";
 import {RandomAi} from "@/actors/ai/random-ai";
+import {CaptureMove} from "@/components/capture-move";
 const TILE_SIZE = state.TILE_SIZE;
 
 
@@ -103,11 +104,18 @@ export class Board extends Actor {
 
     // select as source cell if it has a piece
     if (piece){
+      // remove previous selections
       if (this.selectedSrcCell){
-        this.selectedSrcCell.piece.unoutline();
+        this.clearHighlights();
       }
       this.selectedSrcCell = boardPos;
       piece.outline();
+
+      //highlight possible moves
+      let movesPossible = this.getValidMoves(piece);
+      for (let move of movesPossible){
+        move.destPos.tile.highlight();
+      }
       return;
     }
 
@@ -127,7 +135,8 @@ export class Board extends Actor {
 
   getBoardPosition(row: number, col: number){
     // return the position of the board cell at the given row and column
-    return vec((col * TILE_SIZE) - this.halfWidth + TILE_SIZE / 2, (row * TILE_SIZE) - this.halfHeight + TILE_SIZE / 2);
+    return vec((col * TILE_SIZE) - this.halfWidth + TILE_SIZE / 2,
+     (row * TILE_SIZE) - this.halfHeight + TILE_SIZE / 2);
   }
 
   getBoardCellOf(boardObject: Piece | BoardTile){
@@ -148,22 +157,37 @@ export class Board extends Actor {
   }
 
   resetSelections(){
-    if (this.selectedSrcCell.piece){
-      this.selectedSrcCell.piece.unoutline()
-    }
-    if (this.selectedDestCell.piece){
-      this.selectedDestCell.piece.unoutline()
-    }
-    this.selectedDestCell.tile.unhighlight()
+    this.clearHighlights();
     this.selectedSrcCell = null;
     this.selectedDestCell = null;
   }
-
-
-  checkIfValidMove(move:Move) {
-    let validMoves = this.getValidMoves(move.srcPos.piece);
-    return validMoves.some((validMove) => validMove.equal(move));
+  
+  clearHighlights(){
+    for (let row of this.grid){
+      for (let cell of row){
+        if (cell.tile){
+          cell.tile.unhighlight()
+        }
+        if (cell.piece){
+          cell.piece.unoutline();
+        }
+      }
+    }
+    // if (this.selectedSrcCell.piece){
+    //   this.selectedSrcCell.piece.unoutline()
+    // }
+    // if (this.selectedDestCell.piece){
+    //   this.selectedDestCell.piece.unoutline()
+    // }
+    // this.selectedDestCell.tile.unhighlight()
   }
+
+
+  getEquivalentMove(src:BoardCell, dest:BoardCell) {
+    let validMoves = this.getValidMoves(src.piece);
+    return validMoves.find((validMove) => validMove.equal(new Move(src, dest)));
+  }
+
 
   getValidMoves(piece: Piece){
     let moves: Move[] = [];
@@ -180,7 +204,7 @@ export class Board extends Actor {
         if (forwardLeft.piece.owner !== piece.owner){
           let forwardLeftJump = this.getBoardCellAt(piece.row + forward * 2, piece.col - 2);
           if (forwardLeftJump && !forwardLeftJump.piece){
-            moves.push(new Move(srcPos, forwardLeftJump));
+            moves.push(new CaptureMove(srcPos, forwardLeftJump, forwardLeft));
           }
         }
       }
@@ -193,7 +217,7 @@ export class Board extends Actor {
         if (forwardRight.piece.owner !== piece.owner){
           let forwardRightJump = this.getBoardCellAt(piece.row + forward * 2, piece.col + 2);
           if (forwardRightJump && !forwardRightJump.piece){
-            moves.push(new Move(srcPos, forwardRightJump));
+            moves.push(new CaptureMove(srcPos, forwardRightJump, forwardRight));
           }
         }
       }
@@ -212,6 +236,24 @@ export class Board extends Actor {
       moves.push(...validMoves);
     });
     return moves;
+  }
+
+
+  removePieceFromBoard(o : Piece | BoardCell){
+    let cell : BoardCell;
+    let piece: Piece;
+    if (o instanceof BoardCell){
+      cell = o;
+      piece = cell.piece;
+    } else if (o instanceof Piece){
+      // get board cell
+      cell = this.grid[o.row][o.col]
+      piece = o;
+    }
+    this.pieces.delete(piece.id);
+    piece.owner.remove(piece);
+    cell.removePieceFromCell();
+
   }
 
 

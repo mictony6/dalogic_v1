@@ -8,9 +8,7 @@ export class RandomAi extends AiPlayer {
 
   takeTurn() {
     let validMoves = state.boardManager.currentBoard.getAllValidMoves(this);
-    console.log(validMoves);
     let randomMove = validMoves[Math.floor(Math.random()*validMoves.length)];
-    console.log(randomMove);
     randomMove.finalize();
   }
 

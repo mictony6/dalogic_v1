@@ -7,6 +7,9 @@ export default class Move extends Entity{
 
   constructor(src:BoardCell, dest: BoardCell) {
     super();
+    if (!src.piece){
+      throw new Error("the fuck? ")
+    }
     this.srcPos = src;
     this.destPos = dest;
   }
@@ -19,6 +22,8 @@ export default class Move extends Entity{
    * Call this to truly execute the move
    */
   finalize(){
+    console.log(this.srcPos.tile, this.destPos.tile)
+    // transfer ownership
     this.srcPos.transferPieceTo(this.destPos);
   }
 }
