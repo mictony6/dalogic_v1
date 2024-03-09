@@ -26,4 +26,16 @@ export default class Move extends Entity{
     // transfer ownership
     this.srcPos.transferPieceTo(this.destPos);
   }
+
+
+  get hash() {
+    // Encode relevant information into hash
+    const srcRow = this.srcPos.tile.row;
+    const srcCol = this.srcPos.tile.col;
+    const destRow = this.destPos.tile.row;
+    const destCol = this.destPos.tile.col;
+    const hash = `${srcRow}-${srcCol}-${destRow}-${destCol}`;
+    return hash;
+  }
+
 }

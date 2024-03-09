@@ -1,7 +1,7 @@
 import {Piece} from "@/actors/piece/piece";
 import {BoardTile} from "@/actors/tile/tile";
-import {Actor, Engine} from "excalibur";
-import {initStore} from "@/store/store";
+import {Actor, BaseAlign, Color, Engine, Font, Label, TextAlign} from "excalibur";
+import { pattern } from "./operations";
 
 
 
@@ -19,6 +19,19 @@ export default class BoardCell extends Actor{
     if (this.piece){
       this.addChild(this.piece)
     }
+
+    if (this.tile.isBlack) return;
+    let operation = pattern[this.tile.row][this.tile.col];
+    let operationName = operation.name
+    
+    // display operation name on the tile
+    let operationLabel = new Label({
+      text: operationName,
+      font: new Font({size: 20, color: Color.Black, textAlign: TextAlign.Center, baseAlign: BaseAlign.Middle}),
+      color: Color.Black,
+    })
+
+    this.addChild(operationLabel);
   }
 
 
@@ -39,5 +52,6 @@ export default class BoardCell extends Actor{
     this.removeChild(this.piece);
     this.piece = null;
   }
+
 
 }

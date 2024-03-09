@@ -57,6 +57,16 @@ export class Board extends Actor {
 
 
   createBoard(){
+
+    // TODO: assign values to the pieces
+
+    // grid is a 2D array of BoardCells which contains the piece and tile in that specific row and column
+    // using this data structure helps with ease of access
+    // for retrieving a tile or piece on a specific position
+    // transfer of pieces only involves reparenting it to a new BoardCell actor
+    // removal on the other hand is handled in an abstracted function below 
+    // which handles removing references of the piece on the player and the board
+
     for (let row = 0; row < this.dimension.y; row++){
       let currentRow : BoardCell[] = []
       for (let col = 0; col < this.dimension.x; col++){
@@ -80,6 +90,7 @@ export class Board extends Actor {
         }
         let currentPos = this.getBoardPosition(row, col)
         let boardPos = new BoardCell(tile, piece);
+
         boardPos.on("pointerdown", ()=>{ this.selectBoardPos(boardPos)});
         boardPos.pos = currentPos;
         this.addChild(boardPos)
@@ -103,7 +114,7 @@ export class Board extends Actor {
     }
 
     // select as source cell if it has a piece
-    if (piece){
+    if (piece && piece.owner  == state.player ){
       // remove previous selections
       if (this.selectedSrcCell){
         this.clearHighlights();
@@ -189,7 +200,10 @@ export class Board extends Actor {
   }
 
 
+
+
   getValidMoves(piece: Piece){
+
     let moves: Move[] = [];
     let forward = piece.forward;
     let srcPos = this.getBoardCellOf(piece);
