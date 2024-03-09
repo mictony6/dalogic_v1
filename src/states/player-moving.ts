@@ -1,7 +1,8 @@
 import {GameState} from "@/components/game-state";
-import {GameMode, state} from "@/store/store";
-import Move from "@/components/move";
+import { state} from "@/store/store";
 import {Engine, Vector} from "excalibur";
+import {SwitchingTurn} from "@/states/switching-turn";
+import {Board} from "@/actors/board/board";
 
 export class PlayerMoving extends GameState{
   static stateName = "playerMoving";
@@ -21,7 +22,7 @@ export class PlayerMoving extends GameState{
   }
 
   onUpdate(engine:Engine, delta:number) {
-    let board = state.boardManager.currentBoard;
+    let board : Board = state.boardManager.currentBoard;
     if (!board.selectedMove){
       throw new Error("No move selected");
     }
@@ -36,17 +37,12 @@ export class PlayerMoving extends GameState{
       if (destTile.children.length > 0){
         throw new Error("Tile already has a piece");
       } else {
-        board.selectedMove.finalize()
+        board.selectedMove.commit()
       }
       movingPiece.vel = Vector.Zero;
       movingPiece.pos = Vector.Zero;
       board.resetSelections();
-
-      if (state.gameMode === GameMode.AIVsPlayer){
-        this.nextState = "aiTurn"
-      }else {
-        this.nextState = "playerTurn";
-      }
+      this.nextState =  SwitchingTurn.stateName;
     }else{
 
       // move the piece towards the destination tile

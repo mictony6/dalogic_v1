@@ -21,8 +21,7 @@ export default class Move extends Entity{
   /**
    * Call this to truly execute the move
    */
-  finalize(){
-    console.log(this.srcPos.tile, this.destPos.tile)
+  commit(){
     // transfer ownership
     this.srcPos.transferPieceTo(this.destPos);
   }
@@ -34,8 +33,10 @@ export default class Move extends Entity{
     const srcCol = this.srcPos.tile.col;
     const destRow = this.destPos.tile.row;
     const destCol = this.destPos.tile.col;
-    const hash = `${srcRow}-${srcCol}-${destRow}-${destCol}`;
-    return hash;
+    return `${srcRow}-${srcCol}-${destRow}-${destCol}`;
   }
 
+  revert() {
+    this.destPos.transferPieceTo(this.srcPos);
+  }
 }

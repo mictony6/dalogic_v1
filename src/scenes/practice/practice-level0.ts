@@ -1,8 +1,8 @@
 import {Engine, Scene, Color, Actor, vec} from "excalibur";
 import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
-import {GameStateMachine} from "@/components/game-state-machine";
 import {state} from "@/store/store";
+import {MinimaxAi} from "@/actors/ai/minimax-ai";
 
 export class PracticeLevel0 extends Scene {
   private board : Board;
@@ -19,13 +19,21 @@ export class PracticeLevel0 extends Scene {
     this.backgroundImage.pos = engine.screen.center;
     this.add(this.backgroundImage);
 
+    //initialize players
+    state.player = new MinimaxAi(-1, "random1");
+    state.opponent = new MinimaxAi(1, "random2");
+    state.firstMoveID = state.player["playerID"];
+    state.currentPlayerID = state.opponent["playerID"];
+
+
+
     // Board
     this.board = new Board()
     this.add(this.board)
     state.boardManager.currentBoard = this.board;
 
       // Set the initial state
-    state.stateMachine.changeState("playerTurn");
+    state.stateMachine.changeState("switchingTurn");
 
   }
 

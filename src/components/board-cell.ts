@@ -35,6 +35,11 @@ export default class BoardCell extends Actor{
   }
 
 
+  /**
+   * Proper way to transfer piece from one cell to another.
+   * This modifies the piece's row and column.
+   * @param otherPosition {BoardCell}
+   */
   transferPieceTo(otherPosition:BoardCell){
     this.piece.row = otherPosition.tile.row;
     this.piece.col = otherPosition.tile.col;
@@ -51,6 +56,11 @@ export default class BoardCell extends Actor{
   removePieceFromCell(){
     this.removeChild(this.piece);
     this.piece = null;
+  }
+
+  addPieceToCell(piece:Piece){
+    this.addChild(piece);
+    this.piece = piece;
   }
 
 

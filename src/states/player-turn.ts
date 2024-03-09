@@ -1,8 +1,7 @@
 import {GameState} from "@/components/game-state";
 import {state} from "@/store/store";
-import Move from "@/components/move";
 import {Engine} from "excalibur";
-import {PieceOwnerComponent} from "@/components/piece-owner-component";
+import {Board} from "@/actors/board/board";
 
 export class PlayerTurn extends GameState{
   static stateName = "playerTurn";
@@ -22,15 +21,8 @@ export class PlayerTurn extends GameState{
   }
 
   onUpdate(engine:Engine, delta:number) {
-    // player
-    let currentPlayer = state.player;
-    // enable players pieces
-    let pieces = currentPlayer.ownedPieces;
-
-
-
-    let board = state.boardManager.currentBoard;
-    // if both a source and destination cell are selected, finalize the move
+    let board : Board = state.boardManager.currentBoard;
+    // if both a source and destination cell are selected, commit the move
     if (board.selectedSrcCell && board.selectedDestCell){
       // create a move object
       board.selectedMove = board.getEquivalentMove(board.selectedSrcCell, board.selectedDestCell)

@@ -1,8 +1,10 @@
-import {Engine, Entity} from "excalibur";
+import {Engine} from "excalibur";
 import {GameState} from "@/components/game-state";
 import {PlayerTurn} from "@/states/player-turn";
 import {PlayerMoving} from "@/states/player-moving";
 import {AiTurn} from "@/states/ai-turn";
+import {SwitchingTurn} from "@/states/switching-turn";
+import {GameOver} from "@/states/game-over";
 
 export class GameStateMachine {
   private states: Map<string, GameState> = new Map<string, GameState>();
@@ -11,13 +13,16 @@ export class GameStateMachine {
 
 
   constructor() {
-    this.addState(PlayerTurn.stateName, new PlayerTurn());
-    this.addState(PlayerMoving.stateName, new PlayerMoving());
-    this.addState(AiTurn.stateName, new AiTurn())
+    this.addState(new PlayerTurn());
+    this.addState(new PlayerMoving());
+    this.addState(new AiTurn());
+    this.addState(new SwitchingTurn());
+    this.addState(new GameOver());
+
   }
 
-  public addState(name: string, state: any) {
-    this.states.set(name, state);
+  public addState( state: GameState) {
+    this.states.set(state.stateName, state);
   }
 
   public removeState(name: string) {

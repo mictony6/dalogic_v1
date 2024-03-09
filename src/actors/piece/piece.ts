@@ -67,4 +67,7 @@ export class Piece extends Actor{
       return this.owner.forward;
     }
   }
+
+
+
 }

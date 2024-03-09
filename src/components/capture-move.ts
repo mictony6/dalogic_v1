@@ -15,17 +15,27 @@ export class CaptureMove extends Move{
     }
     this.capturedPiece = mid.piece;
   }
-  finalize() {
+  commit() {
     // calculate score
     let operation = pattern[this.destPos.tile.row][this.destPos.tile.col];
     this.points = operation(this.srcPos.piece.value, this.capturedPiece.value);
-    console.log("operation result:", this.points);
+    this.srcPos.piece.owner.addScore(this.points);
+    // console.log("operation result:", this.points);
     // remove from cell
 
     let board : Board= state.boardManager.currentBoard;
     board.removePieceFromBoard(this.mid);
 
-    super.finalize();
+    super.commit();
+  }
 
+  revert() {
+    // do something about the score
+
+    // revert the captured piece
+    let board : Board= state.boardManager.currentBoard;
+    board.addPieceToBoard(this.capturedPiece);
+    this.destPos.piece.owner.addScore(-this.points);
+    super.revert()
   }
 }

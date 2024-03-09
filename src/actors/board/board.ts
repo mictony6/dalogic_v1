@@ -1,11 +1,10 @@
-import {Actor, Color, Engine, Scene, vec, Vector} from 'excalibur';
+import {Actor, Color, Engine, vec, Vector} from 'excalibur';
 import {BoardTile} from "@/actors/tile/tile";
 import {Piece} from "@/actors/piece/piece";
 import BoardCell from "@/components/board-cell";
 import Move from "@/components/move";
 import {state} from "@/store/store";
 import {Player} from "@/actors/player/player";
-import {RandomAi} from "@/actors/ai/random-ai";
 import {CaptureMove} from "@/components/capture-move";
 const TILE_SIZE = state.TILE_SIZE;
 
@@ -19,6 +18,7 @@ export class Board extends Actor {
   grid : BoardCell[][] = [];
   // piece hash map
   pieces = new Map<number, Piece>();
+  isGameOver = false;
 
   constructor() {
     super({
@@ -42,18 +42,12 @@ export class Board extends Actor {
   onInitialize(engine: Engine) {
     this.pos = engine.screen.center;
 
-    this.createPlayers()
-
     this.createBoard();
 
     console.log(this.grid)
 
   }
 
-  createPlayers(){
-    state.player = new Player(-1);
-    state.opponent = new RandomAi(1);
-  }
 
 
   createBoard(){
@@ -82,6 +76,9 @@ export class Board extends Actor {
           piece = new Piece(row, col);
           piece.addTag(`piece:r${row}c${col}`);
           piece.owner = row > 3 ? state.player : state.opponent;
+          if (piece.owner === state.opponent){
+            piece.graphics.opacity = 0.5;
+          }
           // add the piece id to the player's owned pieces array
           piece.owner.owns(piece);
 
@@ -270,5 +267,19 @@ export class Board extends Actor {
 
   }
 
+  addPieceToBoard(piece:Piece){
+    this.pieces.set(piece.id, piece);
+    piece.owner.owns(piece);
+    let cell = this.grid[piece.row][piece.col]
+    if (!cell){throw new Error("Cant add a piece which doesnt have a row and column initialized")}
+    cell.addPieceToCell(piece);
+
+  }
+
+
+  evaluate(currentPlayer:Player) {
+    let opponent: Player = currentPlayer.playerID === state.player["playerID"] ? state.opponent : state.player;
+    return currentPlayer.score - opponent.score
+  }
 
 }

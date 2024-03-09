@@ -9,14 +9,16 @@ export enum GameMode {
   PlayerVsPlayer = 2,
 }
 
+
 export let state = {
   TILE_SIZE: 75,
-  gameMode: GameMode.AIVsPlayer,
+  gameMode: GameMode.AIvsAI,
   player: null,
   opponent: null ,
-  turnIndex: 0,
+  currentPlayerID: "",
+  firstMoveID: "",
   stateMachine: null,
-  boardManager: null,
+  boardManager: null
 }
 
 
