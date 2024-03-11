@@ -12,7 +12,7 @@ export enum GameMode {
 
 export let state = {
   TILE_SIZE: 75,
-  gameMode: GameMode.AIvsAI,
+  gameMode: GameMode.AIVsPlayer,
   player: null,
   opponent: null ,
   currentPlayerID: "",

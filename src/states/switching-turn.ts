@@ -12,24 +12,20 @@ export class SwitchingTurn extends GameState{
   constructor() {
     super();
     this.stateName = SwitchingTurn.stateName;
+
   }
 
-
-  onEnter() {
-    console.log("Switching turn ");
-  }
-
-  onExit() {
-    console.log("done switching turn");
-  }
 
   onUpdate(engine:Engine, delta:number) {
     let players = [state.player, state.opponent];
 
     let prevPlayer : Player = players.find((p:Player) => p.playerID === state.currentPlayerID )
-    let nextPlayer : Player = players.find((p:Player) => p.playerID !== state.currentPlayerID )
 
+    let nextPlayer : Player = players.find((p:Player) => p.playerID !== state.currentPlayerID )
     state.currentPlayerID = nextPlayer.playerID;
+
+    dispatchEvent(new CustomEvent("score1",{detail:state.player.score.toString()} ));
+    dispatchEvent(new CustomEvent("score2",{detail:state.opponent.score.toString()} ));
 
     switch (state.gameMode){
       case GameMode.AIVsPlayer:
@@ -43,7 +39,7 @@ export class SwitchingTurn extends GameState{
         this.nextState = AiTurn.stateName;
         break;
     }
-
   }
+
 
 }

@@ -1,4 +1,4 @@
-import {ImageFiltering, ImageSource} from 'excalibur';
+import {Font, ImageFiltering, ImageSource} from 'excalibur';
 import piece from './images/assets/pieceSprite.png';
 import bg1 from './images/assets/bg.png';
 import bg2 from './images/assets/bg2.png';
@@ -19,6 +19,8 @@ const Resources = {
     GameBoardBg: new ImageSource(gameBoardBg),
     TitleLogo : new ImageSource(titlelogo),
     StartButton: new ImageSource(startButton),
+
+
 
     
 }

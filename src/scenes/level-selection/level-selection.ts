@@ -38,18 +38,6 @@ export class LevelSelection extends Scene {
     wrapper.appendChild(this.gameMode);
 
 
-    let playerLabel = document.createElement("h3");
-    // get the player name from the server
-    axios.get("http://127.0.0.1:3000/auth/player-name").then(res => {
-      return res.data.playerName
-    }).then((playerName) => {
-      console.log(playerName)
-      this.playerName = playerName
-
-    }).catch(e =>  console.log(e))
-
-    // this.ui.appendChild(playerLabel);
-
     // button group wrapper
     let buttonGroup = document.createElement('div');
     buttonGroup.classList.add('button-group');

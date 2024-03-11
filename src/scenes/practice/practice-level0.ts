@@ -3,6 +3,8 @@ import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
 import {state} from "@/store/store";
 import {MinimaxAi} from "@/actors/ai/minimax-ai";
+import {UiManager} from "@/ui/ui-manager";
+import {Player} from "@/actors/player/player";
 
 export class PracticeLevel0 extends Scene {
   private board : Board;
@@ -20,7 +22,7 @@ export class PracticeLevel0 extends Scene {
     this.add(this.backgroundImage);
 
     //initialize players
-    state.player = new MinimaxAi(-1, "random1");
+    state.player = new Player(-1, "random1");
     state.opponent = new MinimaxAi(1, "random2");
     state.firstMoveID = state.player["playerID"];
     state.currentPlayerID = state.opponent["playerID"];
@@ -31,6 +33,10 @@ export class PracticeLevel0 extends Scene {
     this.board = new Board()
     this.add(this.board)
     state.boardManager.currentBoard = this.board;
+
+
+    UiManager.displayScoreLabels();
+
 
       // Set the initial state
     state.stateMachine.changeState("switchingTurn");

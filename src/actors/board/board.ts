@@ -77,7 +77,7 @@ export class Board extends Actor {
           piece.addTag(`piece:r${row}c${col}`);
           piece.owner = row > 3 ? state.player : state.opponent;
           if (piece.owner === state.opponent){
-            piece.graphics.opacity = 0.5;
+            piece.graphics.opacity = 0.75;
           }
           // add the piece id to the player's owned pieces array
           piece.owner.owns(piece);
