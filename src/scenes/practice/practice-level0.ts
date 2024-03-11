@@ -36,6 +36,7 @@ export class PracticeLevel0 extends Scene {
 
 
     UiManager.displayScoreLabels();
+    UiManager.displayTimer();
 
 
       // Set the initial state

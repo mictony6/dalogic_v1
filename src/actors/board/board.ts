@@ -101,6 +101,13 @@ export class Board extends Actor {
 
   selectBoardPos(boardPos: BoardCell){
 
+    // if not your turn
+    let player : Player = state.player;
+    if (player.playerID !== state.currentPlayerID){
+      return;
+    }
+
+
     let tile : BoardTile = boardPos.tile;
     let piece: Piece = boardPos.piece;
 

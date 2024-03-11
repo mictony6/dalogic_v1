@@ -8,12 +8,14 @@ import { SwitchingTurn } from "./switching-turn";
 export class PlayerTurn extends GameState{
   static stateName = "playerTurn";
   private turnTimer : Timer ;
+  private timeLeft: number = 0;
+  private lastTimeLeft: number = 0;
 
   constructor() {
     super();
     this.stateName = PlayerTurn.stateName;
     this.turnTimer = new Timer({
-      fcn: () => {
+      fcn: ()=>{
         this.nextState = SwitchingTurn.stateName;
       },
       interval: 10000
@@ -36,7 +38,15 @@ export class PlayerTurn extends GameState{
   }
 
   onUpdate(engine:Engine, delta:number) {
-    console.log(this.turnTimer.timeElapsedTowardNextAction);
+    
+    let currentTimeLeft  = Math.ceil(Math.floor(this.turnTimer.timeToNextAction)/1000);
+    // only update timeleft if it changed in whole numbers 
+    if (this.lastTimeLeft !== currentTimeLeft){
+      this.timeLeft = currentTimeLeft;
+      dispatchEvent(new CustomEvent("turntimer-tick", {detail:this.timeLeft.toString()}));
+      
+    }
+    
     
     let board : Board = state.boardManager.currentBoard;
     // if both a source and destination cell are selected, commit the move
