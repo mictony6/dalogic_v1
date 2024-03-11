@@ -1,6 +1,6 @@
 import {Player} from "@/actors/player/player";
 import { state } from "@/store/store";
-import {Color, Font, Label, TextAlign} from "excalibur";
+import {Color, Engine, Font, Label, TextAlign} from "excalibur";
 
 export enum GameLabelStyle{
   LIGHT,
@@ -48,6 +48,29 @@ export class UiManager {
   
       p2Label.pos.y -= 20;
       p1Label.pos.y += 20;
+  }
+
+  static createLevelButton(text:string, scene:string, engine: Engine) {
+    const btn = document.createElement('button')
+    btn.innerText = text
+    btn.className = 'level-button'
+    btn.onclick = (e) => {
+      e.preventDefault()
+      engine.goToScene(scene)
+    }
+    return btn
+  }
+
+
+  static createMainMenuButton(text:string, scene:string, engine:Engine) {
+    const btn = document.createElement('button')
+    btn.innerText = text
+    btn.className = 'main-menu-button'
+    btn.onclick = (e) => {
+      e.preventDefault()
+      engine.goToScene(scene)
+    }
+    return btn
   }
 
 }

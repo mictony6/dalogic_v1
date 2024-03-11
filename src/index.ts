@@ -5,7 +5,8 @@ import {PracticeLevel0} from "@/scenes/practice/practice-level0";
 import '../styles.css';
 import {Authenticate} from "@/scenes/authenticate/authenticate";
 import { LevelSelection } from './scenes/level-selection/level-selection';
-import {initStore, state} from "@/store/store";
+import {initStore} from "@/store/store";
+import { StoryLevelSelection } from './scenes/story-level-selection/story-level-selection';
 
 
 /**
@@ -24,6 +25,8 @@ class Game extends Engine {
     game.add('levelSelection', new LevelSelection());
     game.add('practice0', new PracticeLevel0());
     game.add('authenticate', new Authenticate());
+    game.add('story', new StoryLevelSelection());
+
 
     // Automatically load all default resources
     const loader = new SplashLoader();

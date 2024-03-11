@@ -90,7 +90,7 @@
     justify-content: center;
 }
 
-#ui.MainMenu button {
+#ui.MainMenu .main-menu-button {
     padding: 6px 10px;
     font-family: 'Upheaval', sans-serif;
     font-size: 2rem;
@@ -102,7 +102,6 @@
 }
 
 #ui.LevelSelection{
-    /*position: absolute;*/
     top: 10%;
     bottom: 20%;
     left: 10%;
@@ -117,7 +116,7 @@
     justify-content: center;
 }
 
-#ui.LevelSelection level_button {
+#ui.LevelSelection .level-button {
     padding: 1rem 2.5rem;
     font-family: 'Upheaval', sans-serif;
     font-size: 10rem;
@@ -129,7 +128,7 @@
 
 }
 
-#ui.LevelSelection level_button:hover {
+#ui.LevelSelection .level-button:hover {
     color: #F0CC4C;
     cursor: pointer;
 
@@ -183,4 +182,19 @@
     border: solid 2px #2e2e2e;
     cursor: pointer;
     border-radius: 15px;
+}
+
+#ui.StorySelection{
+    top: 10%;
+    bottom: 20%;
+    left: 10%;
+    right:10%;
+}
+
+.story-selection-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
 }

@@ -1,13 +1,14 @@
 import {Actor, Color, Engine, ImageSource, Scene, SceneActivationContext, vec} from "excalibur";
 import {Resources} from "@/resources";
 import axios from "axios";
+import { UiManager } from "@/ui/ui-manager";
 
 export class MainMenu extends Scene {
   // Hold a reference globally to our UI container
   // This would probably be encapsulated in a UIManager module
   private ui : HTMLElement = document.getElementById('ui')
   options:string[] = ['Practice', 'Story', 'Multiplayer' ,'Options']
-  sceneNames:string[] = ['practice0', 'story', 'multiplayer', 'options'];
+  sceneNames:string[] = ['levelSelection', 'story', 'multiplayer', 'options'];
   private backgroundImage : Actor;
   private logoPlaceholder: HTMLHeadingElement;
   private playerName : string;
@@ -43,7 +44,7 @@ export class MainMenu extends Scene {
 
     this.ui.appendChild(playerLabel);
     for (let i = 0; i < this.options.length; i++) {
-      this.ui.appendChild(this.createButtonElement(this.options[i], 'levelSelection'))
+      this.ui.appendChild(UiManager.createMainMenuButton(this.options[i], this.sceneNames[i], this.engine))
     }
   }
 
@@ -53,16 +54,6 @@ export class MainMenu extends Scene {
     this.ui.innerHTML = ''
   }
 
-  private createButtonElement(text:string, scene:string) {
-    const btn = document.createElement('button')
-    btn.innerText = text
-    btn.className = 'main-menu__button'
-    btn.onclick = (e) => {
-      e.preventDefault()
-      this.engine.goToScene(scene)
-    }
-    return btn
-  }
 
   onPostUpdate(engine: Engine, delta: number) {
     let playerLabel = document.createElement("h3");

@@ -1,12 +1,13 @@
 import {Actor, Color, Engine, ImageSource, Scene, SceneActivationContext, vec} from "excalibur";
 import {Resources} from "@/resources";
 import axios from "axios";
+import { UiManager } from "@/ui/ui-manager";
 
 export class LevelSelection extends Scene {
   // Hold a reference globally to our UI container
   // This would probably be encapsulated in a UIManager module
   private ui : HTMLElement = document.getElementById('ui')
-  options:string[] = ['1', '2', '3' ,'4', '5']
+  options:string[] = ['0', '1', '2' ,'3', '4']
   private backgroundImage : Actor;
   private playerName : string;
   private gameMode: HTMLHeadingElement;
@@ -44,7 +45,7 @@ export class LevelSelection extends Scene {
     wrapper.appendChild(buttonGroup);
     // Add buttons for each level
     for (let i = 0; i < this.options.length; i++) {
-      buttonGroup.appendChild(this.createButtonElement(this.options[i], 'practice0'))
+      buttonGroup.appendChild(UiManager.createLevelButton(this.options[i], 'practice'+this.options[i], this.engine))
     }
 
     // Add the wrapper to the UI
@@ -55,17 +56,6 @@ export class LevelSelection extends Scene {
     // Ensure we clean-up the DOM and remove any children when transitioning scenes
     this.ui.classList.remove('LevelSelection')
     this.ui.innerHTML = ''
-  }
-
-  private createButtonElement(text:string, scene:string) {
-    const btn = document.createElement('level_button')
-    btn.innerText = text
-    btn.className = 'level__button'
-    btn.onclick = (e) => {
-      e.preventDefault()
-      this.engine.goToScene(scene)
-    }
-    return btn
   }
 
   onPostUpdate(engine: Engine, delta: number) {
