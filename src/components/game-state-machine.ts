@@ -1,10 +1,10 @@
-import {Engine} from "excalibur";
 import {GameState} from "@/components/game-state";
 import {PlayerTurn} from "@/states/player-turn";
 import {PlayerMoving} from "@/states/player-moving";
 import {AiTurn} from "@/states/ai-turn";
 import {SwitchingTurn} from "@/states/switching-turn";
 import {GameOver} from "@/states/game-over";
+import { Engine } from "excalibur";
 
 export class GameStateMachine {
   private states: Map<string, GameState> = new Map<string, GameState>();
@@ -29,29 +29,29 @@ export class GameStateMachine {
     this.states.delete(name);
   }
 
-  public changeState(name: string) {
+  public changeState(name: string, engine: Engine) {
     if (this.states.has(name)) {
       if (this.currentState) {
         this.currentState.nextState = null;
-        this.currentState.onExit();
+        this.currentState.onExit(engine);
         this.previousState = this.currentState;
       }
 
       this.currentState = this.states.get(name);
-      this.currentState.onEnter();
+      this.currentState.onEnter(engine);
     }
   }
 
-  public revertToPreviousState() {
-    this.changeState(this.previousState);
-  }
+  // public revertToPreviousState() {
+  //   this.changeState(this.previousState, );
+  // }
 
 
   updateStateMachine(engine: Engine, delta: number) {
     this.currentState.onUpdate( engine, delta);
 
     if (this.currentState.nextState != null) {
-      this.changeState(this.currentState.nextState);
+      this.changeState(this.currentState.nextState, engine);
     }
   }
 

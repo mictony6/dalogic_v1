@@ -19,6 +19,9 @@ export class CaptureMove extends Move{
     // calculate score
     let operation = pattern[this.destPos.tile.row][this.destPos.tile.col];
     this.points = operation(this.srcPos.piece.value, this.capturedPiece.value);
+
+    // TODO : create pop up here
+
     this.srcPos.piece.owner.addScore(this.points);
     // console.log("operation result:", this.points);
     // remove from cell

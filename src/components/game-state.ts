@@ -10,12 +10,12 @@ export abstract class GameState {
   }
 
 
-  onEnter() {
+  onEnter(engine:Engine) {
     // override this
 
   }
 
-  onExit() {
+  onExit(engine:Engine) {
     // override this
 
   }
