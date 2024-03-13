@@ -21,8 +21,12 @@ export class UiManager {
         textAlign: TextAlign.Center,
         size: 40,
         color: Color.Red
-      })
+      }),
     });
+
+    label.pos.x = -455;
+    label.pos.y = -90;
+    label.rotation = -0.08;
 
     label.z = 9;
 
@@ -65,19 +69,20 @@ export class UiManager {
 
     let p2Label  = UiManager.createScoreLabel(state.opponent);
     p2Label.z = 1;
+    
     board.addChild(p2Label);
 
+    p1Label.pos.x = 460;
+    p1Label.pos.y = -40;
+    p1Label.rotation = -0.1;
+
+    p2Label.pos.x = 475;
+    p2Label.pos.y = 215;
+    p2Label.rotation = 0.2;
 
     addEventListener("score2", (e : CustomEvent) =>{
       p2Label.text = e.detail;
     })
-
-    p2Label.pos.y -= 20;
-    p1Label.pos.y += 20;
-
-    p1Label.pos.x += 300;
-    p2Label.pos.x += 300;
-
   }
 
   static createLevelButton(text:string, scene:string, engine: Engine) {
