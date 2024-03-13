@@ -1,7 +1,7 @@
 import { Resources } from "@/resources";
 import { Actor, Color, Engine, Scene, SceneActivationContext, vec } from "excalibur";
 
-export class StoryLevelSelection extends Scene{
+export class StoryLevelSelection1 extends Scene{
     // Hold a reference globally to our UI container
   // This would probably be encapsulated in a UIManager module
   private ui : HTMLElement = document.getElementById('ui')
@@ -13,8 +13,8 @@ export class StoryLevelSelection extends Scene{
   
   onInitialize(engine: Engine): void {
     this.backgroundColor = Color.Black
-    this.backgroundImage = new Actor({width:Resources.StoryScene0.width, height:Resources.StoryScene0.height})
-    this.backgroundImage.graphics.use(Resources.StoryScene0.toSprite());
+    this.backgroundImage = new Actor({width:Resources.StoryScene1.width, height:Resources.StoryScene1.height})
+    this.backgroundImage.graphics.use(Resources.StoryScene1.toSprite());
     this.backgroundImage.scale = vec(0.70, 0.70)
     // this.backgroundImage.scale = vec(engine.canvasWidth/Resources.BackGround2.width, engine.canvasHeight/Resources.BackGround2.height);
     this.backgroundImage.pos = engine.screen.center;
@@ -36,18 +36,18 @@ export class StoryLevelSelection extends Scene{
     wrapper.appendChild(this.gameMode);
 
     this.gameMode = document.createElement('p');
-    this.gameMode.textContent = 'New Admin Building';
+    this.gameMode.textContent = 'The Nook - TLRC';
     wrapper.appendChild(this.gameMode);
 
 
     // button group wrapper
     let buttonGroup = document.createElement('div');
-    buttonGroup.classList.add('scene-selector');
+    buttonGroup.classList.add('button-group');
     wrapper.appendChild(buttonGroup);
 
     // Add buttons for each level
-    
-    buttonGroup.appendChild(this.createButtonElement(this.options[1], 'story1'))
+    buttonGroup.appendChild(this.createButtonElement(this.options[0], 'story0'))
+    buttonGroup.appendChild(this.createButtonElement(this.options[1], 'story2'))
     
     // Add the wrapper to the UI
     this.ui.appendChild(wrapper);

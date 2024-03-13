@@ -13,6 +13,10 @@
     box-sizing: border-box;
 }
 
+html{
+    background-color: #000000;
+}
+
 .fluid {
     width:100% !important;
 }
@@ -76,7 +80,6 @@
 
 }
 
-
 /* These are scene-based UI styles */
 #ui.MainMenu {
     position: absolute;
@@ -90,7 +93,7 @@
     justify-content: center;
 }
 
-#ui.MainMenu .main-menu-button {
+#ui.MainMenu button {
     padding: 6px 10px;
     font-family: 'Upheaval', sans-serif;
     font-size: 2rem;
@@ -101,7 +104,8 @@
     
 }
 
-#ui.LevelSelection{
+#ui.LevelSelection, #ui.StorySelection{
+    /*position: absolute;*/
     top: 10%;
     bottom: 20%;
     left: 10%;
@@ -109,14 +113,24 @@
 
 }
 
-.level-selection-wrapper {
+.story-selection-wrapper, .level-selection-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#ui.LevelSelection .level-button {
+.story-selection-wrapper button, .level-selection-wrapper button {
+    padding: 1rem 2.5rem;
+    font-family: 'Upheaval', sans-serif;
+    font-size: 10rem;
+    color: white;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+#ui.LevelSelection level_button, #ui.StorySelection level_button {
     padding: 1rem 2.5rem;
     font-family: 'Upheaval', sans-serif;
     font-size: 10rem;
@@ -128,7 +142,7 @@
 
 }
 
-#ui.LevelSelection .level-button:hover {
+#ui.LevelSelection level_button, #ui.StorySelection level_button:hover {
     color: #F0CC4C;
     cursor: pointer;
 
@@ -152,13 +166,32 @@
 
 #ui.authenticate h1,
 #ui.MainMenu h1,
-#ui.LevelSelection h1 {
+#ui.LevelSelection h1,
+#ui.StorySelection h1{
     font-family: 'Upheaval', sans-serif;
     font-size: 6rem;
     letter-spacing: 5px;
     color: #ffffff;
     margin-bottom: 5px;
     text-shadow: 5px 5px 4px rgb(39, 27, 7); /* Adjust values as needed */
+}
+
+#ui.StorySelection h3{
+    font-family: 'Upheaval', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 5px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-shadow: 5px 5px rgb(0, 0, 0); /* Adjust values as needed */
+}
+
+#ui.StorySelection p{
+    font-family: 'Upheaval', sans-serif;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-shadow: 3px 3px rgb(39, 27, 7); /* Adjust values as needed */
+
 }
 
 #ui.authenticate input {
@@ -182,19 +215,4 @@
     border: solid 2px #2e2e2e;
     cursor: pointer;
     border-radius: 15px;
-}
-
-#ui.StorySelection{
-    top: 10%;
-    bottom: 20%;
-    left: 10%;
-    right:10%;
-}
-
-.story-selection-wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
 }
