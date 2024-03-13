@@ -108,4 +108,37 @@ export class UiManager {
     return btn
   }
 
+
+  static createModal(){
+    let dialog = document.createElement('dialog');
+    dialog.id = "dialog";
+    dialog.className = "dialog";
+
+    let content = document.createElement('div');
+    content.className = "dialog-content";
+
+    let form = document.createElement('form');
+    form.className = "dialog-form";
+
+    let textInput = document.createElement('input');
+    textInput.type = "text";
+    textInput.placeholder = "Enter your answer";
+
+    let submit = document.createElement('button');
+    submit.type = "submit";
+    submit.innerText = "Check Answer";
+    submit.onclick = (e) => {
+      e.preventDefault();
+      dialog.close();
+      let event = new CustomEvent("answer", {detail: textInput.value});
+      dispatchEvent(event);
+    }
+
+    form.appendChild(textInput);
+    form.appendChild(submit);
+    content.appendChild(form);
+    dialog.appendChild(content);
+    return dialog;
+
+  }
 }

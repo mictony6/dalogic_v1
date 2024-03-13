@@ -1,4 +1,4 @@
-import {Engine, Scene, Color, Actor, vec} from "excalibur";
+import {Engine, Scene, Color, Actor, vec, SceneActivationContext} from "excalibur";
 import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
 import {state} from "@/store/store";
@@ -9,6 +9,7 @@ import {Player} from "@/actors/player/player";
 export class PracticeLevel0 extends Scene {
   private board : Board;
   private backgroundImage : Actor;
+  private ui = document.getElementById('ui');
   
   public onInitialize(engine: Engine) {
 
@@ -38,8 +39,17 @@ export class PracticeLevel0 extends Scene {
     UiManager.displayTimer();
 
 
+
       // Set the initial state
     state.stateMachine.changeState("switchingTurn");
+
+  }
+
+  onActivate(context: SceneActivationContext<unknown>): void {
+          
+    this.ui.classList.add('PracticeLevel')
+    let modal = UiManager.createModal()
+    this.ui.appendChild(modal);
 
   }
 

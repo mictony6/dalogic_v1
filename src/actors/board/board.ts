@@ -14,7 +14,7 @@ export class Board extends Actor {
   readonly halfSize : Vector;
   selectedSrcCell : BoardCell;
   selectedDestCell : BoardCell;
-  selectedMove: Move;
+  selectedMove: Move | CaptureMove;
   grid : BoardCell[][] = [];
   // piece hash map
   pieces = new Map<number, Piece>();

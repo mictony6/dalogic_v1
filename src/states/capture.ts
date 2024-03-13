@@ -4,31 +4,58 @@ import {Engine, Vector} from "excalibur";
 import {SwitchingTurn} from "@/states/switching-turn";
 import {Board} from "@/actors/board/board";
 import { CaptureMove } from "@/components/capture-move";
-import { Capture } from "./capture";
 
-export class PlayerMoving extends GameState{
-  static stateName = "playerMoving";
+export class Capture extends GameState{
+  static stateName = "capture";
+  private answered: boolean = false;
+  private correct:boolean = false;
 
   constructor() {
     super();
-    this.stateName = PlayerMoving.stateName;
+    this.stateName = Capture.stateName;
+
+    addEventListener("answer" , (e : CustomEvent) => {
+        let board : Board = state.boardManager.currentBoard;
+        let captureMove: CaptureMove = board.selectedMove as CaptureMove;
+        console.log(e.detail, captureMove.points.toString(2));
+        
+        this.correct = (parseInt(e.detail, 2) === captureMove.points);
+        this.answered = true;
+     })
   }
 
 
   onEnter() {
-    console.log("Your are moving a piece");
+    this.answered = false;
+    this.correct = false;
+
+
+    console.log("Your are capturing a piece");
+    
+    let modal = document.getElementById("dialog") as HTMLDialogElement;
+    modal.showModal();
 
   }
 
+
   onUpdate(engine:Engine, delta:number) {
+    // pause the game until the user answers the question
+    if (!this.answered){
+      return;
+    }
+
+    // check if the user answered correctly
+    if (this.correct){
+        console.log("Correct answer");
+        
+    }else{
+        console.log("Incorrect answer");
+    }
+
+
     let board : Board = state.boardManager.currentBoard;
     if (!board.selectedMove){
       throw new Error("No move selected");
-    }
-
-    if (board.selectedMove instanceof CaptureMove){
-      this.nextState = Capture.stateName;
-      return;
     }
 
     let movingPiece = board.selectedMove.srcPos.piece;

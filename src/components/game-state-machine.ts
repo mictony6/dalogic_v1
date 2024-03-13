@@ -5,6 +5,7 @@ import {AiTurn} from "@/states/ai-turn";
 import {SwitchingTurn} from "@/states/switching-turn";
 import {GameOver} from "@/states/game-over";
 import { Engine } from "excalibur";
+import { Capture } from "@/states/capture";
 
 export class GameStateMachine {
   private states: Map<string, GameState> = new Map<string, GameState>();
@@ -18,6 +19,7 @@ export class GameStateMachine {
     this.addState(new AiTurn());
     this.addState(new SwitchingTurn());
     this.addState(new GameOver());
+    this.addState(new Capture());
 
   }
 

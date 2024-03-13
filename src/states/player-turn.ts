@@ -53,7 +53,6 @@ export class PlayerTurn extends GameState{
 
 
     let currentTimeLeft  = millisecondsToMinutesSeconds(board.currentPlayer.timer.timeToNextAction);
-    console.log(currentTimeLeft);
     // only update timeleft if it changed in whole numbers 
     if (this.lastTimeLeft !== currentTimeLeft){
       this.timeLeft = currentTimeLeft;

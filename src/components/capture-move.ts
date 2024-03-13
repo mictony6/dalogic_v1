@@ -13,15 +13,11 @@ export class CaptureMove extends Move{
     if (!mid.piece){
       throw new Error("how the fuck is this null")
     }
-    this.capturedPiece = mid.piece;
-  }
-  commit() {
-    // calculate score
+    this.capturedPiece = mid.piece;    
     let operation = pattern[this.destPos.tile.row][this.destPos.tile.col];
     this.points = operation(this.srcPos.piece.value, this.capturedPiece.value);
-
-    // TODO : create pop up here
-
+  }
+  commit() {
     this.srcPos.piece.owner.addScore(this.points);
     // console.log("operation result:", this.points);
     // remove from cell
