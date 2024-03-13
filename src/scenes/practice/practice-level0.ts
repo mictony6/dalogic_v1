@@ -28,7 +28,6 @@ export class PracticeLevel0 extends Scene {
     state.currentPlayerID = state.opponent["playerID"];
 
 
-
     // Board
     this.board = new Board()
     this.add(this.board)

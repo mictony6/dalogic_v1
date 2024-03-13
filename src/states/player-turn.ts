@@ -5,50 +5,62 @@ import {Board} from "@/actors/board/board";
 import { PlayerMoving } from "./player-moving";
 import { SwitchingTurn } from "./switching-turn";
 
+
+function millisToMinutesAndSeconds(millis) {
+  let date = new Date(millis);
+  return (`${date.getMinutes()}:${date.getSeconds()}`);
+}
+
 export class PlayerTurn extends GameState{
   static stateName = "playerTurn";
-  private turnTimer : Timer ;
-  private timeLeft: number = 0;
-  private lastTimeLeft: number = 0;
+  private timeLeft: string ;
+  private lastTimeLeft: string ;
 
   constructor() {
     super();
     this.stateName = PlayerTurn.stateName;
-    this.turnTimer = new Timer({
-      fcn: ()=>{
-        this.nextState = SwitchingTurn.stateName;
-      },
-      interval: 10000
-    });
+    // this.turnTimer = new Timer({
+    //   fcn: ()=>{
+    //     this.nextState = SwitchingTurn.stateName;
+    //   },
+    //   interval: 10000
+    // });
 
   }
 
 
   onEnter(engine : Engine) {
     console.log("timer has started");
-    engine.add(this.turnTimer);
-    this.turnTimer.start();
+    let board : Board = state.boardManager.currentBoard;
+    engine.add(board.currentPlayer.timer);
+    board.currentPlayer.timer.start()
+
 
   }
 
   onExit(engine: Engine) {
-    this.turnTimer.stop();
-    engine.remove(this.turnTimer);
+    let board : Board = state.boardManager.currentBoard;
+
+    engine.remove(board.currentPlayer.timer);
+    board.currentPlayer.timer.pause()
+
     console.log("End of turn and timer is stopped.");
   }
 
   onUpdate(engine:Engine, delta:number) {
-    
-    let currentTimeLeft  = Math.ceil(Math.floor(this.turnTimer.timeToNextAction)/1000);
+    let board : Board = state.boardManager.currentBoard;
+
+
+    let currentTimeLeft  = millisToMinutesAndSeconds(board.currentPlayer.timer.timeToNextAction);
+    console.log(currentTimeLeft);
     // only update timeleft if it changed in whole numbers 
     if (this.lastTimeLeft !== currentTimeLeft){
       this.timeLeft = currentTimeLeft;
-      dispatchEvent(new CustomEvent("turntimer-tick", {detail:this.timeLeft.toString()}));
+      dispatchEvent(new CustomEvent("turntimer-tick", {detail:this.timeLeft}));
       
     }
     
-    
-    let board : Board = state.boardManager.currentBoard;
+
     // if both a source and destination cell are selected, commit the move
     if (board.selectedSrcCell && board.selectedDestCell){
       // create a move object
