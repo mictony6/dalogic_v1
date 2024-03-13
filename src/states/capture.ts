@@ -34,6 +34,8 @@ export class Capture extends GameState{
     
     let modal = document.getElementById("dialog") as HTMLDialogElement;
     modal.showModal();
+    let textInput = document.getElementsByClassName("answer-input")[0] as HTMLInputElement;
+    textInput.value = "";
 
   }
 

@@ -121,10 +121,12 @@ export class UiManager {
     form.className = "dialog-form";
 
     let textInput = document.createElement('input');
+    textInput.className = "answer-input";
     textInput.type = "text";
     textInput.placeholder = "Enter your answer";
 
     let submit = document.createElement('button');
+    submit.className = "answer-button";
     submit.type = "submit";
     submit.innerText = "Check Answer";
     submit.onclick = (e) => {
