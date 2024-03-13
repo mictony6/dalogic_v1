@@ -7,6 +7,8 @@ import {Authenticate} from "@/scenes/authenticate/authenticate";
 import { LevelSelection } from './scenes/level-selection/level-selection';
 import {initStore} from "@/store/store";
 import { StoryLevelSelection } from './scenes/story-level-selection/story-level-selection';
+import { StoryLevelSelection1 } from './scenes/story-level-selection/story-level-selection1';
+import { StoryLevelSelection2 } from './scenes/story-level-selection/story-level-selection2';
 
 
 /**
@@ -25,7 +27,9 @@ class Game extends Engine {
     game.add('levelSelection', new LevelSelection());
     game.add('practice0', new PracticeLevel0());
     game.add('authenticate', new Authenticate());
-    game.add('story', new StoryLevelSelection());
+    game.add('story0', new StoryLevelSelection());
+    game.add('story1', new StoryLevelSelection1());
+    game.add('story2', new StoryLevelSelection2());
 
 
     // Automatically load all default resources

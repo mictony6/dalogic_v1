@@ -8,7 +8,7 @@ export class MainMenu extends Scene {
   // This would probably be encapsulated in a UIManager module
   private ui : HTMLElement = document.getElementById('ui')
   options:string[] = ['Practice', 'Story', 'Multiplayer' ,'Options']
-  sceneNames:string[] = ['levelSelection', 'story', 'multiplayer', 'options'];
+  sceneNames:string[] = ['levelSelection', 'story0', 'multiplayer', 'options'];
   private backgroundImage : Actor;
   private logoPlaceholder: HTMLHeadingElement;
   private playerName : string;
