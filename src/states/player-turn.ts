@@ -5,10 +5,18 @@ import {Board} from "@/actors/board/board";
 import { PlayerMoving } from "./player-moving";
 import { SwitchingTurn } from "./switching-turn";
 
+function millisecondsToMinutesSeconds(milliseconds) {
+  // Calculate number of minutes (discarding decimals)
+  const minutes = Math.floor(milliseconds / (1000 * 60));
 
-function millisToMinutesAndSeconds(millis) {
-  let date = new Date(millis);
-  return (`${date.getMinutes()}:${date.getSeconds()}`);
+  // Calculate remaining seconds (use modulo to get remainder after seconds conversion)
+  const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+
+  // Format output with leading zeros for minutes and seconds if needed
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  const formattedSeconds = seconds.toString().padStart(2, "0");
+
+  return `${formattedMinutes}:${formattedSeconds}`;
 }
 
 export class PlayerTurn extends GameState{
@@ -19,13 +27,6 @@ export class PlayerTurn extends GameState{
   constructor() {
     super();
     this.stateName = PlayerTurn.stateName;
-    // this.turnTimer = new Timer({
-    //   fcn: ()=>{
-    //     this.nextState = SwitchingTurn.stateName;
-    //   },
-    //   interval: 10000
-    // });
-
   }
 
 
@@ -51,7 +52,7 @@ export class PlayerTurn extends GameState{
     let board : Board = state.boardManager.currentBoard;
 
 
-    let currentTimeLeft  = millisToMinutesAndSeconds(board.currentPlayer.timer.timeToNextAction);
+    let currentTimeLeft  = millisecondsToMinutesSeconds(board.currentPlayer.timer.timeToNextAction);
     console.log(currentTimeLeft);
     // only update timeleft if it changed in whole numbers 
     if (this.lastTimeLeft !== currentTimeLeft){
