@@ -26,16 +26,19 @@ export class Capture extends GameState{
 
 
   onEnter() {
+    console.log("Your are capturing a piece");
     this.answered = false;
     this.correct = false;
 
-
-    console.log("Your are capturing a piece");
-    
-    let modal = document.getElementById("dialog") as HTMLDialogElement;
-    modal.showModal();
-    let textInput = document.getElementsByClassName("answer-input")[0] as HTMLInputElement;
-    textInput.value = "";
+    let modal = this.getModalElement();
+    let textInput = this.getAnswerInputElement();
+  
+    if (modal && textInput) {
+        modal.showModal();
+        textInput.value = "";
+      } else {
+        console.error("Modal or input element not found");
+      }
 
   }
 
@@ -72,16 +75,25 @@ export class Capture extends GameState{
       } else {
         board.selectedMove.commit()
       }
+      movingPiece.z = 1;
       movingPiece.vel = Vector.Zero;
       movingPiece.pos = Vector.Zero;
       board.resetSelections();
       this.nextState =  SwitchingTurn.stateName;
     }else{
-
+        movingPiece.z = 9;
       // move the piece towards the destination tile
       movingPiece.pos = movingPiece.pos.add(destPos.sub(piecePos).normalize().scale(300 * delta/1000));
 
     }
+  }
+
+  getModalElement() {
+    return document.getElementById("dialog") as HTMLDialogElement;
+  }
+  
+  getAnswerInputElement() {
+    return document.getElementsByClassName("answer-input")[0] as HTMLInputElement;
   }
 
 }

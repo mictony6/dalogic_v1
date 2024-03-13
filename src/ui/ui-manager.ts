@@ -59,7 +59,7 @@ export class UiManager {
     let board = state.boardManager.currentBoard
     // place score labels
     let p1Label = UiManager.createScoreLabel(state.player);
-    p1Label.z = 999;
+    p1Label.z = 1;
     board.addChild(p1Label);
 
 
@@ -123,7 +123,7 @@ export class UiManager {
     let textInput = document.createElement('input');
     textInput.className = "answer-input";
     textInput.type = "text";
-    textInput.placeholder = "Enter your answer";
+    textInput.placeholder = "enter your answer";
 
     let submit = document.createElement('button');
     submit.className = "answer-button";

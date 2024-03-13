@@ -1,4 +1,4 @@
-import {ImageFiltering, ImageSource, Sound} from 'excalibur';
+import { ImageSource} from 'excalibur';
 import piece from './images/assets/pieceSprite.png';
 import bg1 from './images/assets/bg.png';
 import bg2 from './images/assets/bg2.png';
@@ -11,6 +11,7 @@ import gameBoardBg from './images/assets/gameBoardBg.png';
 import storyscene0 from './images/assets/storyscene0.png';
 import storyscene1 from './images/assets/storyscene1.png';
 import storyscene2 from './images/assets/storyscene2.png';
+import piece2 from './images/assets/pieceSprite2.png';
 
 
 /**
@@ -19,6 +20,7 @@ import storyscene2 from './images/assets/storyscene2.png';
  */
 const Resources = {
     Piece: new ImageSource(piece),
+    Piece2: new ImageSource(piece2),
     BackGround1: new ImageSource(bg1),
     BackGround2: new ImageSource(bg2),
     BackGround3: new ImageSource(bg3),

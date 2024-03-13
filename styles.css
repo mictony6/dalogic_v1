@@ -216,3 +216,40 @@ html{
     cursor: pointer;
     border-radius: 15px;
 }
+
+
+#dialog{
+    border-radius: 12px;
+    background: #bbbbbb;
+}
+
+dialog::backdrop{
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    opacity: 0.5;
+}
+
+
+#dialog *{
+    font-size: 2rem;
+    font-family: 'Upheaval', sans-serif;
+  }
+.dialog form {
+    height: 150px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.dialog form input {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 1.5rem !important;
+    height: 5rem;
+    padding: 1rem;
+    text-align: center;
+}
+

@@ -73,12 +73,9 @@ export class Board extends Actor {
 
         // if tile is white and in the first 3 or last 3 rows, add a piece
         if (!tile.isBlack && (row < 3 || row > 4)){
-          piece = new Piece(row, col);
+          let owner = row > 3 ? state.player : state.opponent
+          piece = new Piece(row, col, owner);
           piece.addTag(`piece:r${row}c${col}`);
-          piece.owner = row > 3 ? state.player : state.opponent;
-          if (piece.owner === state.opponent){
-            piece.graphics.opacity = 0.75;
-          }
           // add the piece id to the player's owned pieces array
           piece.owner.owns(piece);
 
