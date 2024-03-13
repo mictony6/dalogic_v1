@@ -289,4 +289,10 @@ export class Board extends Actor {
     return currentPlayer.score - opponent.score
   }
 
+
+  // get player whos turn it is
+  get currentPlayer() : Player{
+    return state.currentPlayerID === state.player.playerID ? state.player : state.opponent;
+  }
+
 }
