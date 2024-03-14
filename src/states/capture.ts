@@ -49,13 +49,7 @@ export class Capture extends GameState{
       return;
     }
 
-    // check if the user answered correctly
-    if (this.correct){
-        console.log("Correct answer");
-        
-    }else{
-        console.log("Incorrect answer");
-    }
+
 
 
     let board : Board = state.boardManager.currentBoard;
@@ -72,8 +66,8 @@ export class Capture extends GameState{
       // if the piece is close enough to the destination tile, move it there
       if (destTile.children.length > 0){
         throw new Error("Tile already has a piece");
-      } else {
-        board.selectedMove.commit()
+      } else {    
+        board.selectedMove.commit(this.correct);
       }
       movingPiece.z = 1;
       movingPiece.vel = Vector.Zero;
