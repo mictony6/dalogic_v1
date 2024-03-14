@@ -98,6 +98,7 @@ export class Board extends Actor {
 
   selectBoardPos(boardPos: BoardCell){
 
+
     // if not your turn
     let player : Player = state.player;
     if (player.playerID !== state.currentPlayerID){
@@ -283,7 +284,25 @@ export class Board extends Actor {
 
   evaluate(currentPlayer:Player) {
     let opponent: Player = currentPlayer.playerID === state.player["playerID"] ? state.opponent : state.player;
-    return currentPlayer.score - opponent.score
+    let p1WeightedPieceScore;
+    let p2WeightedPieceScore;
+
+
+
+    currentPlayer.ownedPieces.forEach(pieceId => {
+      let piece = this.pieces.get(pieceId);
+      let pieceWeight = piece.value;
+      p1WeightedPieceScore += pieceWeight;
+    })
+
+    opponent.ownedPieces.forEach(pieceId => {
+      let piece = this.pieces.get(pieceId);
+      let pieceWeight = piece.value;
+      p2WeightedPieceScore += pieceWeight;
+    })
+
+
+    return currentPlayer.score - opponent.score + (p1WeightedPieceScore-p2WeightedPieceScore);
   }
 
 

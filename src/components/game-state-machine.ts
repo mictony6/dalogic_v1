@@ -21,6 +21,10 @@ export class GameStateMachine {
     this.addState(new GameOver());
     this.addState(new Capture());
 
+    addEventListener("switchstate", (e:CustomEvent) => {
+      this.currentState.nextState = e.detail;
+    })
+
   }
 
   public addState( state: GameState) {

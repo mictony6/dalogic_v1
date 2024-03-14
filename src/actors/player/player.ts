@@ -1,4 +1,6 @@
 import {Piece} from "@/actors/piece/piece";
+import { GameOver } from "@/states/game-over";
+import { state } from "@/store/store";
 import {Timer} from "excalibur";
 
 export class Player  {
@@ -11,6 +13,7 @@ export class Player  {
     fcn: () => {
       console.log("Time's up")
       // end the game
+      dispatchEvent(new CustomEvent("switchstate", {detail: GameOver.stateName}));
     }
   });
 
