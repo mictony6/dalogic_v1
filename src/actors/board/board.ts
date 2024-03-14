@@ -77,7 +77,7 @@ export class Board extends Actor {
           piece = new Piece(row, col, owner);
           piece.addTag(`piece:r${row}c${col}`);
           // add the piece id to the player's owned pieces array
-          piece.owner.owns(piece);
+  
 
           // add the piece to the board's pieces array
           this.pieces.set(piece.id, piece);

@@ -18,6 +18,7 @@ export class Piece extends Actor{
       width:75,
       height:75}
     );
+    owner.owns(this);
 
 
   }
