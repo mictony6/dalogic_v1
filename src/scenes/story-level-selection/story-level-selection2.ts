@@ -47,6 +47,8 @@ export class StoryLevelSelection2 extends Scene{
 
     // Add buttons for each level
     buttonGroup.appendChild(this.createButtonElement(this.options[0], 'story1'))
+    buttonGroup.appendChild(this.createButtonElement(this.options[1], 'story0'))
+
     
     // Add the wrapper to the UI
     this.ui.appendChild(wrapper);
