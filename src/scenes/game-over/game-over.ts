@@ -1,12 +1,14 @@
-import {  Scene, SceneActivationContext } from "excalibur";
+import {  Actor, Scene, SceneActivationContext } from "excalibur";
 
 export class GameOver extends Scene{
+    private ui: HTMLElement = document.getElementById('ui');
     
     onActivate(context: SceneActivationContext<unknown>): void {
 
         let gameMode = context.data["gameMode"];
         // display game over screen
 
+        // black lang bg oki
         // label/image saying "GAME OVER" in upheaval font
         // use sans serif or other font for below elements
         // -----------------------------
