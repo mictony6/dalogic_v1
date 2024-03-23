@@ -1,4 +1,5 @@
 import {GameState} from "@/components/game-state";
+import { state } from "@/store/store";
 import {Engine} from "excalibur";
 
 export class GameOver extends GameState{
@@ -9,7 +10,9 @@ export class GameOver extends GameState{
     this.stateName = GameOver.stateName;
   }
 
-  onUpdate(engine: Engine, delta: number) {
-    console.log("gameOver")
+  onEnter(engine: Engine){
+    console.log("Game Over")
+    engine.goToScene("game-over", {gameMode: state.gameMode});
   }
+
 }
