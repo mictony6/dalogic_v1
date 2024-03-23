@@ -31,7 +31,7 @@ class Game extends Engine {
     game.add('story0', new StoryLevelSelection());
     game.add('story1', new StoryLevelSelection1());
     game.add('story2', new StoryLevelSelection2());
-    game.add('gameOverSreen', new GameOverScreen());
+    game.add('gameOverScreen', new GameOverScreen());
 
 
     // Automatically load all default resources
