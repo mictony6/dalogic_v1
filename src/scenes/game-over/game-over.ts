@@ -16,6 +16,10 @@ export class GameOver extends Scene{
         // button to NEXT MATCH for multiplayer
         // button to RESTART for story mode
         // button to return to MAIN MENU
+
+        // create the buttons lang miskin di functional
+        // ako lang bahala sa logic and for condition kung ano ang gameMode
+
     }
 
 
