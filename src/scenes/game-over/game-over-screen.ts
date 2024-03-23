@@ -1,6 +1,6 @@
 import {  Actor, Scene, SceneActivationContext } from "excalibur";
 
-export class GameOver extends Scene{
+export class GameOverScreen extends Scene{
     private ui: HTMLElement = document.getElementById('ui');
     
     onActivate(context: SceneActivationContext<unknown>): void {

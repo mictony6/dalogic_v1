@@ -9,6 +9,7 @@ import {initStore} from "@/store/store";
 import { StoryLevelSelection } from './scenes/story-level-selection/story-level-selection';
 import { StoryLevelSelection1 } from './scenes/story-level-selection/story-level-selection1';
 import { StoryLevelSelection2 } from './scenes/story-level-selection/story-level-selection2';
+import { GameOverScreen } from './scenes/game-over/game-over-screen';
 
 
 /**
@@ -30,6 +31,7 @@ class Game extends Engine {
     game.add('story0', new StoryLevelSelection());
     game.add('story1', new StoryLevelSelection1());
     game.add('story2', new StoryLevelSelection2());
+    game.add('gameOverSreen', new GameOverScreen());
 
 
     // Automatically load all default resources

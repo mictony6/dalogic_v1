@@ -12,7 +12,7 @@ export class GameOver extends GameState{
 
   onEnter(engine: Engine){
     console.log("Game Over")
-    engine.goToScene("game-over", {gameMode: state.gameMode});
+    engine.goToScene("gameOverScreen", {gameMode: state.gameMode});
   }
 
 }
