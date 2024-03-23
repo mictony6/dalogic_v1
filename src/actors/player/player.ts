@@ -1,6 +1,5 @@
 import {Piece} from "@/actors/piece/piece";
 import { GameOver } from "@/states/game-over";
-import { state } from "@/store/store";
 import {Timer} from "excalibur";
 
 export class Player  {
@@ -9,7 +8,7 @@ export class Player  {
   public playerID:string= "0"
   score: number = 0;
   timer: Timer = new Timer({
-    interval: 1000, // 20 minutes,
+    interval: 1200000, // 20 minutes,
     fcn: () => {
       console.log("Time's up")
       // end the game

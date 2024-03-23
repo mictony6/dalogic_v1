@@ -33,6 +33,7 @@
   "dependencies": {
     "@excaliburjs/dev-tools": "^0.28.0",
     "axios": "^1.6.7",
-    "excalibur": "0.28.7"
+    "excalibur": "0.28.7",
+    "socket.io-client": "^4.7.5"
   }
 }

@@ -10,6 +10,7 @@ import { StoryLevelSelection } from './scenes/story-level-selection/story-level-
 import { StoryLevelSelection1 } from './scenes/story-level-selection/story-level-selection1';
 import { StoryLevelSelection2 } from './scenes/story-level-selection/story-level-selection2';
 import { GameOverScreen } from './scenes/game-over/game-over-screen';
+import { Multiplayer } from './scenes/multiplayer/multiplayer';
 
 
 /**
@@ -32,6 +33,7 @@ class Game extends Engine {
     game.add('story1', new StoryLevelSelection1());
     game.add('story2', new StoryLevelSelection2());
     game.add('gameOverScreen', new GameOverScreen());
+    game.add('multiplayer', new Multiplayer());
 
 
     // Automatically load all default resources
