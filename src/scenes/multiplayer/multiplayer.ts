@@ -1,17 +1,71 @@
+import { Board } from "@/actors/board/board";
+import { Player } from "@/actors/player/player";
+import { GameStateMachine } from "@/components/game-state-machine";
+import { GameMode, state } from "@/store/store";
+import { UiManager } from "@/ui/ui-manager";
 import { Engine, Scene, SceneActivationContext } from "excalibur";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 
 export class Multiplayer extends Scene{
-    onInitialize(engine: Engine): void {
+    private socket : Socket;
+    board: Board;
+
+
+    onActivate(context: SceneActivationContext<unknown>): void {
+        state.gameMode = GameMode.PlayerVsPlayer;
+        const socket = io("http://127.0.0.1:3000");
+
+        socket.on("connect", () => {
+            console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+            state.player = new Player(-1, socket.id);                   
+            this.socket.emit("findMatch")
+        });
+
+        socket.on("matchFound", (matchDetails) => {
+            // put details in store
+ 
+            this.setUp(matchDetails);
+            console.log(state.player, state.opponent);
+            
+            socket.emit("playerReady", state.roomID)
+        });
+
+        socket.on("startGame", () => {
+            // Set the initial state
+            let stateMachine : GameStateMachine = state.stateMachine
+            stateMachine.changeState("switchingTurn",this.engine);
+        })
+
+        this.socket = socket;
+        if (!socket){
+            throw new Error("Socket not configure properly.")
+        }
+        
         
     }
 
-    onActivate(context: SceneActivationContext<unknown>): void {
-        const socket = io("http://127.0.0.1:3000");
-        socket.on("connect", () => {
-            console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-        });
+    onPostUpdate(engine: Engine, delta: number) {
+        state.stateMachine.updateStateMachine(engine, delta);
     }
+
+    private setUp(matchDetails){
+        // set up multiplayer game here
+        let players : Array<string> = matchDetails["players"]
+
+        state.opponent = new Player(1, players.find((id) => id !== this.socket.id));
+        state.currentPlayerID = matchDetails["currentPlayerId"];
+        state.roomID = matchDetails["roomId"];
+
+        // board config
+        this.board = new Board(matchDetails["boardConfig"]);
+        this.add(this.board)
+        state.boardManager.currentBoard = this.board;
+
+
+        UiManager.displayScoreLabels();
+        UiManager.displayTimer();
+    }
+    
     
 }
 

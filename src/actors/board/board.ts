@@ -20,12 +20,14 @@ export class Board extends Actor {
   pieces = new Map<number, Piece>();
   isGameOver = false;
 
-  constructor() {
+  constructor(boardConfig:string = "") {
     super({
       color: Color.Red,
       width: 75*8,
       height:75*8
     });
+
+    console.log("board config not set up properly yet")
 
     this.halfSize = vec(this.width/2, this.height/2);
   }

@@ -5,6 +5,7 @@ import {state} from "@/store/store";
 import {MinimaxAi} from "@/actors/ai/minimax-ai";
 import {UiManager} from "@/ui/ui-manager";
 import {Player} from "@/actors/player/player";
+import { GameStateMachine } from "@/components/game-state-machine";
 
 export class PracticeLevel0 extends Scene {
   private board : Board;
@@ -23,7 +24,8 @@ export class PracticeLevel0 extends Scene {
     this.add(this.backgroundImage);
 
     //initialize players
-    state.player = new Player(-1, "random1");
+    //im just using a random number generator here
+    state.player = new Player(-1, "practice"+Math.random());
     state.opponent = new MinimaxAi(1, "random2");
     state.firstMoveID = state.player["playerID"];
     state.currentPlayerID = state.opponent["playerID"];
@@ -35,13 +37,15 @@ export class PracticeLevel0 extends Scene {
     state.boardManager.currentBoard = this.board;
 
 
+    // these labels updates thru the power of event listener hehe
     UiManager.displayScoreLabels();
     UiManager.displayTimer();
 
 
 
-      // Set the initial state
-    state.stateMachine.changeState("switchingTurn");
+    // Set the initial state
+    let stateMachine : GameStateMachine = state.stateMachine
+    stateMachine.changeState("switchingTurn",engine);
 
   }
 

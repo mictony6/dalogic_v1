@@ -38,6 +38,9 @@ export class SwitchingTurn extends GameState{
       case GameMode.AIvsAI:
         this.nextState = AiTurn.stateName;
         break;
+      case GameMode.PlayerVsPlayer:
+        this.nextState = PlayerTurn.stateName;
+        break;
     }
   }
 

@@ -54,6 +54,10 @@ export class GameStateMachine {
 
 
   updateStateMachine(engine: Engine, delta: number) {
+    if (!this.currentState) {
+      return;
+    }
+    
     this.currentState.onUpdate( engine, delta);
 
     if (this.currentState.nextState != null) {

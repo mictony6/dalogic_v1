@@ -2,6 +2,7 @@
 import {GameStateMachine} from "@/components/game-state-machine";
 import {BoardManager} from "@/components/board-manager";
 import { Engine, Timer } from "excalibur";
+import { Player } from "@/actors/player/player";
 
 
 export enum GameMode {
@@ -20,6 +21,7 @@ export let state = {
   firstMoveID: "",
   stateMachine: null,
   boardManager: null,
+  roomID:"",
 }
 
 
