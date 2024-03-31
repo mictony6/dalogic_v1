@@ -20,14 +20,12 @@ export class Board extends Actor {
   pieces = new Map<number, Piece>();
   isGameOver = false;
 
-  constructor(boardConfig:string = "") {
+  constructor(public boardConfig: Array<any> = []) {
     super({
       color: Color.Red,
       width: 75*8,
       height:75*8
     });
-
-    console.log("board config not set up properly yet")
 
     this.halfSize = vec(this.width/2, this.height/2);
   }
@@ -44,7 +42,13 @@ export class Board extends Actor {
   onInitialize(engine: Engine) {
     this.pos = engine.screen.center;
 
+    // if (this.boardConfig.length > 0){
+    //   // load the board config
+    //   this.loadBoardConfig(this.boardConfig);
+    // }
+    // else{
     this.createBoard();
+    // }
 
     console.log(this.grid)
 
@@ -76,9 +80,15 @@ export class Board extends Actor {
         // if tile is white and in the first 3 or last 3 rows, add a piece
         if (!tile.isBlack && (row < 3 || row > 4)){
           let owner = row > 3 ? state.player : state.opponent
-          piece = new Piece(row, col, owner);
-          piece.addTag(`piece:r${row}c${col}`);
           // add the piece id to the player's owned pieces array
+
+          let pieceVal= null;
+          if (this.boardConfig.length > 0){
+            pieceVal = this.boardConfig[row][col];
+          }
+          
+          piece = new Piece(row, col, owner, pieceVal);
+          piece.addTag(`piece:r${row}c${col}`);
   
 
           // add the piece to the board's pieces array
@@ -97,6 +107,13 @@ export class Board extends Actor {
       this.grid.push(currentRow)
     }
   }
+
+
+  loadBoardConfig(boardConfig: string) {
+    console.log(boardConfig);
+    
+  }
+  
 
   selectBoardPos(boardPos: BoardCell){
 

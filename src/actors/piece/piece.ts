@@ -8,11 +8,10 @@ export class Piece extends Actor{
   private selectedGraphics: GraphicsGroup;
   private originalGraphics: Sprite;
   private valueLabel: Label;
-  _value: number = 0;
   binRep: string;
 
 
-  constructor(public row: number, public col: number, public owner: Player) {
+  constructor(public row: number, public col: number, public owner: Player, private _value: number | null = null) {
     super({
       collider: Shape.Box(75,75),
       width:75,
@@ -54,8 +53,12 @@ export class Piece extends Actor{
       this.addChild(this.valueLabel);
     }
 
-    // set piece value
-    this.value = pieceDistrib[Math.floor(Math.random()*pieceDistrib.length)] ;
+    // set piece value if value is not set
+    if (this._value === null){
+      this.value = pieceDistrib[Math.floor(Math.random()*pieceDistrib.length)] ;
+    }else{
+      this.value = this._value;
+    }
     this.valueLabel.z = 2;
     
 
