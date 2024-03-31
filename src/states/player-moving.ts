@@ -43,8 +43,11 @@ export class PlayerMoving extends GameState{
       } else {
         board.selectedMove.commit()
       }
+
+      // reset the piece's velocity and position
       movingPiece.vel = Vector.Zero;
       movingPiece.pos = Vector.Zero;
+      // reset the board's selections
       board.resetSelections();
       this.nextState =  SwitchingTurn.stateName;
     }else{

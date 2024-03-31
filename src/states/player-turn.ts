@@ -56,15 +56,18 @@ export class PlayerTurn extends GameState{
     if (this.lastTimeLeft !== currentTimeLeft){
       this.timeLeft = currentTimeLeft;
       dispatchEvent(new CustomEvent("turntimer-tick", {detail:this.timeLeft}));
-      
+    }
+
+    if (state.currentPlayerID !== state.player["playerID"]){
+      return
     }
     
-
     // if both a source and destination cell are selected, commit the move
     if (board.selectedSrcCell && board.selectedDestCell){
       // create a move object
       board.selectedMove = board.getEquivalentMove(board.selectedSrcCell, board.selectedDestCell)
       if(board.selectedMove){
+        dispatchEvent(new CustomEvent("playerMove", {detail:board.selectedMove}));
         this.nextState = PlayerMoving.stateName;
       }else {
         console.log("Invalid move");

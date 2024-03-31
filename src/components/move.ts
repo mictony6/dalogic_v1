@@ -1,5 +1,7 @@
 import {Entity} from "excalibur";
 import BoardCell from "@/components/board-cell";
+import { Board } from "@/actors/board/board";
+import { CaptureMove } from "./capture-move";
 
 export default class Move extends Entity{
   srcPos: BoardCell;
@@ -38,5 +40,25 @@ export default class Move extends Entity{
 
   revert() {
     this.destPos.transferPieceTo(this.srcPos);
+  }
+
+  static fromHash(hash:string, board:Board){
+    // create a move from hash given
+    let details = hash.split('-')
+    let srcRow = parseInt(details[0])
+    let srcCol = parseInt(details[1])
+    let destRow = parseInt(details[2])
+    let destCol = parseInt(details[3])
+
+
+    let srcCell: BoardCell = board.getBoardCellAt(srcRow, srcCol);
+    let destCell:BoardCell = board.getBoardCellAt(destRow, destCol);
+
+    // check if jump 
+    if (Math.abs(srcRow - destRow) > 1 || Math.abs(srcCol - destCol) > 1) {
+      let midCell: BoardCell = board.getBoardCellAt((srcRow + destRow) / 2, (srcCol + destCol) / 2);
+      return new CaptureMove(srcCell, destCell, midCell);
+    }
+    return new Move(srcCell, destCell);
   }
 }

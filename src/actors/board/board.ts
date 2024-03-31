@@ -42,13 +42,7 @@ export class Board extends Actor {
   onInitialize(engine: Engine) {
     this.pos = engine.screen.center;
 
-    // if (this.boardConfig.length > 0){
-    //   // load the board config
-    //   this.loadBoardConfig(this.boardConfig);
-    // }
-    // else{
     this.createBoard();
-    // }
 
     console.log(this.grid)
 
@@ -109,11 +103,6 @@ export class Board extends Actor {
   }
 
 
-  loadBoardConfig(boardConfig: string) {
-    console.log(boardConfig);
-    
-  }
-  
 
   selectBoardPos(boardPos: BoardCell){
 

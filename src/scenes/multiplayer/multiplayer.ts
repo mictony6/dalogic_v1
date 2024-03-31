@@ -1,6 +1,8 @@
 import { Board } from "@/actors/board/board";
 import { Player } from "@/actors/player/player";
+import { CaptureMove } from "@/components/capture-move";
 import { GameStateMachine } from "@/components/game-state-machine";
+import Move from "@/components/move";
 import { GameMode, state } from "@/store/store";
 import { UiManager } from "@/ui/ui-manager";
 import { Engine, Scene, SceneActivationContext } from "excalibur";
@@ -16,7 +18,6 @@ export class Multiplayer extends Scene{
         const socket = io("http://127.0.0.1:3000");
 
         socket.on("connect", () => {
-            console.log(socket.id); // x8WIv7-mJelg7on_ALbx
             state.player = new Player(-1, socket.id);                   
             this.socket.emit("findMatch")
         });
@@ -25,7 +26,6 @@ export class Multiplayer extends Scene{
             // put details in store
  
             this.setUp(matchDetails);
-            console.log(state.player, state.opponent);
             
             socket.emit("playerReady", state.roomID)
         });
@@ -36,12 +36,30 @@ export class Multiplayer extends Scene{
             stateMachine.changeState("switchingTurn",this.engine);
         })
 
+        socket.on("opponentMove", (moveHash) => {
+            let move : Move | CaptureMove = Move.fromHash(moveHash, this.board);
+            this.board.selectedMove = move;
+            let stateMachine : GameStateMachine = state.stateMachine
+            stateMachine.changeState("playerMoving", this.engine);
+        })
+
         this.socket = socket;
         if (!socket){
             throw new Error("Socket not configure properly.")
         }
+
+
+        addEventListener("playerMove", (e:CustomEvent) => {
+            let move : Move = e.detail;
+            let roomID : string = state.roomID;
+            socket.emit("playerMove", {move: move.hash, roomId: roomID});
+        })
         
         
+    }
+
+    onDeactivate(context: SceneActivationContext<undefined>): void {
+        this.socket.disconnect();
     }
 
     onPostUpdate(engine: Engine, delta: number) {
