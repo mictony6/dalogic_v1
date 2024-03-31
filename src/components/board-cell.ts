@@ -1,7 +1,7 @@
 import {Piece} from "@/actors/piece/piece";
 import {BoardTile} from "@/actors/tile/tile";
 import {Actor, BaseAlign, Color, Engine, Font, Label, TextAlign} from "excalibur";
-import { pattern } from "./operations";
+import {AND, NAND, OR, pattern, XOR} from "./operations";
 
 
 
@@ -22,8 +22,23 @@ export default class BoardCell extends Actor{
 
     if (this.tile.isBlack) return;
     let operation = pattern[this.tile.row][this.tile.col];
-    let operationName = operation.name
-    
+
+    let operationName : string;
+    switch(operation){
+      case AND:
+        operationName = "AND";
+        break;
+      case OR:
+        operationName = "OR";
+        break;
+      case XOR:
+        operationName = "XOR";
+        break;
+      case NAND:
+        operationName = "NAND";
+        break;
+    }
+
     // display operation name on the tile
     let operationLabel = new Label({
       text: operationName,
