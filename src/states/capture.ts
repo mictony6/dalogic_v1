@@ -7,31 +7,39 @@ import { CaptureMove } from "@/components/capture-move";
 
 export class Capture extends GameState{
   static stateName = "capture";
-  private answered: boolean = false;
-  private correct:boolean = false;
+  private modalClosed: boolean = false;
+  private answeredCorrect:boolean = false;
 
   constructor() {
     super();
     this.stateName = Capture.stateName;
 
     addEventListener("answer" , (e : CustomEvent) => {
-        let board : Board = state.boardManager.currentBoard;
-        let captureMove: CaptureMove = board.selectedMove as CaptureMove;
-        console.log(e.detail, captureMove.points.toString(2));
-        
-        this.correct = (parseInt(e.detail, 2) === captureMove.points);
-        this.answered = true;
+      let board : Board = state.boardManager.currentBoard;
+      let captureMove: CaptureMove = board.selectedMove as CaptureMove;
+
+      console.log(e.detail, captureMove.points.toString(2));
+      this.answeredCorrect = (parseInt(e.detail, 2) === captureMove.points);
+      this.modalClosed = true;
      })
   }
 
 
   onEnter() {
-    console.log("Your are capturing a piece");
-    this.answered = false;
-    this.correct = false;
+    this.modalClosed = false;
+    this.answeredCorrect = false;
 
     let modal = this.getModalElement();
     let textInput = this.getAnswerInputElement();
+    let submit = this.getSubmitButtonElement();
+
+    if (state.currentPlayerID !== state.player["playerID"]){
+      textInput.readOnly = true;
+      submit.disabled = true;
+    }else{
+      textInput.readOnly = false;
+      submit.disabled = false;
+    }
   
     if (modal && textInput) {
         modal.showModal();
@@ -45,11 +53,9 @@ export class Capture extends GameState{
 
   onUpdate(engine:Engine, delta:number) {
     // pause the game until the user answers the question
-    if (!this.answered){
+    if (!this.modalClosed){
       return;
     }
-
-
 
 
     let board : Board = state.boardManager.currentBoard;
@@ -67,7 +73,7 @@ export class Capture extends GameState{
       if (destTile.children.length > 0){
         throw new Error("Tile already has a piece");
       } else {    
-        board.selectedMove.commit(this.correct);
+        board.selectedMove.commit(this.answeredCorrect);
       }
       movingPiece.z = 1;
       movingPiece.vel = Vector.Zero;
@@ -88,6 +94,10 @@ export class Capture extends GameState{
   
   getAnswerInputElement() {
     return document.getElementsByClassName("answer-input")[0] as HTMLInputElement;
+  }
+
+  getSubmitButtonElement() {
+    return document.getElementsByClassName("answer-button")[0] as HTMLButtonElement;
   }
 
 }

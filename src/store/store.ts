@@ -21,6 +21,7 @@ export let state = {
   firstMoveID: "",
   stateMachine: null,
   boardManager: null,
+  socket: null,
   roomID:"",
 }
 

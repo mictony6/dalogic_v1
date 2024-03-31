@@ -52,8 +52,7 @@ export class PracticeLevel0 extends Scene {
   onActivate(context: SceneActivationContext<unknown>): void {
           
     this.ui.classList.add('PracticeLevel')
-    let modal = UiManager.createModal()
-    this.ui.appendChild(modal);
+    this.ui.appendChild(UiManager.createModal().dialog);
 
   }
 

@@ -132,15 +132,19 @@ export class UiManager {
     submit.onclick = (e) => {
       e.preventDefault();
       dialog.close();
+      // for me
       let event = new CustomEvent("answer", {detail: textInput.value});
       dispatchEvent(event);
+      // for opponent
+      dispatchEvent(new CustomEvent("answer-submitted", {detail: textInput.value}));
     }
+
 
     form.appendChild(textInput);
     form.appendChild(submit);
     content.appendChild(form);
     dialog.appendChild(content);
-    return dialog;
+    return {dialog, submit, textInput};
 
   }
 }
