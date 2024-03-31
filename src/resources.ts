@@ -5,7 +5,7 @@ import bg2 from './images/assets/bg2.png';
 import bg3 from './images/assets/bg3.png';
 import titlelogo from './images/assets/titleSprite.png';
 import startButton from './images/assets/startButton.png';
-import gameBoardBg from './images/assets/gameBoardBg.png';
+import gameBoardBg from './images/assets/gameboardbg.png';
 // import buttonClick from './audio/blipSelect.wav';
 // import buttonClick1 from './audio/blipSelect1.wav';
 import storyscene0 from './images/assets/storyscene0.png';
