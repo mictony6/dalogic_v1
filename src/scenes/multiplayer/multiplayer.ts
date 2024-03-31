@@ -36,7 +36,7 @@ export class Multiplayer extends Scene{
 
 
         state.gameMode = GameMode.PlayerVsPlayer;
-        const socket = io("http://127.0.0.1:3000");
+        const socket = io(state.server);
         state.socket = socket;
 
         socket.on("connect", () => {
