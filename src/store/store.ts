@@ -23,7 +23,7 @@ export let state = {
   boardManager: null,
   socket: null,
   roomID:"",
-  server:'ws://dalogic-backend.onrender.com/',
+  server:'https://dalogic-backend.onrender.com/',
 }
 
 
