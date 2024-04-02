@@ -7,6 +7,7 @@ import {GameMode, state} from "@/store/store";
 import {Player} from "@/actors/player/player";
 import type {GameStateMachine} from "@/components/game-state-machine";
 import Move from "@/components/move";
+import { v4 as uuidv4 } from 'uuid';
 
 
 export class Multiplayer extends Scene{
@@ -38,19 +39,26 @@ export class Multiplayer extends Scene{
 
         state.gameMode = GameMode.PlayerVsPlayer;
         const socket = io(state.server);
+        const playerID = uuidv4();
+        state.player = new Player(-1, playerID)
         state.socket = socket;
 
         socket.on("connect", () => {
-            state.player = new Player(-1, socket.id);                   
-            this.socket.emit("findMatch")
+            socket.emit("registerPlayer", playerID);
         });
+
+
+        socket.on("playerRegistered", (id) => {
+            if (id === playerID){
+                socket.emit("findMatch", playerID)
+            }
+        });
+
 
         socket.on("matchFound", (matchDetails) => {
             // put details in store
- 
             this.setUp(matchDetails);
-            
-            socket.emit("playerReady", state.roomID)
+            socket.emit("playerReady", {roomId: state.roomID, playerID: playerID })
         });
 
         socket.on("startGame", () => {
@@ -74,6 +82,18 @@ export class Multiplayer extends Scene{
 
         socket.on("opponentTyping", (value) => {
             textInput.value = value;
+        })
+
+        socket.on("opponentDisconnected", () => {
+          // wait for 1 minute till opponent reconnects
+          // if not then go back to main menu
+          // if opponent reconnects then continue the game
+          console.log("Opponent disconnected")
+          setTimeout(()=>{
+              console.log("Opponent did not reconnect")
+              socket.disconnect();
+              this.engine.goToScene("mainMenu");
+          }, 60100)
         })
 
 
@@ -103,7 +123,11 @@ export class Multiplayer extends Scene{
     }
 
     onDeactivate(_context: SceneActivationContext): void {
+        this.ui.classList.remove('Multiplayer')
+        this.ui.innerHTML = ""
         this.socket.disconnect();
+
+        this.board.kill();
     }
 
     onPostUpdate(engine: Engine, delta: number) {
@@ -114,8 +138,8 @@ export class Multiplayer extends Scene{
         // set up multiplayer game here
         let players : Array<string> = matchDetails["players"]
 
-        state.opponent = new Player(1, players.find((id) => id !== this.socket.id));
-        state.currentPlayerID = matchDetails["currentPlayerId"];
+        state.opponent = new Player(1, players.find((id) => id !== state.player["playerID"]));
+        state.currentPlayerID = matchDetails["isTurn"] ? state.player["playerID"] : state.opponent["playerID"];
         state.roomID = matchDetails["roomId"];
 
         // board config
@@ -130,38 +154,3 @@ export class Multiplayer extends Scene{
     
     
 }
-
-//functions for multiplayer
-
-// find match
-
-// client clicks find match
-// server puts player in a queue
-// try to find match using certain algorithm
-// if server finds a match then it broadcasts to both players that it found match along with the 
-// details for the room and 
-// the other player's ID as well as who 
-// get the turn first
-// and board config then
-// details are put in store
-
-
-
-// game goes to scene for multiplayer game
-// set up the ui
-// initialize the players, get player name and ID from store
-// set up board
-// emit that its ready
-// wait for other player to be ready
-
-// if both are ready then the game will start
-
-
-
-// player executes a move, emits the move detail
-// server flips the move direction
-// server broadcasts the move
-// player receives the broadcast and executes
-// switch turn
-
-// game is over
