@@ -1,5 +1,7 @@
 import {GameStateMachine} from "@/components/game-state-machine";
 import {BoardManager} from "@/components/board-manager";
+import {SceneManager} from "@/ui/scene-manager";
+import type {Engine} from "excalibur";
 
 export enum GameMode {
   AIVsPlayer = 0,
@@ -23,8 +25,11 @@ export let state = {
 }
 
 
-export function initStore() {
+export let sceneManager : SceneManager;
+export function initStore(engine : Engine) {
   state.stateMachine = new GameStateMachine();
+  sceneManager = new SceneManager(engine)
+
   state.boardManager = new BoardManager();
 
 }

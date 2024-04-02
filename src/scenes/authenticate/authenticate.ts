@@ -1,6 +1,7 @@
 import { Actor, type Engine, Scene, vec} from "excalibur";
 import {Resources} from "@/resources";
 import axios from "axios";
+import {sceneManager} from "@/store/store";
 
 
 export class Authenticate extends Scene {
@@ -45,7 +46,7 @@ export class Authenticate extends Scene {
     }).then(r  =>{}).catch(e => console.log(e))
     // Handle entering the game with the provided player name
     // For example, you can transition to the next scene here
-    this.engine.goToScene("mainMenu")
+    sceneManager.push("mainMenu")
   }
 
   onDeactivate() {

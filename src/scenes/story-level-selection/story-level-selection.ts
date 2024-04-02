@@ -1,5 +1,6 @@
 import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Resources} from "@/resources";
+import {sceneManager} from "@/store/store";
 
 
 export class StoryLevelSelection extends Scene{
@@ -70,7 +71,7 @@ export class StoryLevelSelection extends Scene{
     btn.className = 'level__button'
     btn.onclick = (e) => {
       e.preventDefault()
-      this.engine.goToScene(scene)
+      sceneManager.push(scene)
     }
     return btn
   }

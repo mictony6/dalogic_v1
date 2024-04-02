@@ -1,7 +1,7 @@
 import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
-import {state} from "@/store/store";
+import {GameMode, sceneManager, state} from "@/store/store";
 import {Player} from "@/actors/player/player";
 import {ExpectimaxAi} from "@/actors/ai/expectimax-ai";
 import {UiManager} from "@/ui/ui-manager";
@@ -24,13 +24,27 @@ export class PracticeLevel0 extends Scene {
     this.backgroundImage.pos = engine.screen.center;
     this.add(this.backgroundImage);
 
+
+
+    // Set the initial state
+    let stateMachine : GameStateMachine = state.stateMachine
+    stateMachine.changeState("switchingTurn",engine);
+
+  }
+
+  onActivate(_context: SceneActivationContext<unknown>): void {
+
+    state.gameMode = GameMode.AIVsPlayer;
+          
+    this.ui.classList.add('PracticeLevel')
+    this.ui.appendChild(UiManager.createModal().dialog);
+
     //initialize players
     //im just using a random number generator here
     state.player = new Player(-1, "practice"+Math.random());
     state.opponent = new ExpectimaxAi(1, "random2");
     state.firstMoveID = state.player["playerID"];
     state.currentPlayerID = state.opponent["playerID"];
-
 
     // Board
     this.board = new Board()
@@ -44,17 +58,12 @@ export class PracticeLevel0 extends Scene {
 
 
 
-    // Set the initial state
-    let stateMachine : GameStateMachine = state.stateMachine
-    stateMachine.changeState("switchingTurn",engine);
-
   }
 
-  onActivate(_context: SceneActivationContext<unknown>): void {
-          
-    this.ui.classList.add('PracticeLevel')
-    this.ui.appendChild(UiManager.createModal().dialog);
+  onDeactivate(context: SceneActivationContext) {
 
+    this.remove(this.board)
+    this.board.kill();
   }
 
   onPostUpdate(engine: Engine, delta: number) {

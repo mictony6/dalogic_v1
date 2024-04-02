@@ -1,6 +1,6 @@
 import { Board } from "@/actors/board/board";
 import {Player} from "@/actors/player/player";
-import { state } from "@/store/store";
+import {sceneManager, state} from "@/store/store";
 import {Color, Engine, Font, Label, TextAlign} from "excalibur";
 
 export enum GameLabelStyle{
@@ -91,7 +91,7 @@ export class UiManager {
     btn.className = 'level-button'
     btn.onclick = (e) => {
       e.preventDefault()
-      engine.goToScene(scene)
+      sceneManager.push(scene)
     }
     return btn
   }
@@ -103,7 +103,8 @@ export class UiManager {
     btn.className = 'main-menu-button'
     btn.onclick = (e) => {
       e.preventDefault()
-      engine.goToScene(scene)
+      sceneManager.push(scene)
+
     }
     return btn
   }

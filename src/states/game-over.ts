@@ -1,7 +1,7 @@
 import {GameState} from "@/components/game-state";
 import type {Engine} from "excalibur";
-import {state} from "@/store/store";
 import {Color, Font, Label, TextAlign} from "excalibur";
+import {sceneManager, state} from "@/store/store";
 
 
 export class GameOver extends GameState{
@@ -13,7 +13,7 @@ export class GameOver extends GameState{
   }
 
   onEnter(engine: Engine){
-    console.log("Game Over")
-    engine.goToScene("gameOverScreen", {gameMode: state.gameMode});
+    sceneManager.push("gameOverScreen",{gameMode: state.gameMode} )
+
   }
 }
