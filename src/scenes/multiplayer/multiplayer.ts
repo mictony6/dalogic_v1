@@ -3,11 +3,12 @@ import {io, Socket} from "socket.io-client";
 import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
 import {UiManager} from "@/ui/ui-manager";
-import {GameMode, state} from "@/store/store";
+import {GameMode, sceneManager, state} from "@/store/store";
 import {Player} from "@/actors/player/player";
 import type {GameStateMachine} from "@/components/game-state-machine";
 import Move from "@/components/move";
 import { v4 as uuidv4 } from 'uuid';
+import * as timers from "timers";
 
 
 export class Multiplayer extends Scene{
@@ -92,7 +93,7 @@ export class Multiplayer extends Scene{
           setTimeout(()=>{
               console.log("Opponent did not reconnect")
               socket.disconnect();
-              this.engine.goToScene("mainMenu");
+              sceneManager.push("mainMenu")
           }, 60100)
         })
 
@@ -126,8 +127,10 @@ export class Multiplayer extends Scene{
         this.ui.classList.remove('Multiplayer')
         this.ui.innerHTML = ""
         this.socket.disconnect();
+        if (this.board){
+            this.board.kill();
+        }
 
-        this.board.kill();
     }
 
     onPostUpdate(engine: Engine, delta: number) {

@@ -1,6 +1,6 @@
 import '../styles.css';
 import {DisplayMode, Engine} from "excalibur";
-import {initStore} from "@/store/store";
+import {initStore, sceneManager} from "@/store/store";
 import {MainMenu} from "@/scenes/main-menu/main-menu";
 import {LevelSelection} from "@/scenes/level-selection/level-selection";
 import {PracticeLevel0} from "@/scenes/practice/practice-level0";
@@ -23,7 +23,7 @@ class Game extends Engine {
 
   public start() {
 
-    initStore();
+    initStore(this);
 
     game.add('mainMenu', new MainMenu());
     game.add('levelSelection', new LevelSelection());
@@ -47,5 +47,6 @@ class Game extends Engine {
 const game = new Game();
 // const devtool = new DevTool(game);
 game.start().then(() => {
-  game.goToScene('authenticate');
+  // game.goToScene('authenticate');
+  sceneManager.push('authenticate')
 });

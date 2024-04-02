@@ -1,4 +1,4 @@
-import type {Engine, Vector} from "excalibur";
+import type {Engine, Scene, Vector} from "excalibur";
 import type {Player} from "@/actors/player/player";
 import {Actor, Color,  vec, } from 'excalibur';
 import {BoardTile} from "@/actors/tile/tile";
@@ -53,13 +53,6 @@ export class Board extends Actor {
 
   createBoard(){
 
-    if (this.grid.length > 0){
-      this.grid.forEach( (row:BoardCell[]) => {
-        row.forEach((cell:BoardCell) => {
-          cell.kill();
-        })
-      })
-    }
     // TODO: assign values to the pieces
 
     // grid is a 2D array of BoardCells which contains the piece and tile in that specific row and column
@@ -335,5 +328,6 @@ export class Board extends Actor {
       this.getAllValidMoves(state.opponent).length === 0
     );
   }
+
 
 }
