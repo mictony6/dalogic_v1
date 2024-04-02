@@ -220,18 +220,18 @@ html{
 
 #dialog{
     border-radius: 12px;
-    background: #bbbbbb;
+    background: #CFCFCF;
 }
 
 dialog::backdrop{
     background: rgb(2,0,36);
-    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgb(0, 0, 0) 35%, rgb(82, 82, 82) 100%);
     opacity: 0.5;
 }
 
 
 #dialog *{
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-family: 'Upheaval', sans-serif;
   }
 .dialog form {
@@ -246,10 +246,38 @@ dialog::backdrop{
 }
 
 .dialog form input {
-    font-family: 'Courier New', Courier, monospace !important;
+    font-family: 'Upheaval' !important;
     font-size: 1.5rem !important;
     height: 5rem;
     padding: 1rem;
     text-align: center;
 }
 
+.answer-button {
+    color: white;
+    background-color: #000000;
+    margin: 0;
+}
+
+.dialog-title {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.gameover-title {
+    font-family: 'Upheaval';
+    font-size: 4rem !important;
+    height: 5rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.score-display {
+    font-family: 'Upheaval';
+    display: inline-block; 
+    color: white;
+    margin: 0 10px; 
+    padding: 5px 10px;
+    text-align: center;
+}

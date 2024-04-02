@@ -1,6 +1,7 @@
 import {GameState} from "@/components/game-state";
 import type {Engine} from "excalibur";
 import {state} from "@/store/store";
+import {Color, Font, Label, TextAlign} from "excalibur";
 
 
 export class GameOver extends GameState{
@@ -15,5 +16,4 @@ export class GameOver extends GameState{
     console.log("Game Over")
     engine.goToScene("gameOverScreen", {gameMode: state.gameMode});
   }
-
 }
