@@ -115,6 +115,10 @@ export class UiManager {
     dialog.id = "dialog";
     dialog.className = "dialog";
 
+    let heading = document.createElement('h2');
+    heading.className = "dialog-title"; // Optional class for styling
+    heading.innerText = "Enter your answer"; // Change this to your desired text
+
     let content = document.createElement('div');
     content.className = "dialog-content";
 
@@ -124,7 +128,6 @@ export class UiManager {
     let textInput = document.createElement('input');
     textInput.className = "answer-input";
     textInput.type = "text";
-    textInput.placeholder = "enter your answer";
 
     let submit = document.createElement('button');
     submit.className = "answer-button";
@@ -140,10 +143,10 @@ export class UiManager {
       dispatchEvent(new CustomEvent("answer-submitted", {detail: textInput.value}));
     }
 
-
     form.appendChild(textInput);
     form.appendChild(submit);
     content.appendChild(form);
+    dialog.appendChild(heading);
     dialog.appendChild(content);
     return {dialog, submit, textInput};
 

@@ -1,5 +1,6 @@
 import {GameState} from "@/components/game-state";
 import type {Engine} from "excalibur";
+import {Color, Font, Label, TextAlign} from "excalibur";
 import {sceneManager, state} from "@/store/store";
 
 
@@ -15,5 +16,4 @@ export class GameOver extends GameState{
     sceneManager.push("gameOverScreen",{gameMode: state.gameMode} )
 
   }
-
 }
