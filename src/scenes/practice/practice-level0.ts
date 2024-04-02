@@ -7,6 +7,7 @@ import {UiManager} from "@/ui/ui-manager";
 import {Player} from "@/actors/player/player";
 import { GameStateMachine } from "@/components/game-state-machine";
 import {AlphaBetaAi} from "@/actors/ai/alpha-beta-ai";
+import {ExpectimaxAi} from "@/actors/ai/expectimax-ai";
 
 export class PracticeLevel0 extends Scene {
   private board : Board;
@@ -27,7 +28,7 @@ export class PracticeLevel0 extends Scene {
     //initialize players
     //im just using a random number generator here
     state.player = new Player(-1, "practice"+Math.random());
-    state.opponent = new AlphaBetaAi(1, "random2");
+    state.opponent = new ExpectimaxAi(1, "random2");
     state.firstMoveID = state.player["playerID"];
     state.currentPlayerID = state.opponent["playerID"];
 

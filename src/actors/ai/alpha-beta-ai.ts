@@ -37,7 +37,6 @@ export class AlphaBetaAi extends AiPlayer {
 
     } else {
       let minEval = Infinity;
-      let bestMove  : Move;
 
       const otherPlayer = state.currentPlayerID === state.opponent["playerID"] ? state.player : state.opponent;
       let moves = board.getAllValidMoves(otherPlayer);
@@ -49,7 +48,6 @@ export class AlphaBetaAi extends AiPlayer {
 
         if (currentEval <= minEval) {
           minEval = currentEval;
-          bestMove = move;
         }
 
         beta = Math.min(beta, currentEval);
@@ -58,7 +56,7 @@ export class AlphaBetaAi extends AiPlayer {
         }
 
       }
-      return [minEval, bestMove!];
+      return [minEval, null];
     }
   }
   takeTurn() {
