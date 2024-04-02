@@ -1,5 +1,5 @@
-import {Actor, Color, Engine, vec} from 'excalibur';
-import {Piece} from "@/actors/piece/piece";
+import {Actor, Color} from "excalibur";
+import type {Piece} from "@/actors/piece/piece";
 
 
 export class BoardTile extends Actor {

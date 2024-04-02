@@ -1,12 +1,13 @@
-import {Board} from "@/actors/board/board";
-import {Player} from "@/actors/player/player";
-import {GameStateMachine} from "@/components/game-state-machine";
-import Move from "@/components/move";
-import {GameMode, state} from "@/store/store";
-import {UiManager} from "@/ui/ui-manager";
-import {Actor, Color, Engine, Scene, SceneActivationContext, vec} from "excalibur";
+import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {io, Socket} from "socket.io-client";
+import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
+import {UiManager} from "@/ui/ui-manager";
+import {GameMode, state} from "@/store/store";
+import {Player} from "@/actors/player/player";
+import type {GameStateMachine} from "@/components/game-state-machine";
+import Move from "@/components/move";
+
 
 export class Multiplayer extends Scene{
     private socket : Socket;
@@ -94,14 +95,14 @@ export class Multiplayer extends Scene{
         })
 
 
-        textInput.oninput = (e) => {
+        textInput.oninput = (_e) => {
             socket.emit("playerTyping", {roomId:state.roomID, value:textInput.value});
         }
 
         
     }
 
-    onDeactivate(context: SceneActivationContext<undefined>): void {
+    onDeactivate(_context: SceneActivationContext): void {
         this.socket.disconnect();
     }
 
@@ -109,7 +110,7 @@ export class Multiplayer extends Scene{
         state.stateMachine.updateStateMachine(engine, delta);
     }
 
-    private setUp(matchDetails){
+    private setUp(matchDetails : {}){
         // set up multiplayer game here
         let players : Array<string> = matchDetails["players"]
 

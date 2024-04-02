@@ -1,5 +1,6 @@
 import {Component} from "excalibur";
-import {Piece} from "@/actors/piece/piece";
+import type {Piece} from "@/actors/piece/piece";
+
 
 export class PieceOwnerComponent extends Component {
   readonly type: string = "PieceOwnerComponent"

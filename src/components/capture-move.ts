@@ -1,9 +1,10 @@
 import Move from "@/components/move";
-import BoardCell from "@/components/board-cell";
-import {Piece} from "@/actors/piece/piece";
+import type {Piece} from "@/actors/piece/piece";
+import type BoardCell from "@/components/board-cell";
 import {pattern} from "@/components/operations";
+import type {Board} from "@/actors/board/board";
 import {state} from "@/store/store";
-import {Board} from "@/actors/board/board";
+
 
 export class CaptureMove extends Move{
   public capturedPiece : Piece;

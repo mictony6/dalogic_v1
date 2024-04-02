@@ -1,4 +1,4 @@
-import { Actor, Engine, Scene, vec} from "excalibur";
+import { Actor, type Engine, Scene, vec} from "excalibur";
 import {Resources} from "@/resources";
 import axios from "axios";
 

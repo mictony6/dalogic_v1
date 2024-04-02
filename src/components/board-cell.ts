@@ -1,8 +1,7 @@
-import {Piece} from "@/actors/piece/piece";
-import {BoardTile} from "@/actors/tile/tile";
-import {Actor, BaseAlign, Color, Engine, Font, Label, TextAlign} from "excalibur";
-import {AND, NAND, OR, pattern, XOR} from "./operations";
-
+import type {BoardTile} from "@/actors/tile/tile";
+import {Actor, BaseAlign, Color, type Engine, Font, Label, TextAlign} from "excalibur";
+import type {Piece} from "@/actors/piece/piece";
+import {AND, NAND, OR, pattern, XOR} from "@/components/operations";
 
 
 export default class BoardCell extends Actor{

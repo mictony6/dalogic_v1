@@ -1,7 +1,7 @@
-import {Actor, Color, Engine, ImageSource, Scene, SceneActivationContext, vec} from "excalibur";
+import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Resources} from "@/resources";
-import axios from "axios";
-import { UiManager } from "@/ui/ui-manager";
+import {UiManager} from "@/ui/ui-manager";
+
 
 export class LevelSelection extends Scene {
   // Hold a reference globally to our UI container

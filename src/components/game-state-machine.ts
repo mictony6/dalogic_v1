@@ -1,11 +1,12 @@
-import {GameState} from "@/components/game-state";
+import type {GameState} from "@/components/game-state";
 import {PlayerTurn} from "@/states/player-turn";
 import {PlayerMoving} from "@/states/player-moving";
 import {AiTurn} from "@/states/ai-turn";
 import {SwitchingTurn} from "@/states/switching-turn";
 import {GameOver} from "@/states/game-over";
-import { Engine } from "excalibur";
-import { Capture } from "@/states/capture";
+import {Capture} from "@/states/capture";
+import type {Engine} from "excalibur";
+
 
 export class GameStateMachine {
   private states: Map<string, GameState> = new Map<string, GameState>();

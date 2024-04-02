@@ -1,8 +1,8 @@
 import {GameState} from "@/components/game-state";
+import type {Engine} from "excalibur";
 import {GameMode, state} from "@/store/store";
-import {Engine} from "excalibur";
+import type {Player} from "@/actors/player/player";
 import {AiPlayer} from "@/actors/ai/ai-player";
-import {Player} from "@/actors/player/player";
 import {PlayerTurn} from "@/states/player-turn";
 import {AiTurn} from "@/states/ai-turn";
 

@@ -1,13 +1,12 @@
-import {Engine, Scene, Color, Actor, vec, SceneActivationContext} from "excalibur";
+import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
 import {state} from "@/store/store";
-import {MinimaxAi} from "@/actors/ai/minimax-ai";
-import {UiManager} from "@/ui/ui-manager";
 import {Player} from "@/actors/player/player";
-import { GameStateMachine } from "@/components/game-state-machine";
-import {AlphaBetaAi} from "@/actors/ai/alpha-beta-ai";
 import {ExpectimaxAi} from "@/actors/ai/expectimax-ai";
+import {UiManager} from "@/ui/ui-manager";
+import type {GameStateMachine} from "@/components/game-state-machine";
+
 
 export class PracticeLevel0 extends Scene {
   private board : Board;
@@ -39,7 +38,7 @@ export class PracticeLevel0 extends Scene {
     state.boardManager.currentBoard = this.board;
 
 
-    // these labels updates thru the power of event listener hehe
+    // these labels update thru the power of event listener hehe
     UiManager.displayScoreLabels();
     UiManager.displayTimer();
 
@@ -51,7 +50,7 @@ export class PracticeLevel0 extends Scene {
 
   }
 
-  onActivate(context: SceneActivationContext<unknown>): void {
+  onActivate(_context: SceneActivationContext<unknown>): void {
           
     this.ui.classList.add('PracticeLevel')
     this.ui.appendChild(UiManager.createModal().dialog);

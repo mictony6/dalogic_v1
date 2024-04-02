@@ -1,10 +1,10 @@
 import {GameState} from "@/components/game-state";
-import { state} from "@/store/store";
 import {Engine, Vector} from "excalibur";
+import type {Board} from "@/actors/board/board";
+import {state} from "@/store/store";
+import {CaptureMove} from "@/components/capture-move";
+import {Capture} from "@/states/capture";
 import {SwitchingTurn} from "@/states/switching-turn";
-import {Board} from "@/actors/board/board";
-import { CaptureMove } from "@/components/capture-move";
-import { Capture } from "./capture";
 
 export class PlayerMoving extends GameState{
   static stateName = "playerMoving";

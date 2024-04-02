@@ -1,6 +1,7 @@
 import {GameState} from "@/components/game-state";
-import { state } from "@/store/store";
-import {Engine} from "excalibur";
+import type {Engine} from "excalibur";
+import {state} from "@/store/store";
+
 
 export class GameOver extends GameState{
   static stateName = "gameOver";

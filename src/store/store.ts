@@ -1,9 +1,5 @@
-
 import {GameStateMachine} from "@/components/game-state-machine";
 import {BoardManager} from "@/components/board-manager";
-import { Engine, Timer } from "excalibur";
-import { Player } from "@/actors/player/player";
-
 
 export enum GameMode {
   AIVsPlayer = 0,

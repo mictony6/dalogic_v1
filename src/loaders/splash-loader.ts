@@ -1,4 +1,4 @@
-import {Loader, Actor, Engine, Scene, vec, Color} from "excalibur";
+import {Loader} from "excalibur";
 import {Resources} from "@/resources";
 
 export class SplashLoader extends Loader {

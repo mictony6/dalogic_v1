@@ -1,6 +1,6 @@
-import {Piece} from "@/actors/piece/piece";
-import { GameOver } from "@/states/game-over";
 import {Timer} from "excalibur";
+import {GameOver} from "@/states/game-over";
+import type {Piece} from "@/actors/piece/piece";
 
 export class Player  {
   forward: number = 1;

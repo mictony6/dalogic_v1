@@ -1,10 +1,11 @@
-import {Actor, Color, Engine, vec, Vector} from 'excalibur';
+import type {Engine, Vector} from "excalibur";
+import type {Player} from "@/actors/player/player";
+import {Actor, Color,  vec, } from 'excalibur';
 import {BoardTile} from "@/actors/tile/tile";
 import {Piece} from "@/actors/piece/piece";
 import BoardCell from "@/components/board-cell";
 import Move from "@/components/move";
 import {state} from "@/store/store";
-import {Player} from "@/actors/player/player";
 import {CaptureMove} from "@/components/capture-move";
 const TILE_SIZE = state.TILE_SIZE;
 
@@ -292,8 +293,9 @@ export class Board extends Actor {
 
   evaluate(currentPlayer:Player) {
     let opponent: Player = currentPlayer.playerID === state.player["playerID"] ? state.opponent : state.player;
-    let p1WeightedPieceScore;
-    let p2WeightedPieceScore;
+    let p1WeightedPieceScore : number;
+    let p2WeightedPieceScore : number
+    ;
 
 
 

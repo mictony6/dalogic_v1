@@ -1,7 +1,20 @@
-import {Actor, GraphicsGroup, Circle, Engine, vec, Color, Sprite, Shape, Label, FontStyle, Font, TextAlign, BaseAlign} from "excalibur";
+
 import {Resources} from "@/resources";
 import {Player} from "@/actors/player/player";
 import { state } from "@/store/store";
+import {
+  Actor,
+  BaseAlign,
+  Circle,
+  Color,
+  type Engine,
+  Font,
+  GraphicsGroup, Label,
+  Shape,
+  Sprite,
+  TextAlign,
+  vec
+} from "excalibur";
 
 const pieceDistrib = [3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 0, 0]
 export class Piece extends Actor{
@@ -21,7 +34,7 @@ export class Piece extends Actor{
 
 
   }
-  onInitialize(engine: Engine) {
+  onInitialize(_engine: Engine) {
 
     this.z = 1;
     if (this.owner === state.player){

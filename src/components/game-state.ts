@@ -1,4 +1,5 @@
-import {Engine, Entity} from "excalibur";
+import type {Engine} from "excalibur";
+
 
 export abstract class GameState {
   static stateName:string = "default";

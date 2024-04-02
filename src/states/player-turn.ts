@@ -1,8 +1,8 @@
 import {GameState} from "@/components/game-state";
+import type {Engine} from "excalibur";
+import type {Board} from "@/actors/board/board";
 import {state} from "@/store/store";
-import {Engine, Timer} from "excalibur";
-import {Board} from "@/actors/board/board";
-import { PlayerMoving } from "./player-moving";
+import {PlayerMoving} from "@/states/player-moving";
 
 function millisecondsToMinutesSeconds(milliseconds) {
   // Calculate number of minutes (discarding decimals)

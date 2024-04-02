@@ -1,5 +1,5 @@
-import { Engine, Scene } from 'excalibur';
-import {Player} from "@/actors/player/player";
+import {type Engine, Scene} from "excalibur";
+import type {Player} from "@/actors/player/player";
 
 /**
  * Managed scene

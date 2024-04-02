@@ -1,10 +1,11 @@
 import {GameState} from "@/components/game-state";
+import type {Engine} from "excalibur";
+import type {Board} from "@/actors/board/board";
 import {state} from "@/store/store";
-import {Engine} from "excalibur";
-import {AiPlayer} from "@/actors/ai/ai-player";
-import {SwitchingTurn} from "@/states/switching-turn";
-import {Board} from "@/actors/board/board";
+import type {AiPlayer} from "@/actors/ai/ai-player";
 import {GameOver} from "@/states/game-over";
+import {SwitchingTurn} from "@/states/switching-turn";
+
 
 export class AiTurn extends GameState{
   static stateName = "aiTurn";

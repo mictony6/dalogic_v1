@@ -1,7 +1,7 @@
 import {Entity} from "excalibur";
-import BoardCell from "@/components/board-cell";
-import { Board } from "@/actors/board/board";
-import { CaptureMove } from "./capture-move";
+import type BoardCell from "@/components/board-cell";
+import type {Board} from "@/actors/board/board";
+import {CaptureMove} from "@/components/capture-move";
 
 export default class Move extends Entity{
   srcPos: BoardCell;

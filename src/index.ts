@@ -1,16 +1,16 @@
-import {Engine, DisplayMode} from 'excalibur';
-import {MainMenu} from "@/scenes/main-menu/main-menu";
-import {SplashLoader} from "@/loaders/splash-loader";
-import {PracticeLevel0} from "@/scenes/practice/practice-level0";
 import '../styles.css';
-import {Authenticate} from "@/scenes/authenticate/authenticate";
-import { LevelSelection } from './scenes/level-selection/level-selection';
+import {DisplayMode, Engine} from "excalibur";
 import {initStore} from "@/store/store";
-import { StoryLevelSelection } from './scenes/story-level-selection/story-level-selection';
-import { StoryLevelSelection1 } from './scenes/story-level-selection/story-level-selection1';
-import { StoryLevelSelection2 } from './scenes/story-level-selection/story-level-selection2';
-import { GameOverScreen } from './scenes/game-over/game-over-screen';
-import { Multiplayer } from './scenes/multiplayer/multiplayer';
+import {MainMenu} from "@/scenes/main-menu/main-menu";
+import {LevelSelection} from "@/scenes/level-selection/level-selection";
+import {PracticeLevel0} from "@/scenes/practice/practice-level0";
+import {Authenticate} from "@/scenes/authenticate/authenticate";
+import {StoryLevelSelection} from "@/scenes/story-level-selection/story-level-selection";
+import {StoryLevelSelection1} from "@/scenes/story-level-selection/story-level-selection1";
+import {StoryLevelSelection2} from "@/scenes/story-level-selection/story-level-selection2";
+import {GameOverScreen} from "@/scenes/game-over/game-over-screen";
+import {Multiplayer} from "@/scenes/multiplayer/multiplayer";
+import {SplashLoader} from "@/loaders/splash-loader";
 
 
 /**

@@ -1,7 +1,7 @@
 import {AiPlayer} from "@/actors/ai/ai-player";
 import {state} from "@/store/store";
-import Move from "@/components/move";
-import {Board} from "@/actors/board/board";
+import type Move from "@/components/move";
+import type {Board} from "@/actors/board/board";
 
 
 

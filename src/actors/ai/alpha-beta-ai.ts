@@ -1,7 +1,7 @@
 import {AiPlayer} from "@/actors/ai/ai-player";
 import {state} from "@/store/store";
-import Move from "@/components/move";
-import {Board} from "@/actors/board/board";
+import type Move from "@/components/move";
+import type {Board} from "@/actors/board/board";
 
 
 export class AlphaBetaAi extends AiPlayer {
@@ -30,7 +30,7 @@ export class AlphaBetaAi extends AiPlayer {
 
         alpha = Math.max(alpha, currentEval);
         if (beta <= alpha) {
-          break;
+          break
         }
       }
       return[maxEval, bestMove];
@@ -60,18 +60,14 @@ export class AlphaBetaAi extends AiPlayer {
     }
   }
   takeTurn() {
-
     let board : Board =state.boardManager.currentBoard;
     let bestMove : Move = this.minimax(6, true, board)[1];
-    if (bestMove){
+    if (bestMove) {
       bestMove.commit()
     } else {
       let board : Board = state.boardManager.currentBoard
       board.isGameOver = true;
     }
   }
-
-
-
 
 }

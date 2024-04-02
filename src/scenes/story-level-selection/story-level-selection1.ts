@@ -1,5 +1,6 @@
-import { Resources } from "@/resources";
-import { Actor, Color, Engine, Scene, SceneActivationContext, vec } from "excalibur";
+import {Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
+import {Resources} from "@/resources";
+
 
 export class StoryLevelSelection1 extends Scene{
     // Hold a reference globally to our UI container
