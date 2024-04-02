@@ -319,4 +319,12 @@ export class Board extends Actor {
     return state.currentPlayerID === state.player.playerID ? state.player : state.opponent;
   }
 
+  isOver() {
+    return (
+      this.isGameOver ||
+      this.getAllValidMoves(state.player).length === 0 ||
+      this.getAllValidMoves(state.opponent).length === 0
+    );
+  }
+
 }

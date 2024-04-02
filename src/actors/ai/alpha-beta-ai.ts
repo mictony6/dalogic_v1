@@ -4,11 +4,9 @@ import Move from "@/components/move";
 import {Board} from "@/actors/board/board";
 
 
+export class AlphaBetaAi extends AiPlayer {
 
-
-export class MinimaxAi extends AiPlayer {
-
-  minimax(depth : number, maximizingPlayer : boolean, board : Board){
+  minimax(depth : number, maximizingPlayer : boolean, board : Board, alpha : number = -Infinity, beta : number = Infinity){
     if (depth === 0 || board.isOver()){
       return board.evaluate(this);
     }
@@ -22,12 +20,17 @@ export class MinimaxAi extends AiPlayer {
       let moves = board.getAllValidMoves(this);
       for (let move of moves) {
         move.commit();
-        let currentEval  = this.minimax(depth-1, false,board )[0];
+        let currentEval  = this.minimax(depth-1, false,board, alpha, beta )[0];
         move.revert()
 
         if(currentEval >= maxEval){
           maxEval = currentEval;
           bestMove = move;
+        }
+
+        alpha = Math.max(alpha, currentEval);
+        if (beta <= alpha) {
+          break;
         }
       }
       return[maxEval, bestMove];
@@ -41,13 +44,19 @@ export class MinimaxAi extends AiPlayer {
 
       for (let move of moves) {
         move.commit();
-        let currentEval = this.minimax( depth - 1, true, board)[0];
+        let currentEval = this.minimax( depth - 1, true, board, alpha, beta)[0];
         move.revert();
 
         if (currentEval <= minEval) {
           minEval = currentEval;
           bestMove = move;
         }
+
+        beta = Math.min(beta, currentEval);
+        if (beta <= alpha) {
+          break;
+        }
+
       }
       return [minEval, bestMove!];
     }
@@ -55,7 +64,7 @@ export class MinimaxAi extends AiPlayer {
   takeTurn() {
 
     let board : Board =state.boardManager.currentBoard;
-    let bestMove : Move = this.minimax(3, true, board)[1];
+    let bestMove : Move = this.minimax(6, true, board)[1];
     if (bestMove){
       bestMove.commit()
     } else {
@@ -63,5 +72,8 @@ export class MinimaxAi extends AiPlayer {
       board.isGameOver = true;
     }
   }
+
+
+
 
 }

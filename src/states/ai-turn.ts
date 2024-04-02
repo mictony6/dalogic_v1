@@ -15,15 +15,8 @@ export class AiTurn extends GameState{
   }
 
 
-  onEnter() {
+  onEnter(engine:Engine) {
     console.log("AI turn ");
-  }
-
-  onExit() {
-    console.log("End of AI turn");
-  }
-
-  onUpdate(engine:Engine, delta:number) {
     let board : Board = state.boardManager.currentBoard;
     // generate move here from AI
     let aiPlayer:  AiPlayer  = state.currentPlayerID === state.opponent["playerID"] ? state.opponent : state.player;
@@ -34,6 +27,13 @@ export class AiTurn extends GameState{
 
       this.nextState = SwitchingTurn.stateName;
     }
+
   }
+
+  onExit() {
+    console.log("End of AI turn");
+  }
+
+
 
 }

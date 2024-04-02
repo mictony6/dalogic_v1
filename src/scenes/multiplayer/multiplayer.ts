@@ -76,7 +76,6 @@ export class Multiplayer extends Scene{
         })
 
 
-
         this.socket = socket;
         if (!socket){
             throw new Error("Socket not configure properly.")
