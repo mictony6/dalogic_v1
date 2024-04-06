@@ -1,6 +1,6 @@
 import {GameState} from "@/components/game-state";
 import type {Board} from "@/actors/board/board";
-import {GameMode, state} from "@/store/store";
+import { state} from "@/store/store";
 import type {CaptureMove} from "@/components/capture-move";
 import {type Engine, Vector} from "excalibur";
 import {SwitchingTurn} from "@/states/switching-turn";
@@ -33,7 +33,7 @@ export class Capture extends GameState{
     const textInput = this.getAnswerInputElement();
     const submit = this.getSubmitButtonElement();
 
-    if (GameMode.PlayerVsPlayer && state.currentPlayerID !== state.player["playerID"]){
+    if (state.currentPlayerID !== state.player["playerID"]){
       textInput.readOnly = true;
       submit.disabled = true;
     }else{

@@ -1,10 +1,11 @@
 import {GameState} from "@/components/game-state";
 import {Engine, Vector} from "excalibur";
 import type {Board} from "@/actors/board/board";
-import {state} from "@/store/store";
+import { state} from "@/store/store";
 import {CaptureMove} from "@/components/capture-move";
 import {Capture} from "@/states/capture";
 import {SwitchingTurn} from "@/states/switching-turn";
+import {AiPlayer} from "@/actors/ai/ai-player";
 
 export class PlayerMoving extends GameState{
   static stateName = "playerMoving";
@@ -26,7 +27,7 @@ export class PlayerMoving extends GameState{
       throw new Error("No move selected");
     }
 
-    if (board.selectedMove instanceof CaptureMove){
+    if (board.selectedMove instanceof CaptureMove && !(board.currentPlayer instanceof AiPlayer)){
       this.nextState = Capture.stateName;
       return;
     }
