@@ -11,7 +11,7 @@ import {StoryLevelSelection2} from "@/scenes/story-level-selection/story-level-s
 import {GameOverScreen} from "@/scenes/game-over/game-over-screen";
 import {Multiplayer} from "@/scenes/multiplayer/multiplayer";
 import {SplashLoader} from "@/loaders/splash-loader";
-import {DevTool} from "@excaliburjs/dev-tools";
+// import {DevTool} from "@excaliburjs/dev-tools";
 
 
 /**
@@ -19,7 +19,7 @@ import {DevTool} from "@excaliburjs/dev-tools";
  */
 class Game extends Engine {
   constructor() {
-    super({ displayMode: DisplayMode.FillScreen,width:1280, height:720, canvasElementId: 'game'});
+    super({ displayMode: DisplayMode.FitScreen,width:1280, height:720, canvasElementId: 'game'});
   }
 
   public start() {
@@ -46,7 +46,7 @@ class Game extends Engine {
 }
 
 const game = new Game();
-const devtool = new DevTool(game);
+// const devtool = new DevTool(game);
 game.start().then(() => {
   // game.goToScene('authenticate');
   sceneManager.push('authenticate')
