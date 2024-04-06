@@ -5,6 +5,8 @@ import {state} from "@/store/store";
 import type {AiPlayer} from "@/actors/ai/ai-player";
 import {GameOver} from "@/states/game-over";
 import {SwitchingTurn} from "@/states/switching-turn";
+import type Move from "@/components/move";
+import {PlayerMoving} from "@/states/player-moving";
 
 function millisecondsToMinutesSeconds(milliseconds) {
   // Calculate number of minutes (discarding decimals)
@@ -43,17 +45,22 @@ export class AiTurn extends GameState{
     aiPlayer.timer.start()
 
     // use promise to simulate a delay in move aka bot is thinking hehe
-    new Promise<void>((resolve) => {
+    new Promise<Move>((resolve) => {
       setTimeout(() => {
-        aiPlayer.takeTurn();
-        resolve();
+        // aiPlayer.takeTurn();
+        resolve(aiPlayer.getBestMove());
       }, 1000);
-    }).then(() => {
-      if (board.isGameOver){
-        this.nextState = GameOver.stateName;
-      }else {
-        this.nextState = SwitchingTurn.stateName;
-      }
+    }).then((move: Move) => {
+      // if (board.isGameOver){
+      //   this.nextState = GameOver.stateName;
+      // }else {
+      //   this.nextState = SwitchingTurn.stateName;
+      // }
+
+      board.selectedMove = move;
+      board.selectedSrcCell = move.srcPos;
+      board.selectedDestCell = move.destPos;
+      this.nextState = PlayerMoving.stateName;
     })
 
     // aiPlayer.takeTurn();
