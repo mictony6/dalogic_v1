@@ -1,7 +1,8 @@
 import {AiPlayer} from "@/actors/ai/ai-player";
 import {state} from "@/store/store";
-import type Move from "@/components/move";
+import  Move from "@/components/move";
 import type {Board} from "@/actors/board/board";
+import type {CaptureMove} from "@/components/capture-move";
 
 
 
@@ -50,10 +51,14 @@ export class MinimaxAi extends AiPlayer {
       return [minEval, null];
     }
   }
-  takeTurn() {
 
-    let board : Board =state.boardManager.currentBoard;
-    let bestMove : Move = this.minimax(3, true, board)[1];
+  getBestMove(): Move | CaptureMove {
+    const board : Board =state.boardManager.currentBoard;
+    return this.minimax(3, true, board)[1];
+  }
+
+  takeTurn() {
+    let bestMove : Move = this.getBestMove();
     if (bestMove){
       bestMove.commit()
     } else {

@@ -1,20 +1,10 @@
 import {AiPlayer} from "@/actors/ai/ai-player";
-import type {Board} from "@/actors/board/board";
+import  {type Board} from "@/actors/board/board";
 import {state} from "@/store/store";
-import type Move from "@/components/move";
+import  Move from "@/components/move";
+import type {CaptureMove} from "@/components/capture-move";
 
 export class ExpectimaxAi extends AiPlayer{
-  takeTurn() {
-
-    let board : Board =state.boardManager.currentBoard;
-    let bestMove : Move = this.expectimax(4, true, board)[1];
-    if (bestMove){
-      bestMove.commit()
-    } else {
-      let board : Board = state.boardManager.currentBoard
-      board.isGameOver = true;
-    }
-  }
 
   private expectimax(depth: number, maximizingPlayer: boolean, board: Board) {
     if (depth === 0 || board.isOver()){
@@ -56,6 +46,22 @@ export class ExpectimaxAi extends AiPlayer{
       }
 
       return [total/moves.length, null];
+    }
+  }
+
+  getBestMove(): Move | CaptureMove {
+    let board : Board =state.boardManager.currentBoard;
+    return this.expectimax(4, true, board)[1];
+  }
+
+  takeTurn() {
+
+    let bestMove : Move = this.getBestMove();
+    if (bestMove){
+      bestMove.commit()
+    } else {
+      let board : Board = state.boardManager.currentBoard
+      board.isGameOver = true;
     }
   }
 }

@@ -13,6 +13,7 @@ export class Player  {
       console.log("Time's up")
       // end the game
       dispatchEvent(new CustomEvent("switchstate", {detail: GameOver.stateName}));
+
     }
   });
 

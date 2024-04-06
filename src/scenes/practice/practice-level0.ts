@@ -7,6 +7,9 @@ import {ExpectimaxAi} from "@/actors/ai/expectimax-ai";
 import {UiManager} from "@/ui/ui-manager";
 import type {GameStateMachine} from "@/components/game-state-machine";
 import {SwitchingTurn} from "@/states/switching-turn";
+import {CompositePlayer} from "@/actors/ai/composite-player";
+import {RandomAi} from "@/actors/ai/random-ai";
+import {AlphaBetaAi} from "@/actors/ai/alpha-beta-ai";
 
 
 export class PracticeLevel0 extends Scene {
@@ -43,7 +46,11 @@ export class PracticeLevel0 extends Scene {
     //initialize players
     //im just using a random number generator here
     state.player = new Player(-1, "practice"+Math.random());
-    state.opponent = new ExpectimaxAi(1, "random2");
+    // state.opponent = new ExpectimaxAi(1, "random2");
+    state.opponent = new CompositePlayer(1, "random2", {
+      players: [new RandomAi(1, "random3"), new AlphaBetaAi(1, "random4")],
+      weights: [1, 1]
+    });
     state.firstMoveID = state.player["playerID"];
     state.currentPlayerID = state.opponent["playerID"];
 

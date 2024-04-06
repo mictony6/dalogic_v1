@@ -59,9 +59,15 @@ export class AlphaBetaAi extends AiPlayer {
       return [minEval, null];
     }
   }
+
+  getBestMove(){
+    const board : Board = state.boardManager.currentBoard;
+    return this.minimax(6, true, board)[1];
+
+  }
+
   takeTurn() {
-    let board : Board =state.boardManager.currentBoard;
-    let bestMove : Move = this.minimax(6, true, board)[1];
+    let bestMove : Move = this.getBestMove();
     if (bestMove) {
       bestMove.commit()
     } else {
