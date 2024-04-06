@@ -23,7 +23,7 @@ export class SceneManager{
 
   pop(){
     console.log(this.stack)
-    let top = this.stack.pop();
+    const top = this.stack.pop();
     this.engine.goToScene(this.stack[this.stack.length-1]);
     return top;
   }

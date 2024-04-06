@@ -20,7 +20,7 @@ export default class BoardCell extends Actor{
     }
 
     if (this.tile.isBlack) return;
-    let operation = pattern[this.tile.row][this.tile.col];
+    const operation = pattern[this.tile.row][this.tile.col];
 
     let operationName : string;
     switch(operation){
@@ -39,7 +39,7 @@ export default class BoardCell extends Actor{
     }
 
     // display operation name on the tile
-    let operationLabel = new Label({
+    const operationLabel = new Label({
       text: operationName,
       font: new Font({size: 20, color: Color.Black, textAlign: TextAlign.Center, baseAlign: BaseAlign.Middle}),
       color: Color.Black,

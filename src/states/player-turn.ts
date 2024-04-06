@@ -31,7 +31,7 @@ export class PlayerTurn extends GameState{
 
   onEnter(engine : Engine) {
     console.log("timer has started");
-    let board : Board = state.boardManager.currentBoard;
+    const board : Board = state.boardManager.currentBoard;
     engine.add(board.currentPlayer.timer);
     board.currentPlayer.timer.start()
 
@@ -39,7 +39,7 @@ export class PlayerTurn extends GameState{
   }
 
   onExit(engine: Engine) {
-    let board : Board = state.boardManager.currentBoard;
+    const board : Board = state.boardManager.currentBoard;
 
     engine.remove(board.currentPlayer.timer);
     board.currentPlayer.timer.pause()
@@ -48,10 +48,10 @@ export class PlayerTurn extends GameState{
   }
 
   onUpdate(engine:Engine, delta:number) {
-    let board : Board = state.boardManager.currentBoard;
+    const board : Board = state.boardManager.currentBoard;
 
 
-    let currentTimeLeft  = millisecondsToMinutesSeconds(board.currentPlayer.timer.timeToNextAction);
+    const currentTimeLeft  = millisecondsToMinutesSeconds(board.currentPlayer.timer.timeToNextAction);
     // only update timeleft if it changed in whole numbers 
     if (this.lastTimeLeft !== currentTimeLeft){
       this.timeLeft = currentTimeLeft;

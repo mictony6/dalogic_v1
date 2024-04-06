@@ -1,4 +1,4 @@
-import { Board } from "@/actors/board/board";
+import {Board} from "@/actors/board/board";
 import {Player} from "@/actors/player/player";
 import {sceneManager, state} from "@/store/store";
 import {Color, Engine, Font, Label, TextAlign} from "excalibur";
@@ -11,9 +11,8 @@ export enum GameLabelStyle{
 export class UiManager {
 
   static displayTimer() {
-    let board : Board = state.boardManager.currentBoard;
-    let label: Label;
-    label = new Label({
+    const board : Board = state.boardManager.currentBoard;
+    const label = new Label({
       text: "0",
       font: new Font({
         family:'Upheaval',
@@ -39,26 +38,22 @@ export class UiManager {
 
 
   static createScoreLabel(player: Player){
-    let label: Label;
-    label = new Label({
+    return new Label({
       text: player.score.toString(),
       font: new Font({
-        family:'Upheaval',
+        family: 'Upheaval',
         bold: true,
         textAlign: TextAlign.Center,
         size: 40,
         color: Color.Blue
       })
     });
-
-
-    return label;
   }
 
   static displayScoreLabels(){
-    let board = state.boardManager.currentBoard
+    const board = state.boardManager.currentBoard
     // place score labels
-    let p1Label = UiManager.createScoreLabel(state.player);
+    const p1Label = UiManager.createScoreLabel(state.player);
     p1Label.z = 1;
     board.addChild(p1Label);
 
@@ -67,7 +62,7 @@ export class UiManager {
       p1Label.text = e.detail;
     })
 
-    let p2Label  = UiManager.createScoreLabel(state.opponent);
+    const p2Label  = UiManager.createScoreLabel(state.opponent);
     p2Label.z = 1;
     
     board.addChild(p2Label);
@@ -111,25 +106,25 @@ export class UiManager {
 
 
   static createModal(){
-    let dialog = document.createElement('dialog');
+    const dialog = document.createElement('dialog');
     dialog.id = "dialog";
     dialog.className = "dialog";
 
-    let heading = document.createElement('h2');
+    const heading = document.createElement('h2');
     heading.className = "dialog-title"; // Optional class for styling
     heading.innerText = "Enter your answer"; // Change this to your desired text
 
-    let content = document.createElement('div');
+    const content = document.createElement('div');
     content.className = "dialog-content";
 
-    let form = document.createElement('form');
+    const form = document.createElement('form');
     form.className = "dialog-form";
 
-    let textInput = document.createElement('input');
+    const textInput = document.createElement('input');
     textInput.className = "answer-input";
     textInput.type = "text";
 
-    let submit = document.createElement('button');
+    const submit = document.createElement('button');
     submit.className = "answer-button";
     submit.type = "submit";
     submit.innerText = "Check Answer";
@@ -137,7 +132,7 @@ export class UiManager {
       e.preventDefault();
       dialog.close();
       // for me
-      let event = new CustomEvent("answer", {detail: textInput.value});
+      const event = new CustomEvent("answer", {detail: textInput.value});
       dispatchEvent(event);
       // for opponent
       dispatchEvent(new CustomEvent("answer-submitted", {detail: textInput.value}));

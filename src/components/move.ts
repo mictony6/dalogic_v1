@@ -44,19 +44,19 @@ export default class Move extends Entity{
 
   static fromHash(hash:string, board:Board){
     // create a move from hash given
-    let details = hash.split('-')
-    let srcRow = parseInt(details[0])
-    let srcCol = parseInt(details[1])
-    let destRow = parseInt(details[2])
-    let destCol = parseInt(details[3])
+    const details = hash.split('-')
+    const srcRow = parseInt(details[0])
+    const srcCol = parseInt(details[1])
+    const destRow = parseInt(details[2])
+    const destCol = parseInt(details[3])
 
 
-    let srcCell: BoardCell = board.getBoardCellAt(srcRow, srcCol);
-    let destCell:BoardCell = board.getBoardCellAt(destRow, destCol);
+    const srcCell: BoardCell = board.getBoardCellAt(srcRow, srcCol);
+    const destCell:BoardCell = board.getBoardCellAt(destRow, destCol);
 
     // check if jump 
     if (Math.abs(srcRow - destRow) > 1 || Math.abs(srcCol - destCol) > 1) {
-      let midCell: BoardCell = board.getBoardCellAt((srcRow + destRow) / 2, (srcCol + destCol) / 2);
+      const midCell: BoardCell = board.getBoardCellAt((srcRow + destRow) / 2, (srcCol + destCol) / 2);
       return new CaptureMove(srcCell, destCell, midCell);
     }
     return new Move(srcCell, destCell);

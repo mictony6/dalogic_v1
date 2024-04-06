@@ -15,7 +15,7 @@ export class CaptureMove extends Move{
       throw new Error("how the fuck is this null")
     }
     this.capturedPiece = mid.piece;    
-    let operation = pattern[this.destPos.tile.row][this.destPos.tile.col];
+    const operation = pattern[this.destPos.tile.row][this.destPos.tile.col];
     this.points = operation(this.srcPos.piece.value, this.capturedPiece.value);
   }
   commit(answeredCorrect : boolean = true) {
@@ -28,7 +28,7 @@ export class CaptureMove extends Move{
     }
 
     // remove from cell
-    let board : Board= state.boardManager.currentBoard;
+    const board : Board= state.boardManager.currentBoard;
     board.removePieceFromBoard(this.mid);
 
     super.commit();
@@ -39,7 +39,7 @@ export class CaptureMove extends Move{
 
 
     // revert the captured piece
-    let board : Board= state.boardManager.currentBoard;
+    const board : Board= state.boardManager.currentBoard;
     board.addPieceToBoard(this.capturedPiece);
     if (answeredCorrect){
       this.destPos.piece.owner.addScore(-this.points);

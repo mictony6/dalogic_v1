@@ -109,14 +109,14 @@ export class Board extends Actor {
 
 
     // if not your turn
-    let player : Player = state.player;
+    const player : Player = state.player;
     if (player.playerID !== state.currentPlayerID){
       return;
     }
 
 
-    let tile : BoardTile = boardPos.tile;
-    let piece: Piece = boardPos.piece;
+    const tile : BoardTile = boardPos.tile;
+    const piece: Piece = boardPos.piece;
 
     // if the tile is black, do nothing
     if (tile.isBlack){
@@ -206,7 +206,7 @@ export class Board extends Actor {
 
 
   getEquivalentMove(src:BoardCell, dest:BoardCell) {
-    let validMoves = this.getValidMoves(src.piece);
+    const validMoves = this.getValidMoves(src.piece);
     return validMoves.find((validMove) => validMove.equal(new Move(src, dest)));
   }
 
@@ -216,18 +216,18 @@ export class Board extends Actor {
   getValidMoves(piece: Piece){
 
     let moves: Move[] = [];
-    let forward = piece.forward;
-    let srcPos = this.getBoardCellOf(piece);
+    const forward = piece.forward;
+    const srcPos = this.getBoardCellOf(piece);
 
-    let forwardLeft = this.getBoardCellAt(piece.row + forward, piece.col - 1);
-    let forwardRight = this.getBoardCellAt(piece.row + forward, piece.col + 1);
+    const forwardLeft = this.getBoardCellAt(piece.row + forward, piece.col - 1);
+    const forwardRight = this.getBoardCellAt(piece.row + forward, piece.col + 1);
 
     if (forwardLeft) {
       if (!forwardLeft.piece){
         moves.push(new Move(srcPos, forwardLeft));
       }else {
         if (forwardLeft.piece.owner !== piece.owner){
-          let forwardLeftJump = this.getBoardCellAt(piece.row + forward * 2, piece.col - 2);
+          const forwardLeftJump = this.getBoardCellAt(piece.row + forward * 2, piece.col - 2);
           if (forwardLeftJump && !forwardLeftJump.piece){
             moves.push(new CaptureMove(srcPos, forwardLeftJump, forwardLeft));
           }
@@ -240,7 +240,7 @@ export class Board extends Actor {
         moves.push(new Move(srcPos, forwardRight));
       }else {
         if (forwardRight.piece.owner !== piece.owner){
-          let forwardRightJump = this.getBoardCellAt(piece.row + forward * 2, piece.col + 2);
+          const forwardRightJump = this.getBoardCellAt(piece.row + forward * 2, piece.col + 2);
           if (forwardRightJump && !forwardRightJump.piece){
             moves.push(new CaptureMove(srcPos, forwardRightJump, forwardRight));
           }
@@ -254,7 +254,7 @@ export class Board extends Actor {
 
   getAllValidMoves(player: Player){
     let moves: Move[] = [];
-    let pieceIdArray = player.ownedPieces;
+    const pieceIdArray = player.ownedPieces;
     pieceIdArray.forEach((pieceId) => {
       let piece = this.pieces.get(pieceId);
       let validMoves = this.getValidMoves(piece);
@@ -292,7 +292,7 @@ export class Board extends Actor {
 
 
   evaluate(currentPlayer:Player) {
-    let opponent: Player = currentPlayer.playerID === state.player["playerID"] ? state.opponent : state.player;
+    const opponent: Player = currentPlayer.playerID === state.player["playerID"] ? state.opponent : state.player;
     let p1WeightedPieceScore : number;
     let p2WeightedPieceScore : number
     ;
@@ -300,14 +300,14 @@ export class Board extends Actor {
 
 
     currentPlayer.ownedPieces.forEach(pieceId => {
-      let piece = this.pieces.get(pieceId);
-      let pieceWeight = piece.value;
+      const piece = this.pieces.get(pieceId);
+      const pieceWeight = piece.value;
       p1WeightedPieceScore += pieceWeight;
     })
 
     opponent.ownedPieces.forEach(pieceId => {
-      let piece = this.pieces.get(pieceId);
-      let pieceWeight = piece.value;
+      const piece = this.pieces.get(pieceId);
+      const pieceWeight = piece.value;
       p2WeightedPieceScore += pieceWeight;
     })
 

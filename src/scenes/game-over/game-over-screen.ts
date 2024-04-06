@@ -1,10 +1,8 @@
-import {Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
-import {Resources} from "@/resources";
+import {Color, type Engine, Scene, type SceneActivationContext} from "excalibur";
+
 
 export class GameOverScreen extends Scene{
     private ui: HTMLElement = document.getElementById('ui');
-    
-    private backgroundImage : Actor;
     private logoPlaceholder: HTMLHeadingElement;
     private enterButton: HTMLButtonElement;
     private yourScoreDisplay: HTMLDivElement;
@@ -12,17 +10,13 @@ export class GameOverScreen extends Scene{
 
     onInitialize(engine:Engine) {
         this.backgroundColor = Color.Black
-        // this.backgroundImage = new Actor({width:Resources.BackGround3.width, height:Resources.BackGround3.height}) //CHANGE BACKGROUND 
-        // this.backgroundImage.graphics.use(Resources.BackGround3.toSprite());
-        // this.backgroundImage.scale = vec(0.70, 0.70)
-        // // this.backgroundImage.scale = vec(engine.canvasWidth/Resources.BackGround2.width, engine.canvasHeight/Resources.BackGround2.height);
-        // this.backgroundImage.pos = engine.screen.center;
-        // this.add(this.backgroundImage);
     }
 
     onActivate(context: SceneActivationContext<unknown>): void {
 
-        let gameMode = context.data["gameMode"];
+        const gameMode = context.data["gameMode"];
+        const yourScore= context.data["yourScore"];
+        const opponentScore = context.data["opponentScore"]
 
         this.logoPlaceholder = document.createElement('h1');
         this.logoPlaceholder.className = "gameover-title";

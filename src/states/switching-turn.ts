@@ -17,11 +17,11 @@ export class SwitchingTurn extends GameState{
 
 
   onUpdate(engine:Engine, delta:number) {
-    let players = [state.player, state.opponent];
+    const players = [state.player, state.opponent];
 
-    let prevPlayer : Player = players.find((p:Player) => p.playerID === state.currentPlayerID )
+    const prevPlayer : Player = players.find((p:Player) => p.playerID === state.currentPlayerID )
 
-    let nextPlayer : Player = players.find((p:Player) => p.playerID !== state.currentPlayerID )
+    const nextPlayer : Player = players.find((p:Player) => p.playerID !== state.currentPlayerID )
     state.currentPlayerID = nextPlayer.playerID;
 
     dispatchEvent(new CustomEvent("score1",{detail:state.player.score.toString()} ));

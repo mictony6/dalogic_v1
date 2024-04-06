@@ -15,8 +15,8 @@ export class Capture extends GameState{
     this.stateName = Capture.stateName;
 
     addEventListener("answer" , (e : CustomEvent) => {
-      let board : Board = state.boardManager.currentBoard;
-      let captureMove: CaptureMove = board.selectedMove as CaptureMove;
+      const board : Board = state.boardManager.currentBoard;
+      const captureMove: CaptureMove = board.selectedMove as CaptureMove;
 
       console.log(e.detail, captureMove.points.toString(2));
       this.answeredCorrect = (parseInt(e.detail, 2) === captureMove.points);
@@ -29,9 +29,9 @@ export class Capture extends GameState{
     this.modalClosed = false;
     this.answeredCorrect = false;
 
-    let modal = this.getModalElement();
-    let textInput = this.getAnswerInputElement();
-    let submit = this.getSubmitButtonElement();
+    const modal = this.getModalElement();
+    const textInput = this.getAnswerInputElement();
+    const submit = this.getSubmitButtonElement();
 
     if (state.currentPlayerID !== state.player["playerID"]){
       textInput.readOnly = true;
@@ -58,16 +58,16 @@ export class Capture extends GameState{
     }
 
 
-    let board : Board = state.boardManager.currentBoard;
+    const board : Board = state.boardManager.currentBoard;
     if (!board.selectedMove){
       throw new Error("No move selected");
     }
 
-    let movingPiece = board.selectedMove.srcPos.piece;
-    let destTile = board.selectedMove.destPos.tile;
+    const movingPiece = board.selectedMove.srcPos.piece;
+    const destTile = board.selectedMove.destPos.tile;
 
-    let destPos : Vector = destTile.getGlobalPos();
-    let piecePos : Vector = movingPiece.getGlobalPos();
+    const destPos : Vector = destTile.getGlobalPos();
+    const piecePos : Vector = movingPiece.getGlobalPos();
     if (piecePos.squareDistance(destPos) <= 50){
       // if the piece is close enough to the destination tile, move it there
       if (destTile.children.length > 0){

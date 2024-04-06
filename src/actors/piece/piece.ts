@@ -100,7 +100,7 @@ export class Piece extends Actor{
 
   set value(val: number){
     this._value = val;
-    let binaryString = val.toString(2);
+    const binaryString = val.toString(2);
     
     // Calculate the number of leading zeros needed for padding
     const paddingZeros = Math.max(0, 2 - binaryString.length);

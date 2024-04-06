@@ -21,7 +21,7 @@ export class PlayerMoving extends GameState{
   }
 
   onUpdate(engine:Engine, delta:number) {
-    let board : Board = state.boardManager.currentBoard;
+    const board : Board = state.boardManager.currentBoard;
     if (!board.selectedMove){
       throw new Error("No move selected");
     }
@@ -31,11 +31,11 @@ export class PlayerMoving extends GameState{
       return;
     }
 
-    let movingPiece = board.selectedMove.srcPos.piece;
-    let destTile = board.selectedMove.destPos.tile;
+    const movingPiece = board.selectedMove.srcPos.piece;
+    const destTile = board.selectedMove.destPos.tile;
 
-    let destPos : Vector = destTile.getGlobalPos();
-    let piecePos : Vector = movingPiece.getGlobalPos();
+    const destPos : Vector = destTile.getGlobalPos();
+    const piecePos : Vector = movingPiece.getGlobalPos();
     if (piecePos.squareDistance(destPos) <= 50){
       // if the piece is close enough to the destination tile, move it there
       if (destTile.children.length > 0){

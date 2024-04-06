@@ -18,9 +18,9 @@ export class AiTurn extends GameState{
 
   onEnter(engine:Engine) {
     console.log("AI turn ");
-    let board : Board = state.boardManager.currentBoard;
+    const board : Board = state.boardManager.currentBoard;
     // generate move here from AI
-    let aiPlayer:  AiPlayer  = state.currentPlayerID === state.opponent["playerID"] ? state.opponent : state.player;
+    const aiPlayer:  AiPlayer  = state.currentPlayerID === state.opponent["playerID"] ? state.opponent : state.player;
     aiPlayer.takeTurn();
     if (board.isGameOver){
       this.nextState = GameOver.stateName;
