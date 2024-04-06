@@ -80,7 +80,7 @@ export class UiManager {
     })
   }
 
-  static createLevelButton(text:string, scene:string, engine: Engine) {
+  static createLevelButton(text:string, scene:string) {
     const btn = document.createElement('button')
     btn.innerText = text
     btn.className = 'level-button'
@@ -92,7 +92,7 @@ export class UiManager {
   }
 
 
-  static createMainMenuButton(text:string, scene:string, engine:Engine) {
+  static createMainMenuButton(text:string, scene:string) {
     const btn = document.createElement('button')
     btn.innerText = text
     btn.className = 'main-menu-button'

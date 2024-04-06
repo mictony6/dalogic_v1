@@ -1,6 +1,5 @@
 import {GameState} from "@/components/game-state";
 import type {Engine} from "excalibur";
-import {Color, Font, Label, TextAlign} from "excalibur";
 import {sceneManager, state} from "@/store/store";
 
 

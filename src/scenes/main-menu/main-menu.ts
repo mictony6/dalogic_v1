@@ -40,14 +40,14 @@ export class MainMenu extends Scene {
       this.playerName = playerName
 
     }).catch(e =>  console.log(e))
-    
+
     this.logoPlaceholder = document.createElement('h1');
     this.logoPlaceholder.textContent = 'DALOGIC';
     this.ui.appendChild(this.logoPlaceholder);
 
     this.ui.appendChild(playerLabel);
     for (let i = 0; i < this.options.length; i++) {
-      this.ui.appendChild(UiManager.createMainMenuButton(this.options[i], this.sceneNames[i], this.engine))
+      this.ui.appendChild(UiManager.createMainMenuButton(this.options[i], this.sceneNames[i]))
     }
   }
 

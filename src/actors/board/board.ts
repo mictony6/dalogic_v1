@@ -1,4 +1,4 @@
-import type {Engine, Scene, Vector} from "excalibur";
+import type {Engine, Vector} from "excalibur";
 import type {Player} from "@/actors/player/player";
 import {Actor, Color,  vec, } from 'excalibur';
 import {BoardTile} from "@/actors/tile/tile";

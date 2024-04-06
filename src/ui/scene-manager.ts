@@ -1,5 +1,4 @@
 import type {Engine} from "excalibur";
-import {sceneManager} from "@/store/store";
 
 export class SceneManager{
   stack : string[] = [];

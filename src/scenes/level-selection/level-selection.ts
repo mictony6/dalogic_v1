@@ -45,7 +45,7 @@ export class LevelSelection extends Scene {
     wrapper.appendChild(buttonGroup);
     // Add buttons for each level
     for (let i = 0; i < this.options.length; i++) {
-      buttonGroup.appendChild(UiManager.createLevelButton(this.options[i], 'practice'+this.options[i], this.engine))
+      buttonGroup.appendChild(UiManager.createLevelButton(this.options[i], 'practice'+this.options[i]))
     }
 
     // Add the wrapper to the UI

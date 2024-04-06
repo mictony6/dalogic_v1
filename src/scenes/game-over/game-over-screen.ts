@@ -1,5 +1,5 @@
 import {Color, type Engine, Scene, type SceneActivationContext} from "excalibur";
-import {GameMode, sceneManager, state} from "@/store/store";
+import {GameMode, sceneManager} from "@/store/store";
 
 
 export class GameOverScreen extends Scene{
@@ -17,7 +17,7 @@ export class GameOverScreen extends Scene{
         const gameMode : GameMode = context.data["gameMode"];
         const yourScore : number = context.data["yourScore"];
         const opponentScore : number = context.data["opponentScore"]
-        const winStatus : number  = yourScore === opponentScore ? 0 : yourScore > opponentScore ? 1 : -1;
+        // const winStatus : number  = yourScore === opponentScore ? 0 : yourScore > opponentScore ? 1 : -1;
 
         this.logoPlaceholder = document.createElement('h1');
         this.logoPlaceholder.className = "gameover-title";

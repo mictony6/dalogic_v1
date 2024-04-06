@@ -1,7 +1,7 @@
 import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
-import {GameMode, sceneManager, state} from "@/store/store";
+import {GameMode, state} from "@/store/store";
 import {Player} from "@/actors/player/player";
 import {ExpectimaxAi} from "@/actors/ai/expectimax-ai";
 import {UiManager} from "@/ui/ui-manager";
