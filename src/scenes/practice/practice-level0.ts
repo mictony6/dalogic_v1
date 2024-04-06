@@ -6,6 +6,7 @@ import {Player} from "@/actors/player/player";
 import {ExpectimaxAi} from "@/actors/ai/expectimax-ai";
 import {UiManager} from "@/ui/ui-manager";
 import type {GameStateMachine} from "@/components/game-state-machine";
+import {SwitchingTurn} from "@/states/switching-turn";
 
 
 export class PracticeLevel0 extends Scene {
@@ -56,12 +57,15 @@ export class PracticeLevel0 extends Scene {
     UiManager.displayScoreLabels();
     UiManager.displayTimer();
 
+    const stateMachine : GameStateMachine = state.stateMachine;
+    stateMachine.changeState(SwitchingTurn.stateName, this.engine);
 
 
   }
 
   onDeactivate(context: SceneActivationContext) {
-
+    this.ui.classList.remove('PracticeLevel')
+    this.ui.innerHTML = ''
     this.remove(this.board)
     this.board.kill();
   }

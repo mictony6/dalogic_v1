@@ -1,10 +1,10 @@
 import {Color, type Engine, Scene, type SceneActivationContext} from "excalibur";
+import {GameMode, sceneManager, state} from "@/store/store";
 
 
 export class GameOverScreen extends Scene{
     private ui: HTMLElement = document.getElementById('ui');
     private logoPlaceholder: HTMLHeadingElement;
-    private enterButton: HTMLButtonElement;
     private yourScoreDisplay: HTMLDivElement;
     private opponentScoreDisplay: HTMLDivElement;
 
@@ -14,38 +14,40 @@ export class GameOverScreen extends Scene{
 
     onActivate(context: SceneActivationContext<unknown>): void {
 
-        const gameMode = context.data["gameMode"];
-        const yourScore= context.data["yourScore"];
-        const opponentScore = context.data["opponentScore"]
+        const gameMode : GameMode = context.data["gameMode"];
+        const yourScore : number = context.data["yourScore"];
+        const opponentScore : number = context.data["opponentScore"]
+        const winStatus : number  = yourScore === opponentScore ? 0 : yourScore > opponentScore ? 1 : -1;
 
         this.logoPlaceholder = document.createElement('h1');
         this.logoPlaceholder.className = "gameover-title";
-        this.logoPlaceholder.textContent = 'GAME OVER';
+        this.logoPlaceholder.textContent = yourScore > opponentScore ? 'YOU WON!' : 'GAME OVER';
         this.ui.appendChild(this.logoPlaceholder);
    
         this.yourScoreDisplay = document.createElement('div');
         this.yourScoreDisplay.className = "score-display";
-        this.yourScoreDisplay.textContent = 'Your Score: '; // replace
+        this.yourScoreDisplay.textContent = 'Your Score: '+yourScore.toString(); // replace
 
         this.opponentScoreDisplay = document.createElement('div');
        
         this.opponentScoreDisplay.className = "score-display";
-        this.opponentScoreDisplay.textContent = 'Opponent Score: ';
+        this.opponentScoreDisplay.textContent = 'Opponent Score: ' + opponentScore.toString();
 
         // Append score displays to UI
         this.ui.appendChild(this.yourScoreDisplay);
         this.ui.appendChild(this.opponentScoreDisplay);
-        // Create button
-        this.enterButton = document.createElement('button');
-        this.enterButton.textContent = 'NEXT MATCH';
-        
-        this.ui.appendChild(this.enterButton);
 
         // Create button
-        this.enterButton = document.createElement('button');
-        this.enterButton.textContent = 'RETURN';
-        
-        this.ui.appendChild(this.enterButton);
+        let nextButton  = this.createNextButton(gameMode);
+        this.ui.appendChild(nextButton);
+
+        // Create button
+        const returnButton = document.createElement('button');
+        returnButton.textContent = 'TO MAIN MENU';
+        returnButton.onclick = () => {
+            sceneManager.push("mainMenu");
+        }
+        this.ui.appendChild(returnButton);
 
         // Add CSS class to style UI elements if needed
         this.ui.classList.add('authenticate');
@@ -60,7 +62,6 @@ export class GameOverScreen extends Scene{
         //|     100    |       50       |
         // -----------------------------
         // button to NEXT MATCH for multiplayer
-        // button to RESTART for story mode
         // button to return to MAIN MENU
 
         // create the buttons lang miskin di functional
@@ -74,5 +75,23 @@ export class GameOverScreen extends Scene{
         this.ui.innerHTML = '';
     }
 
+    private createNextButton(gameMode: GameMode) : HTMLButtonElement{
+        const btn = document.createElement('button');
+        switch (gameMode){
+            case GameMode.AIVsPlayer:
+                btn.textContent = "PICK A LEVEL";
+                btn.onclick = () => {
+                    sceneManager.push("levelSelection")
+                }
+                break;
+            case GameMode.PlayerVsPlayer:
+                btn.textContent = "NEW MATCH";
+                btn.onclick = () => {
+                    sceneManager.push("multiplayer")
+                }
+                break;
+        }
+        return btn;
+    }
 
 }
