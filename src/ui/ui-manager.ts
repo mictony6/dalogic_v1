@@ -1,13 +1,8 @@
 import {Board} from "@/actors/board/board";
 import {Player} from "@/actors/player/player";
 import {sceneManager, state} from "@/store/store";
-import {Color, Engine, Font, Label, TextAlign} from "excalibur";
+import {Color, Font, Label, TextAlign} from "excalibur";
 
-export enum GameLabelStyle{
-  LIGHT,
-  MEDIUM,
-  BOLD
-} 
 export class UiManager {
 
   static displayTimer() {

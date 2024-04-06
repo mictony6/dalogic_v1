@@ -33,12 +33,5 @@ export class Player  {
     this.score+=n;
   }
 
-  endTurn(){
-    this.timer.start()
-  }
-
-  startTurn(){
-    this.timer.pause()
-  }
 
 }

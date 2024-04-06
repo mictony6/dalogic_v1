@@ -27,9 +27,6 @@ export function NAND(a: number, b: number) {
   return NOT(AND(a, b));
 }
 
-export function NONE(_a: number, _b: number) {
-  return 0;
-}
 
 
 

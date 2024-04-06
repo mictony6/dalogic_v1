@@ -32,9 +32,6 @@ export class GameStateMachine {
     this.states.set(state.stateName, state);
   }
 
-  public removeState(name: string) {
-    this.states.delete(name);
-  }
 
   public changeState(name: string, engine: Engine) {
     if (this.states.has(name)) {

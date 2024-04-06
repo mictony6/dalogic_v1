@@ -8,7 +8,6 @@ import {Player} from "@/actors/player/player";
 import type {GameStateMachine} from "@/components/game-state-machine";
 import Move from "@/components/move";
 import { v4 as uuidv4 } from 'uuid';
-import * as timers from "timers";
 
 
 export class Multiplayer extends Scene{
