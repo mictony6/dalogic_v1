@@ -3,7 +3,7 @@ import {DisplayMode, Engine} from "excalibur";
 import {initStore, sceneManager} from "@/store/store";
 import {MainMenu} from "@/scenes/main-menu/main-menu";
 import {LevelSelection} from "@/scenes/level-selection/level-selection";
-import {PracticeLevel0} from "@/scenes/practice/practice-level0";
+import {PracticeLevel} from "@/scenes/practice/practice-level";
 import {Authenticate} from "@/scenes/authenticate/authenticate";
 import {StoryLevelSelection} from "@/scenes/story-level-selection/story-level-selection";
 import {StoryLevelSelection1} from "@/scenes/story-level-selection/story-level-selection1";
@@ -28,7 +28,7 @@ class Game extends Engine {
 
     game.add('mainMenu', new MainMenu());
     game.add('levelSelection', new LevelSelection());
-    game.add('practice0', new PracticeLevel0());
+    game.add('practice', new PracticeLevel());
     game.add('authenticate', new Authenticate());
     game.add('story0', new StoryLevelSelection());
     game.add('story1', new StoryLevelSelection1());

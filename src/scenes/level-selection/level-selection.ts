@@ -7,7 +7,7 @@ export class LevelSelection extends Scene {
   // Hold a reference globally to our UI container
   // This would probably be encapsulated in a UIManager module
   private ui : HTMLElement = document.getElementById('ui')
-  options:string[] = ['0', '1', '2' ,'3', '4']
+  options:string[] = ['0', '1', '2' ,'3', '4', '5', '6', '7', '8', '9']
   private backgroundImage : Actor;
   private playerName : string;
   private gameMode: HTMLHeadingElement;
@@ -45,7 +45,9 @@ export class LevelSelection extends Scene {
     wrapper.appendChild(buttonGroup);
     // Add buttons for each level
     for (let i = 0; i < this.options.length; i++) {
-      buttonGroup.appendChild(UiManager.createLevelButton(this.options[i], 'practice'+this.options[i]))
+      // buttonGroup.appendChild(UiManager.createLevelButton(this.options[i], 'practice'+this.options[i]))
+      buttonGroup.appendChild(UiManager.createLevelButton(this.options[i]))
+
     }
 
     // Add the wrapper to the UI

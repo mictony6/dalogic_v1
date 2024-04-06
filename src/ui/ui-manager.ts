@@ -75,13 +75,14 @@ export class UiManager {
     })
   }
 
-  static createLevelButton(text:string, scene:string) {
+  static createLevelButton(text:string) {
     const btn = document.createElement('button')
     btn.innerText = text
     btn.className = 'level-button'
     btn.onclick = (e) => {
       e.preventDefault()
-      sceneManager.push(scene)
+      // sceneManager.push(scene)
+      sceneManager.push('practice', {level: parseInt(text)})
     }
     return btn
   }

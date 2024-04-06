@@ -12,7 +12,8 @@ import {RandomAi} from "@/actors/ai/random-ai";
 import {AlphaBetaAi} from "@/actors/ai/alpha-beta-ai";
 
 
-export class PracticeLevel0 extends Scene {
+
+export class PracticeLevel extends Scene {
   private board : Board;
   private backgroundImage : Actor;
   private ui = document.getElementById('ui');
@@ -36,8 +37,9 @@ export class PracticeLevel0 extends Scene {
 
   }
 
-  onActivate(_context: SceneActivationContext<unknown>): void {
-
+  onActivate(context: SceneActivationContext<unknown>): void {
+    const level : number = context.data["level"] + 1; // dynamic levels
+    console.log(`Level ${level}`);
     state.gameMode = GameMode.AIVsPlayer;
           
     this.ui.classList.add('PracticeLevel')
@@ -46,11 +48,18 @@ export class PracticeLevel0 extends Scene {
     //initialize players
     //im just using a random number generator here
     state.player = new Player(-1, "practice"+Math.random());
-    // state.opponent = new ExpectimaxAi(1, "random2");
-    state.opponent = new CompositePlayer(1, "random2", {
-      players: [new RandomAi(1, "random3"), new AlphaBetaAi(1, "random4")],
-      weights: [1, 1]
-    });
+
+    if(level < 5){
+      state.opponent = new CompositePlayer(1, "random2", {
+        players: [new RandomAi(1, "random3"), new ExpectimaxAi(1, "random4")],
+        weights: [10-level, level]
+      });
+    } else {
+      state.opponent = new CompositePlayer(1, "random2", {
+        players: [new ExpectimaxAi(1, "random3"), new AlphaBetaAi(1, "random4")],
+        weights: [10-level, level]
+      });
+    }
     state.firstMoveID = state.player["playerID"];
     state.currentPlayerID = state.opponent["playerID"];
 
