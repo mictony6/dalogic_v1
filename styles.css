@@ -246,7 +246,7 @@ dialog::backdrop{
 }
 
 .dialog form input {
-    font-family: 'Upheaval' !important;
+    font-family: 'Upheaval', serif !important;
     font-size: 1.5rem !important;
     height: 5rem;
     padding: 1rem;
@@ -266,7 +266,7 @@ dialog::backdrop{
 }
 
 .gameover-title {
-    font-family: 'Upheaval';
+    font-family: 'Upheaval', serif;
     font-size: 4rem !important;
     height: 5rem;
     padding: 1rem;
@@ -274,7 +274,7 @@ dialog::backdrop{
 }
 
 .score-display {
-    font-family: 'Upheaval';
+    font-family: 'Upheaval', serif;
     display: inline-block; 
     color: white;
     margin: 0 10px; 

@@ -22,18 +22,16 @@ export class MainMenu extends Scene {
     // this.backgroundImage.scale = vec(engine.canvasWidth/Resources.BackGround2.width, engine.canvasHeight/Resources.BackGround2.height);
     this.backgroundImage.pos = engine.screen.center;
     this.add(this.backgroundImage);
-
-    this.logoPlaceholder = document.createElement('h1');
-    this.logoPlaceholder.textContent = 'DALOGIC';
-    this.ui.appendChild(this.logoPlaceholder);
     // Add a CSS class to `ui` that helps indicate which scene is being displayed
 
   }
 
 
   onActivate(context: SceneActivationContext<unknown>) {
+
     this.ui.classList.add('MainMenu')
     let playerLabel = document.createElement("h3");
+
 
     axios.get("http://127.0.0.1:3000/auth/player-name").then(res => {
       return res.data.playerName
@@ -42,6 +40,10 @@ export class MainMenu extends Scene {
       this.playerName = playerName
 
     }).catch(e =>  console.log(e))
+    
+    this.logoPlaceholder = document.createElement('h1');
+    this.logoPlaceholder.textContent = 'DALOGIC';
+    this.ui.appendChild(this.logoPlaceholder);
 
     this.ui.appendChild(playerLabel);
     for (let i = 0; i < this.options.length; i++) {

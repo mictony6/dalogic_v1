@@ -1,4 +1,4 @@
-import { Actor, type Engine, Scene, vec} from "excalibur";
+import {Actor, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Resources} from "@/resources";
 import axios from "axios";
 import {sceneManager} from "@/store/store";
@@ -18,6 +18,20 @@ export class Authenticate extends Scene {
     this.backgroundImage.pos = engine.screen.center;
     this.add(this.backgroundImage);
 
+  }
+
+  onEnterClick() {
+    const playerName = this.playerNameInput.value;
+
+    axios.post('http://127.0.0.1:3000/auth', {
+      playerName:playerName
+    }).then(r  =>{}).catch(e => console.log(e))
+    // Handle entering the game with the provided player name
+    // For example, you can transition to the next scene here
+    sceneManager.push("mainMenu")
+  }
+
+  onActivate(context: SceneActivationContext<unknown>) {
     this.logoPlaceholder = document.createElement('h1');
     this.logoPlaceholder.textContent = 'DALOGIC';
     this.ui.appendChild(this.logoPlaceholder);
@@ -36,17 +50,6 @@ export class Authenticate extends Scene {
 
     // Add CSS class to style UI elements if needed
     this.ui.classList.add('authenticate');
-  }
-
-  onEnterClick() {
-    const playerName = this.playerNameInput.value;
-
-    axios.post('http://127.0.0.1:3000/auth', {
-      playerName:playerName
-    }).then(r  =>{}).catch(e => console.log(e))
-    // Handle entering the game with the provided player name
-    // For example, you can transition to the next scene here
-    sceneManager.push("mainMenu")
   }
 
   onDeactivate() {

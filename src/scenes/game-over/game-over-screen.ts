@@ -74,5 +74,11 @@ export class GameOverScreen extends Scene{
 
     }
 
+    onDeactivate(context: SceneActivationContext) {
+        // Ensure we clean-up the DOM and remove any children when transitioning scenes
+        this.ui.classList.remove('authenticate');
+        this.ui.innerHTML = '';
+    }
+
 
 }
