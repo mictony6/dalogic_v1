@@ -6,6 +6,7 @@ import {SwitchingTurn} from "@/states/switching-turn";
 import {GameOver} from "@/states/game-over";
 import {Capture} from "@/states/capture";
 import type {Engine} from "excalibur";
+import {state} from "@/store/store";
 
 
 export class GameStateMachine {
@@ -53,8 +54,11 @@ export class GameStateMachine {
 
   updateStateMachine(engine: Engine, delta: number) {
     if (!this.currentState) {
+
       return;
     }
+
+
     
     this.currentState.onUpdate( engine, delta);
 

@@ -5,11 +5,11 @@ export class SceneManager{
 
   constructor(private engine : Engine) {
     // go back to levelSelection when escape key pressed
-    addEventListener("keydown", e => {
-      if (e.code == "Escape"){
-        this.pop();
-      }
-    })
+    // addEventListener("keydown", e => {
+    //   if (e.code == "Escape"){
+    //     this.pop();
+    //   }
+    // })
 
   }
 

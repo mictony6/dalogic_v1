@@ -50,6 +50,12 @@ export class PlayerTurn extends GameState{
   onUpdate(engine:Engine, delta:number) {
     const board : Board = state.boardManager.currentBoard;
 
+    if (board.currentPlayer.timer.isRunning && state.isPaused){
+      board.currentPlayer.timer.pause();
+      return;
+    } else if (!board.currentPlayer.timer.isRunning && !state.isPaused) {
+      board.currentPlayer.timer.resume();
+    }
 
     const currentTimeLeft  = millisecondsToMinutesSeconds(board.currentPlayer.timer.timeToNextAction);
     // only update timeleft if it changed in whole numbers 

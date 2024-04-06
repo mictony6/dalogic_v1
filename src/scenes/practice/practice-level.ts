@@ -1,7 +1,7 @@
 import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Board} from "@/actors/board/board";
 import {Resources} from "@/resources";
-import {GameMode, state} from "@/store/store";
+import {GameMode, sceneManager, state} from "@/store/store";
 import {Player} from "@/actors/player/player";
 import {ExpectimaxAi} from "@/actors/ai/expectimax-ai";
 import {UiManager} from "@/ui/ui-manager";
@@ -17,6 +17,8 @@ export class PracticeLevel extends Scene {
   private board : Board;
   private backgroundImage : Actor;
   private ui = document.getElementById('ui');
+  private pauseMenu: HTMLDialogElement;
+  private level: number;
   
   public onInitialize(engine: Engine) {
 
@@ -38,26 +40,57 @@ export class PracticeLevel extends Scene {
   }
 
   onActivate(context: SceneActivationContext<unknown>): void {
-    const level : number = context.data["level"] + 1; // dynamic levels
-    console.log(`Level ${level}`);
+    this.level = context.data["level"] + 1; // dynamic levels
+    console.log(`Level ${this.level}`);
     state.gameMode = GameMode.AIVsPlayer;
           
     this.ui.classList.add('PracticeLevel')
+
+    // answer prompt
     this.ui.appendChild(UiManager.createModal().dialog);
+
+    // pause menu
+    this.pauseMenu = document.createElement('dialog');
+    this.pauseMenu.id = "pauseMenu";
+    this.pauseMenu.className = "dialog";
+    this.pauseMenu.innerHTML = `
+    <h2 class="dialog-title">Game Pause</h2> 
+    <div class="dialog-content">
+      <button type="button" id="retryButton">Retry Level</button>
+      <button type="button" id="exitButton">Exit to Main Menu</button>
+      <button type="submit" class="close">Close</button>
+    </div>
+  `;
+    this.ui.appendChild(this.pauseMenu);
+
+    addEventListener("keydown", this.onPause);
+
+    // Get the buttons
+    const retryButton = document.getElementById("retryButton");
+    const exitButton = document.getElementById("exitButton");
+    const closeButton = this.pauseMenu.getElementsByClassName("close")[0] as HTMLButtonElement;
+
+    retryButton.onclick = this.onRetryButtonClick.bind(this);
+    exitButton.onclick = this.onExitButtonClick.bind(this);
+    closeButton.onclick = () => this.pauseMenu.close();
+    this.pauseMenu.onclose = () => state.isPaused = false;
+
 
     //initialize players
     //im just using a random number generator here
     state.player = new Player(-1, "practice"+Math.random());
 
-    if(level < 5){
+    // level 1-5 is a mix of random to expectimax
+    // level 6-10 from expecti to minimax with alpha beta
+    if(this.level < 5){
       state.opponent = new CompositePlayer(1, "random2", {
         players: [new RandomAi(1, "random3"), new ExpectimaxAi(1, "random4")],
-        weights: [10-level, level]
+        weights: [10-this.level, this.level]
       });
     } else {
       state.opponent = new CompositePlayer(1, "random2", {
         players: [new ExpectimaxAi(1, "random3"), new AlphaBetaAi(1, "random4")],
-        weights: [10-level, level]
+        weights: [10-this.level, this.level]
       });
     }
     state.firstMoveID = state.player["playerID"];
@@ -80,6 +113,8 @@ export class PracticeLevel extends Scene {
   }
 
   onDeactivate(context: SceneActivationContext) {
+    removeEventListener("keydown", this.onPause);
+    state.isPaused = true;
     this.ui.classList.remove('PracticeLevel')
     this.ui.innerHTML = ''
     this.remove(this.board)
@@ -88,6 +123,27 @@ export class PracticeLevel extends Scene {
 
   onPostUpdate(engine: Engine, delta: number) {
     state.stateMachine.updateStateMachine(engine, delta);
+  }
+
+  onPause(e:KeyboardEvent){
+    // NOTE: T.T i fucking hate this, i thot i was doing something wrong
+    // i realized pressing a key triggers the default button behaviour
+    // lesson learned, always call preventDefault method when overriding button behaviour
+    if (e.code == "Escape"){
+      e.preventDefault();
+      this.pauseMenu.showModal();
+      state.isPaused = true;
+    }
+  }
+
+  onRetryButtonClick() {
+    this.pauseMenu.close()
+    sceneManager.push("practice", {level: this.level-1});
+  }
+
+  onExitButtonClick() {
+    this.pauseMenu.close()
+    sceneManager.push("mainMenu");
   }
 
 

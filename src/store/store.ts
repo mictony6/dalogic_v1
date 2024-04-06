@@ -23,6 +23,7 @@ export let state = {
   roomID:"",
   server:'https://dalogic-backend.onrender.com/',
   practiceLevel:0,
+  isPaused: false
 }
 
 

@@ -1,6 +1,6 @@
 import {Board} from "@/actors/board/board";
 import {Player} from "@/actors/player/player";
-import {sceneManager, state} from "@/store/store";
+import {GameMode, sceneManager, state} from "@/store/store";
 import {Color, Font, Label, TextAlign} from "excalibur";
 
 export class UiManager {
@@ -131,7 +131,9 @@ export class UiManager {
       const event = new CustomEvent("answer", {detail: textInput.value});
       dispatchEvent(event);
       // for opponent
-      dispatchEvent(new CustomEvent("answer-submitted", {detail: textInput.value}));
+      if (GameMode.PlayerVsPlayer){
+        dispatchEvent(new CustomEvent("answer-submitted", {detail: textInput.value}));
+      }
     }
 
     form.appendChild(textInput);

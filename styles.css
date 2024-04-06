@@ -265,6 +265,11 @@ dialog::backdrop{
     justify-content: center;
 }
 
+.dialog-content{
+    display: flex;
+    flex-direction: column;
+}
+
 .gameover-title {
     font-family: 'Upheaval', serif;
     font-size: 4rem !important;

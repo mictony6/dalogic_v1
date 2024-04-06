@@ -49,6 +49,7 @@ export class MainMenu extends Scene {
     for (let i = 0; i < this.options.length; i++) {
       this.ui.appendChild(UiManager.createMainMenuButton(this.options[i], this.sceneNames[i]))
     }
+
   }
 
   onDeactivate() {
