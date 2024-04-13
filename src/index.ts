@@ -11,6 +11,8 @@ import {StoryLevelSelection2} from "@/scenes/story-level-selection/story-level-s
 import {GameOverScreen} from "@/scenes/game-over/game-over-screen";
 import {Multiplayer} from "@/scenes/multiplayer/multiplayer";
 import {SplashLoader} from "@/loaders/splash-loader";
+import {AudioType, GameAudio} from "@/audio/GameAudio";
+
 // import {DevTool} from "@excaliburjs/dev-tools";
 
 
@@ -25,6 +27,7 @@ class Game extends Engine {
   public start() {
 
     initStore(this);
+
 
     game.add('mainMenu', new MainMenu());
     game.add('levelSelection', new LevelSelection());
@@ -49,5 +52,6 @@ const game = new Game();
 // const devtool = new DevTool(game);
 game.start().then(() => {
   // game.goToScene('authenticate');
+  // new GameAudio().play(AudioType.BG, 0.6, true);
   sceneManager.push('authenticate')
 });

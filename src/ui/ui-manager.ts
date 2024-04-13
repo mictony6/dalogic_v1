@@ -2,8 +2,10 @@ import {Board} from "@/actors/board/board";
 import {Player} from "@/actors/player/player";
 import {GameMode, sceneManager, state} from "@/store/store";
 import {Color, Font, Label, TextAlign} from "excalibur";
+import {AudioType, GameAudio} from "@/audio/GameAudio";
 
 export class UiManager {
+
 
   static displayTimer() {
     const board : Board = state.boardManager.currentBoard;
@@ -25,6 +27,7 @@ export class UiManager {
     label.z = 9;
 
     addEventListener("turntimer-tick", (e : CustomEvent) => {
+
       label.text = e.detail;
     })
 
@@ -70,6 +73,7 @@ export class UiManager {
     p2Label.pos.y = 215;
     p2Label.rotation = 0.2;
 
+
     addEventListener("score2", (e : CustomEvent) =>{
       p2Label.text = e.detail;
     })
@@ -83,6 +87,8 @@ export class UiManager {
       e.preventDefault()
       // sceneManager.push(scene)
       sceneManager.push('practice', {level: parseInt(text)})
+      new GameAudio().play(AudioType.SELECT);
+
     }
     return btn
   }
@@ -95,6 +101,8 @@ export class UiManager {
     btn.onclick = (e) => {
       e.preventDefault()
       sceneManager.push(scene)
+      new GameAudio().play(AudioType.SELECT);
+
 
     }
     return btn

@@ -7,7 +7,6 @@ import BoardCell from "@/components/board-cell";
 import Move from "@/components/move";
 import {state} from "@/store/store";
 import {CaptureMove} from "@/components/capture-move";
-const TILE_SIZE = state.TILE_SIZE;
 
 
 export class Board extends Actor {
@@ -156,6 +155,7 @@ export class Board extends Actor {
 
 
   getBoardPosition(row: number, col: number){
+    const TILE_SIZE = state.TILE_SIZE;
     // return the position of the board cell at the given row and column
     return vec((col * TILE_SIZE) - this.halfWidth + TILE_SIZE / 2,
      (row * TILE_SIZE) - this.halfHeight + TILE_SIZE / 2);

@@ -1,4 +1,4 @@
-import { ImageSource} from 'excalibur';
+import { ImageSource, Sound} from 'excalibur';
 import piece from './images/assets/pieceSprite.png';
 import bg1 from './images/assets/bg.png';
 import bg2 from './images/assets/bg2.png';
@@ -6,12 +6,16 @@ import bg3 from './images/assets/bg3.png';
 import titlelogo from './images/assets/titleSprite.png';
 import startButton from './images/assets/startButton.png';
 import gameBoardBg from './images/assets/gameboardbg.png';
-// import buttonClick from './audio/blipSelect.wav';
-// import buttonClick1 from './audio/blipSelect1.wav';
 import storyscene0 from './images/assets/storyscene0.png';
 import storyscene1 from './images/assets/storyscene1.png';
 import storyscene2 from './images/assets/storyscene2.png';
 import piece2 from './images/assets/pieceSprite2.png';
+import select1 from './audio/select1.wav';
+import select2 from './audio/select2.wav';
+import score1 from './audio/score1.wav';
+import score2 from './audio/score2.wav';
+import score3 from './audio/score3.wav';
+import bgMusic from './audio/bg.wav';
 
 
 /**
@@ -30,8 +34,13 @@ const Resources = {
     GameBoardBg: new ImageSource(gameBoardBg),
     TitleLogo : new ImageSource(titlelogo),
     StartButton: new ImageSource(startButton),
-    // ButtonClick: new Sound(buttonClick),
-    // ButtonClick1: new Sound(buttonClick1)
+    Select1: new Sound(select1),
+    Select2: new Sound(select2),
+    Score1: new Sound(score1),
+    Score2: new Sound(score2),
+    Score3: new Sound(score3),
+    BGMusic: new Sound(bgMusic)
+
 }
 
 export { Resources }

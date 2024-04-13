@@ -33,9 +33,6 @@ export class PracticeLevel extends Scene {
 
 
 
-    // Set the initial state
-    let stateMachine : GameStateMachine = state.stateMachine
-    stateMachine.changeState("switchingTurn",engine);
 
   }
 

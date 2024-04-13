@@ -6,7 +6,6 @@ import {SwitchingTurn} from "@/states/switching-turn";
 import {GameOver} from "@/states/game-over";
 import {Capture} from "@/states/capture";
 import type {Engine} from "excalibur";
-import {state} from "@/store/store";
 
 
 export class GameStateMachine {
