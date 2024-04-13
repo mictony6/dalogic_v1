@@ -32,7 +32,7 @@ export class Multiplayer extends Scene{
         let elements = UiManager.createModal()
         const dialog:HTMLDialogElement = elements.dialog
         this.ui.appendChild(dialog)
-        const submit:HTMLButtonElement = elements.textInput
+        const submit : HTMLButtonElement = elements.submit
         const textInput : HTMLInputElement = elements.textInput
 
 
