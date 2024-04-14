@@ -5,9 +5,6 @@ import {MainMenu} from "@/scenes/main-menu/main-menu";
 import {LevelSelection} from "@/scenes/level-selection/level-selection";
 import {PracticeLevel} from "@/scenes/practice/practice-level";
 import {Authenticate} from "@/scenes/authenticate/authenticate";
-import {StoryLevelSelection} from "@/scenes/story-level-selection/story-level-selection";
-import {StoryLevelSelection1} from "@/scenes/story-level-selection/story-level-selection1";
-import {StoryLevelSelection2} from "@/scenes/story-level-selection/story-level-selection2";
 import {GameOverScreen} from "@/scenes/game-over/game-over-screen";
 import {Multiplayer} from "@/scenes/multiplayer/multiplayer";
 import {SplashLoader} from "@/loaders/splash-loader";
@@ -40,9 +37,6 @@ class Game extends Engine {
     game.add('levelSelection', new LevelSelection());
     game.add('practice', new PracticeLevel());
     game.add('authenticate', new Authenticate());
-    game.add('story0', new StoryLevelSelection());
-    game.add('story1', new StoryLevelSelection1());
-    game.add('story2', new StoryLevelSelection2());
     game.add('gameOverScreen', new GameOverScreen());
     game.add('multiplayer', new Multiplayer());
 

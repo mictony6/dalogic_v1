@@ -51,11 +51,11 @@ export class PracticeLevel extends Scene {
     this.pauseMenu.id = "pauseMenu";
     this.pauseMenu.className = "dialog";
     this.pauseMenu.innerHTML = `
-    <h2 class="dialog-title">Game Pause</h2> 
+    <h2 class="dialog-title">Game Paused</h2> 
     <div class="dialog-content">
       <button type="button" id="retryButton">Retry Level</button>
       <button type="button" id="exitButton">Exit to Main Menu</button>
-      <button type="submit" class="close">Close</button>
+      <button type="submit" class="close">Resume</button>
     </div>
   `;
     this.ui.appendChild(this.pauseMenu);
