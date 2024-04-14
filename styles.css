@@ -262,6 +262,13 @@ dialog::backdrop{
     font-family: 'Upheaval';
     letter-spacing: 1px;
     color: saddlebrown;
+    text-align: center;
+}
+
+#equation{
+    padding: 0.1rem 0;
+    text-align: center;
+    font-size: 2rem;
 }
 
 .dialog {

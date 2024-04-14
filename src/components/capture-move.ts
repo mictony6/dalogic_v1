@@ -1,7 +1,7 @@
 import Move from "@/components/move";
 import type {Piece} from "@/actors/piece/piece";
 import type BoardCell from "@/components/board-cell";
-import {pattern} from "@/components/operations";
+import {AND, NAND, OR, pattern, XOR} from "@/components/operations";
 import type {Board} from "@/actors/board/board";
 import {state} from "@/store/store";
 
@@ -9,6 +9,7 @@ import {state} from "@/store/store";
 export class CaptureMove extends Move{
   public capturedPiece : Piece;
   public points : number;
+  public operationName : string;
   constructor(src:BoardCell, dest: BoardCell, public mid : BoardCell) {
     super(src, dest);
     if (!mid.piece){
@@ -16,6 +17,20 @@ export class CaptureMove extends Move{
     }
     this.capturedPiece = mid.piece;    
     const operation = pattern[this.destPos.tile.row][this.destPos.tile.col];
+    switch (operation){
+      case AND:
+        this.operationName = "AND";
+        break;
+      case OR:
+        this.operationName = "OR";
+        break;
+      case XOR:
+        this.operationName = "XOR";
+        break;
+      case NAND:
+        this.operationName = "NAND";
+        break;
+    }
     this.points = operation(this.srcPos.piece.value, this.capturedPiece.value);
   }
   commit(answeredCorrect : boolean = true) {

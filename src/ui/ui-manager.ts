@@ -118,6 +118,10 @@ export class UiManager {
     heading.className = "dialog-title"; // Optional class for styling
     heading.innerText = "Enter your answer"; // Change this to your desired text
 
+    const equation = document.createElement("div");
+    equation.id = "equation";
+    equation.innerText = "_____"
+
     const content = document.createElement('div');
     content.className = "dialog-content";
 
@@ -146,6 +150,7 @@ export class UiManager {
 
     form.appendChild(textInput);
     form.appendChild(submit);
+    content.appendChild(equation);
     content.appendChild(form);
     dialog.appendChild(heading);
     dialog.appendChild(content);

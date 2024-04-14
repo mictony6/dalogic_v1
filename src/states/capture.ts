@@ -29,7 +29,16 @@ export class Capture extends GameState{
     this.modalClosed = false;
     this.answeredCorrect = false;
 
+    const board = state.boardManager.currentBoard;
     const modal = this.getModalElement();
+
+    const captureMove : CaptureMove = board.selectedMove as CaptureMove;
+    const a = captureMove.srcPos.piece.binRep;
+    const b = captureMove.mid.piece.binRep;
+
+    const modalHeading = document.getElementById("equation")
+    modalHeading.innerText = `${a} ${captureMove.operationName} ${b}`;
+
     const textInput = this.getAnswerInputElement();
     const submit = this.getSubmitButtonElement();
 
@@ -49,6 +58,7 @@ export class Capture extends GameState{
       }
 
   }
+
 
 
   onUpdate(engine:Engine, delta:number) {
