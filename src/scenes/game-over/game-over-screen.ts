@@ -1,5 +1,6 @@
 import {Color, type Engine, Scene, type SceneActivationContext} from "excalibur";
-import {GameMode, sceneManager} from "@/store/store";
+import {GameMode, sceneManager, state} from "@/store/store";
+import {getDatabase, onValue, ref, set} from "firebase/database";
 
 
 export class GameOverScreen extends Scene{
@@ -17,7 +18,7 @@ export class GameOverScreen extends Scene{
         const gameMode : GameMode = context.data["gameMode"];
         const yourScore : number = context.data["yourScore"];
         const opponentScore : number = context.data["opponentScore"]
-        // const winStatus : number  = yourScore === opponentScore ? 0 : yourScore > opponentScore ? 1 : -1;
+        const winStatus : number  = yourScore === opponentScore ? 0 : yourScore > opponentScore ? 1 : -1;
 
         this.logoPlaceholder = document.createElement('h1');
         this.logoPlaceholder.className = "gameover-title";
@@ -52,20 +53,8 @@ export class GameOverScreen extends Scene{
         // Add CSS class to style UI elements if needed
         this.ui.classList.add('authenticate');
 
-        // display game over screen
 
-        // black lang bg oki
-        // label/image saying "GAME OVER" in upheaval font
-        // use sans serif or other font for below elements
-        // -----------------------------
-        //| Your Score | Opponent Score |
-        //|     100    |       50       |
-        // -----------------------------
-        // button to NEXT MATCH for multiplayer
-        // button to return to MAIN MENU
-
-        // create the buttons lang miskin di functional
-        // ako lang bahala sa logic and for condition kung ano ang gameMode
+        this.updateDatabase(yourScore, winStatus)
 
     }
 
@@ -94,4 +83,19 @@ export class GameOverScreen extends Scene{
         return btn;
     }
 
+    private updateDatabase(score:number, winStatus: number) {
+        let userRef = ref(getDatabase(), 'users/' + state.playerName.toLowerCase());
+        onValue(userRef, (snapshot) => {
+            const data = snapshot.val();
+            const updatedUserData = {
+                gamesPlayed: data.gamesPlayed ? data.gamesPlayed + 1 : 1,
+                gamesWon: data.gamesWon ?  data.gamesWon + (winStatus === 1 ? 1 : 0) : winStatus ,
+                highestScore: Math.max(data.highestScore, score),
+            };
+            set(userRef, updatedUserData);
+
+        }, {onlyOnce: true});
+
+
+    }
 }

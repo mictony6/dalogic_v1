@@ -3,7 +3,6 @@ import {SceneManager} from "@/ui/scene-manager";
 import type {Engine} from "excalibur";
 import {GameStateMachine} from "@/components/game-state-machine";
 import type {Player} from "@/actors/player/player";
-import type {AiPlayer} from "@/actors/ai/ai-player";
 import type {Socket} from "socket.io-client";
 
 
@@ -30,6 +29,7 @@ export class Store {
   practiceLevel: number = 0;
   isPaused: boolean =  false;
   private static _instance: Store;
+  playerName: string = "";
 
   constructor(engine : Engine){
 
