@@ -1,7 +1,8 @@
 import {Actor, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Resources} from "@/resources";
-import axios from "axios";
-import {sceneManager} from "@/store/store";
+import {sceneManager, state} from "@/store/store";
+import {getDatabase, ref, set} from "firebase/database";
+import {addUser} from "@/store/gameDatabase";
 
 
 export class Authenticate extends Scene {
@@ -21,14 +22,14 @@ export class Authenticate extends Scene {
   }
 
   onEnterClick() {
-    const playerName = this.playerNameInput.value;
+    const userID = this.playerNameInput.value;
 
-    axios.post('http://127.0.0.1:3000/auth', {
-      playerName:playerName
-    }).then(r  =>{}).catch(e => console.log(e))
+    addUser(userID);
+    state.playerName = userID;
+
     // Handle entering the game with the provided player name
     // For example, you can transition to the next scene here
-    sceneManager.push("mainMenu")
+    sceneManager.push("mainMenu");
   }
 
   onActivate(context: SceneActivationContext<unknown>) {

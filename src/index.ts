@@ -11,7 +11,8 @@ import {StoryLevelSelection2} from "@/scenes/story-level-selection/story-level-s
 import {GameOverScreen} from "@/scenes/game-over/game-over-screen";
 import {Multiplayer} from "@/scenes/multiplayer/multiplayer";
 import {SplashLoader} from "@/loaders/splash-loader";
-import {AudioType, GameAudio} from "@/audio/GameAudio";
+import "@/store/gameDatabase";
+import {getDatabase, ref, onValue} from "firebase/database";
 
 // import {DevTool} from "@excaliburjs/dev-tools";
 
@@ -27,6 +28,12 @@ class Game extends Engine {
   public start() {
 
     initStore(this);
+    const db = getDatabase();
+    const usersRef = ref(db, 'users');
+    onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+    });
 
 
     game.add('mainMenu', new MainMenu());

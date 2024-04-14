@@ -1,7 +1,7 @@
 import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Resources} from "@/resources";
-import axios from "axios";
 import {UiManager} from "@/ui/ui-manager";
+import {state} from "@/store/store";
 
 
 export class MainMenu extends Scene {
@@ -12,7 +12,6 @@ export class MainMenu extends Scene {
   sceneNames:string[] = ['levelSelection', 'story0', 'multiplayer', 'options'];
   private backgroundImage : Actor;
   private logoPlaceholder: HTMLHeadingElement;
-  private playerName : string;
 
   onInitialize(engine:Engine) {
     this.backgroundColor = Color.Black
@@ -31,15 +30,7 @@ export class MainMenu extends Scene {
 
     this.ui.classList.add('MainMenu')
     let playerLabel = document.createElement("h3");
-
-
-    axios.get("http://127.0.0.1:3000/auth/player-name").then(res => {
-      return res.data.playerName
-    }).then((playerName) => {
-      console.log(playerName)
-      this.playerName = playerName
-
-    }).catch(e =>  console.log(e))
+    playerLabel.innerHTML = `Hello, ${state.playerName}!`;
 
     this.logoPlaceholder = document.createElement('h1');
     this.logoPlaceholder.textContent = 'DALOGIC';
@@ -58,11 +49,6 @@ export class MainMenu extends Scene {
     this.ui.innerHTML = ''
   }
 
-
-  onPostUpdate(engine: Engine, delta: number) {
-    let playerLabel = document.createElement("h3");
-    playerLabel.innerHTML = `Hello, ${this.playerName}!`;
-  }
 
 
 }
