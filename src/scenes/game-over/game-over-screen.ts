@@ -88,8 +88,8 @@ export class GameOverScreen extends Scene{
         onValue(userRef, (snapshot) => {
             const data = snapshot.val();
             const updatedUserData = {
-                gamesPlayed: data.gamesPlayed + 1,
-                gamesWon: data.gamesWon + (winStatus === 1 ? 1 : 0),
+                gamesPlayed: data.gamesPlayed ? data.gamesPlayed + 1 : 1,
+                gamesWon: data.gamesWon ?  data.gamesWon + (winStatus === 1 ? 1 : 0) : winStatus ,
                 highestScore: Math.max(data.highestScore, score),
             };
             set(userRef, updatedUserData);
