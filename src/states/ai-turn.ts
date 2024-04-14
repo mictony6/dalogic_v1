@@ -6,6 +6,8 @@ import type {AiPlayer} from "@/actors/ai/ai-player";
 import type Move from "@/components/move";
 import {PlayerMoving} from "@/states/player-moving";
 import {millisecondsToMinutesSeconds} from "@/components/helpers";
+import {GameOver} from "@/states/game-over";
+import {SwitchingTurn} from "@/states/switching-turn";
 
 
 export class AiTurn extends GameState{
@@ -25,7 +27,7 @@ export class AiTurn extends GameState{
 
     const board : Board = state.boardManager.currentBoard;
     // generate move here from AI
-    const aiPlayer :  AiPlayer  = state.opponent as AiPlayer;
+    const aiPlayer :  AiPlayer  = board.currentPlayer as AiPlayer;
     engine.add(aiPlayer.timer);
     aiPlayer.timer.start()
 
@@ -36,11 +38,10 @@ export class AiTurn extends GameState{
         resolve(aiPlayer.getBestMove());
       }, 1000);
     }).then((move: Move) => {
-      // if (board.isGameOver){
-      //   this.nextState = GameOver.stateName;
-      // }else {
-      //   this.nextState = SwitchingTurn.stateName;
-      // }
+      if (board.isGameOver){
+        this.nextState = GameOver.stateName;
+        return;
+      }
 
       board.selectedMove = move;
       board.selectedSrcCell = move.srcPos;
@@ -61,7 +62,8 @@ export class AiTurn extends GameState{
 
   onExit(engine:Engine) {
     console.log("End of AI turn");
-    const aiPlayer:  AiPlayer  = state.opponent as AiPlayer;
+    const board : Board = state.boardManager.currentBoard;
+    const aiPlayer:  AiPlayer  = board.currentPlayer as AiPlayer;
     engine.remove(aiPlayer.timer);
     aiPlayer.timer.pause()
   }
