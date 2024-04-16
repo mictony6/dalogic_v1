@@ -1,8 +1,8 @@
 import {Actor, type Engine, Scene, type SceneActivationContext, vec} from "excalibur";
 import {Resources} from "@/resources";
 import {sceneManager, state} from "@/store/store";
-import {getDatabase, ref, set} from "firebase/database";
 import {addUser} from "@/store/gameDatabase";
+import { v4 as uuidv4 } from 'uuid';
 
 
 export class Authenticate extends Scene {
@@ -22,7 +22,10 @@ export class Authenticate extends Scene {
   }
 
   onEnterClick() {
-    const userID = this.playerNameInput.value;
+    let userID = this.playerNameInput.value;
+    if (userID.length === 0) {
+      userID = 'Anonymous_'+uuidv4().split('-')[0];
+    }
 
     addUser(userID);
     state.playerName = userID;

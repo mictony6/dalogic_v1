@@ -30,7 +30,7 @@ export class MainMenu extends Scene {
 
     this.ui.classList.add('MainMenu')
     let playerLabel = document.createElement("h3");
-    playerLabel.innerHTML = `Hello, ${state.playerName}!`;
+    playerLabel.innerHTML = `Hello, ${state.playerName.length > 0 ? state.playerName : "Anonymous"}!`;
 
     this.logoPlaceholder = document.createElement('h1');
     this.logoPlaceholder.textContent = 'DALOGIC';

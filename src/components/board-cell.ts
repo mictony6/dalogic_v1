@@ -41,7 +41,7 @@ export default class BoardCell extends Actor{
     // display operation name on the tile
     const operationLabel = new Label({
       text: operationName,
-      font: new Font({size: 20, color: Color.Black, textAlign: TextAlign.Center, baseAlign: BaseAlign.Middle}),
+      font: new Font({family:'Consolas',size: 20, color: Color.Black, textAlign: TextAlign.Center, baseAlign: BaseAlign.Middle}),
       color: Color.Black,
     })
 

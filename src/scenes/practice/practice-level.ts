@@ -102,6 +102,7 @@ export class PracticeLevel extends Scene {
     // these labels update thru the power of event listener hehe
     UiManager.displayScoreLabels();
     UiManager.displayTimer();
+    UiManager.createNameLabels();
 
     const stateMachine : GameStateMachine = state.stateMachine;
     stateMachine.changeState(SwitchingTurn.stateName, this.engine);

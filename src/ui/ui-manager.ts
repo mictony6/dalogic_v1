@@ -15,7 +15,7 @@ export class UiManager {
         family:'Upheaval',
         bold: true,
         textAlign: TextAlign.Center,
-        size: 40,
+        size: 30,
         color: Color.Red
       }),
     });
@@ -43,7 +43,7 @@ export class UiManager {
         bold: true,
         textAlign: TextAlign.Center,
         size: 40,
-        color: Color.Blue
+        color: Color.Viridian
       })
     });
   }
@@ -79,6 +79,40 @@ export class UiManager {
     })
   }
 
+  static createPlayerNameLabel(name:string){
+    return new Label({
+      text: name,
+      font: new Font({
+        family: 'Upheaval',
+        bold: true,
+        textAlign: TextAlign.Center,
+        size: 40,
+        color: Color.Black
+      })
+    });
+  }
+
+  static createNameLabels(){
+    const board = state.boardManager.currentBoard
+    // place score labels
+    const isAnonymous = state.playerName.slice(0,10) ===  "Anonymous";
+    const p1Label = UiManager.createPlayerNameLabel(isAnonymous ? state.playerName : "You");
+    p1Label.z = 1;
+    board.addChild(p1Label);
+
+    const p2Label  = UiManager.createPlayerNameLabel("Opponent");
+    p2Label.z = 1;
+
+    board.addChild(p2Label);
+
+    p2Label.pos.x = 445;
+    p2Label.pos.y = -110;
+    p2Label.rotation = -0.1;
+
+    p1Label.pos.x = 490;
+    p1Label.pos.y = 150;
+    p1Label.rotation = 0.2;
+  }
   static createLevelButton(text:string) {
     const btn = document.createElement('button')
     btn.innerText = text
