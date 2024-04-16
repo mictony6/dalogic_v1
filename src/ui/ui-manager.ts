@@ -95,8 +95,7 @@ export class UiManager {
   static createNameLabels(){
     const board = state.boardManager.currentBoard
     // place score labels
-    const isAnonymous = state.playerName.slice(0,8) ===  "Anonymous";
-    console.log(state.playerName.slice(0,10))
+    const isAnonymous = state.playerName.slice(0,9) ===  "anonymous";
     const p1Label = UiManager.createPlayerNameLabel(isAnonymous ? "You" : state.playerName );
     p1Label.z = 1;
     board.addChild(p1Label);

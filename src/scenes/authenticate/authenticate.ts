@@ -24,7 +24,7 @@ export class Authenticate extends Scene {
   onEnterClick() {
     let userID = this.playerNameInput.value;
     if (userID.length === 0) {
-      userID = 'Anonymous_'+uuidv4().split('-')[0];
+      userID = 'anonymous_'+uuidv4().split('-')[0];
     }
 
     addUser(userID);
