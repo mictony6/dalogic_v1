@@ -38,15 +38,16 @@ export class AiTurn extends GameState{
         resolve(aiPlayer.getBestMove());
       }, 1000);
     }).then((move: Move) => {
-      if (board.isGameOver){
+      if (board.isOver()){
         this.nextState = GameOver.stateName;
         return;
+      }else {
+        board.selectedMove = move;
+        board.selectedSrcCell = move.srcPos;
+        board.selectedDestCell = move.destPos;
+        this.nextState = PlayerMoving.stateName;
       }
 
-      board.selectedMove = move;
-      board.selectedSrcCell = move.srcPos;
-      board.selectedDestCell = move.destPos;
-      this.nextState = PlayerMoving.stateName;
     })
 
     // aiPlayer.takeTurn();

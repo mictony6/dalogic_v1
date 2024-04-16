@@ -56,7 +56,7 @@ export class UiManager {
     board.addChild(p1Label);
 
 
-    addEventListener("score1", (e : CustomEvent) =>{
+    addEventListener("score2", (e : CustomEvent) =>{
       p1Label.text = e.detail;
     })
 
@@ -74,7 +74,7 @@ export class UiManager {
     p2Label.rotation = 0.2;
 
 
-    addEventListener("score2", (e : CustomEvent) =>{
+    addEventListener("score1", (e : CustomEvent) =>{
       p2Label.text = e.detail;
     })
   }
