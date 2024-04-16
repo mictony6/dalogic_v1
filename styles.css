@@ -81,7 +81,7 @@ html{
 }
 
 /* These are scene-based UI styles */
-#ui.MainMenu {
+#ui.MainMenu{
     position: absolute;
     top: 10%;
     bottom: 20%;
@@ -333,3 +333,32 @@ dialog::backdrop{
     text-align: center;
 }
 
+#ui.Leaderboard{
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    right: 10%;
+    left: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Upheaval', serif;
+    font-size: 2rem;
+}
+
+
+.leaderboard-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.leaderboard-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Arcade, serif;
+
+
+}

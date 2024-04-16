@@ -50,6 +50,14 @@ export class GameOverScreen extends Scene{
         }
         this.ui.appendChild(returnButton);
 
+
+        const leaderBoardButton = document.createElement('button');
+        leaderBoardButton.textContent = 'VIEW LEADERBOARD';
+        leaderBoardButton.onclick = () => {
+            sceneManager.push("leaderboard");
+        }
+        this.ui.appendChild(leaderBoardButton);
+
         // Add CSS class to style UI elements if needed
         this.ui.classList.add('authenticate');
 

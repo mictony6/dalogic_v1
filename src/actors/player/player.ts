@@ -8,7 +8,7 @@ export class Player  {
   public playerID:string= "0"
   score: number = 0;
   timer: Timer = new Timer({
-    interval: 10000, // 10 minutes
+    interval: 300000, // 10 minutes
     fcn: () => {
       console.log("Time's up")
       // end the game

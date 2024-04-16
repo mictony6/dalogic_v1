@@ -10,6 +10,7 @@ import {Multiplayer} from "@/scenes/multiplayer/multiplayer";
 import {SplashLoader} from "@/loaders/splash-loader";
 import "@/store/gameDatabase";
 import {getDatabase, ref, onValue} from "firebase/database";
+import {Leaderboard} from "@/scenes/leaderboard/leaderboard";
 
 // import {DevTool} from "@excaliburjs/dev-tools";
 
@@ -39,6 +40,7 @@ class Game extends Engine {
     game.add('authenticate', new Authenticate());
     game.add('gameOverScreen', new GameOverScreen());
     game.add('multiplayer', new Multiplayer());
+    game.add('leaderboard', new Leaderboard());
 
 
     // Automatically load all default resources
