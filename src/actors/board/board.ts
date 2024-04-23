@@ -263,6 +263,36 @@ export class Board extends Actor {
     return moves;
   }
 
+  getValidCaptureMoves(piece: Piece) {
+    let moves: CaptureMove[] = [];
+    const forward = piece.forward;
+    const srcPos = this.getBoardCellOf(piece);
+
+    const forwardLeft = this.getBoardCellAt(piece.row + forward, piece.col - 1);
+    const forwardRight = this.getBoardCellAt(piece.row + forward, piece.col + 1);
+
+    if (forwardLeft) {
+      if (forwardLeft.piece && forwardLeft.piece.owner !== piece.owner){
+        const forwardLeftJump = this.getBoardCellAt(piece.row + forward * 2, piece.col - 2);
+        if (forwardLeftJump && !forwardLeftJump.piece){
+          moves.push(new CaptureMove(srcPos, forwardLeftJump, forwardLeft));
+        }
+      }
+    }
+
+    if (forwardRight){
+      if (forwardRight.piece && forwardRight.piece.owner !== piece.owner){
+        const forwardRightJump = this.getBoardCellAt(piece.row + forward * 2, piece.col + 2);
+        if (forwardRightJump && !forwardRightJump.piece){
+          moves.push(new CaptureMove(srcPos, forwardRightJump, forwardRight));
+        }
+      }
+    }
+
+
+    return moves;
+  }
+
 
   removePieceFromBoard(o : Piece | BoardCell){
     let cell : BoardCell;
@@ -328,6 +358,7 @@ export class Board extends Actor {
       this.getAllValidMoves(state.opponent).length === 0
     );
   }
+
 
 
 }

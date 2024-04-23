@@ -3,7 +3,7 @@ import type {Board} from "@/actors/board/board";
 import { state} from "@/store/store";
 import type {CaptureMove} from "@/components/capture-move";
 import {type Engine, Vector} from "excalibur";
-import {SwitchingTurn} from "@/states/switching-turn";
+import {CheckDoubleCapture} from "@/states/check-double-capture";
 
 export class Capture extends GameState{
   static stateName = "capture";
@@ -89,11 +89,11 @@ export class Capture extends GameState{
       movingPiece.vel = Vector.Zero;
       movingPiece.pos = Vector.Zero;
       board.resetSelections();
-      this.nextState =  SwitchingTurn.stateName;
+      this.nextState =  CheckDoubleCapture.stateName;
     }else{
         movingPiece.z = 9;
       // move the piece towards the destination tile
-      movingPiece.pos = movingPiece.pos.add(destPos.sub(piecePos).normalize().scale(300 * delta/1000));
+      movingPiece.vel = movingPiece.pos.add(destPos.sub(piecePos).normalize().scale(300 ));
 
     }
   }

@@ -6,6 +6,7 @@ import {SwitchingTurn} from "@/states/switching-turn";
 import {GameOver} from "@/states/game-over";
 import {Capture} from "@/states/capture";
 import type {Engine} from "excalibur";
+import {CheckDoubleCapture} from "@/states/check-double-capture";
 
 
 export class GameStateMachine {
@@ -21,7 +22,7 @@ export class GameStateMachine {
     this.addState(new SwitchingTurn());
     this.addState(new GameOver());
     this.addState(new Capture());
-
+    this.addState(new CheckDoubleCapture());
     addEventListener("switchstate", (e:CustomEvent) => {
       this.currentState.nextState = e.detail;
     })

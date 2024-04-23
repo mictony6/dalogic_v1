@@ -61,7 +61,6 @@ export class PlayerTurn extends GameState{
       // create a move object
       board.selectedMove = board.getEquivalentMove(board.selectedSrcCell, board.selectedDestCell)
       if(board.selectedMove){
-        dispatchEvent(new CustomEvent("playerMove", {detail:board.selectedMove}));
         this.nextState = PlayerMoving.stateName;
       }else {
         console.log("Invalid move");

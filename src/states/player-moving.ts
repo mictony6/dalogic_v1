@@ -17,7 +17,9 @@ export class PlayerMoving extends GameState{
 
 
   onEnter() {
-    console.log("Your are moving a piece");
+    const board : Board = state.boardManager.currentBoard;
+    dispatchEvent(new CustomEvent("playerMove", {detail:board.selectedMove}));
+
 
   }
 
@@ -54,7 +56,7 @@ export class PlayerMoving extends GameState{
     }else{
 
       // move the piece towards the destination tile
-      movingPiece.pos = movingPiece.pos.add(destPos.sub(piecePos).normalize().scale(300 * delta/1000));
+      movingPiece.vel = movingPiece.pos.add(destPos.sub(piecePos).normalize().scale(300 ));
 
     }
   }

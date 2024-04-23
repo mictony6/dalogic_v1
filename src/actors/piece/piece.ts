@@ -72,7 +72,7 @@ export class Piece extends Actor{
     }else{
       this.value = this._value;
     }
-    this.valueLabel.z = 2;
+    this.valueLabel.z = 9;
     
 
     // create the selected graphics with a white outline
