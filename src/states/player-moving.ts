@@ -15,14 +15,6 @@ export class PlayerMoving extends GameState{
     this.stateName = PlayerMoving.stateName;
   }
 
-
-  onEnter() {
-    const board : Board = state.boardManager.currentBoard;
-    dispatchEvent(new CustomEvent("playerMove", {detail:board.selectedMove}));
-
-
-  }
-
   onUpdate(engine:Engine, delta:number) {
     const board : Board = state.boardManager.currentBoard;
     if (!board.selectedMove){
