@@ -2,6 +2,7 @@ import type {Engine} from "excalibur";
 
 
 export abstract class GameState {
+  active : boolean = false
   static stateName:string = "default";
   stateName:string = "default";
   nextState:string;

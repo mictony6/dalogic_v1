@@ -4,7 +4,8 @@ import {Resources} from "@/resources";
 export enum AudioType{
   SELECT,
   SCORE,
-  BG
+  BG,
+  MOVE
 }
 export class GameAudio{
 
@@ -12,6 +13,7 @@ export class GameAudio{
 
   private selectSounds : Sound[] = [Resources.Select1, Resources.Select2];
   private scoreSounds : Sound[] = [Resources.Score1, Resources.Score2, Resources.Score3];
+  private moveSounds : Sound[] = [Resources.Move1, Resources.Move2]
   private bgMusic : Sound = Resources.BGMusic
 
   constructor() {
@@ -34,7 +36,10 @@ export class GameAudio{
         break;
       case AudioType.BG:
         audio = this.bgMusic;
-        break
+        break;
+      case AudioType.MOVE:
+        audio = this.moveSounds[Math.floor(Math.random()*this.moveSounds.length)];
+        break;
 
 
     }

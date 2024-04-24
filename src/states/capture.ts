@@ -1,9 +1,10 @@
 import {GameState} from "@/components/game-state";
 import type {Board} from "@/actors/board/board";
-import { state} from "@/store/store";
+import {state} from "@/store/store";
 import type {CaptureMove} from "@/components/capture-move";
 import {type Engine, Vector} from "excalibur";
 import {CheckDoubleCapture} from "@/states/check-double-capture";
+import {AudioType, GameAudio} from "@/audio/GameAudio";
 
 export class Capture extends GameState{
   static stateName = "capture";
@@ -22,6 +23,7 @@ export class Capture extends GameState{
       this.answeredCorrect = (parseInt(e.detail, 2) === captureMove.points);
       this.modalClosed = true;
      })
+
   }
 
 
@@ -82,7 +84,10 @@ export class Capture extends GameState{
       // if the piece is close enough to the destination tile, move it there
       if (destTile.children.length > 0){
         throw new Error("Tile already has a piece");
-      } else {    
+      } else {
+        if (this.answeredCorrect){
+          new GameAudio().play(AudioType.SCORE);
+        }
         board.selectedMove.commit(this.answeredCorrect);
       }
       movingPiece.z = 1;

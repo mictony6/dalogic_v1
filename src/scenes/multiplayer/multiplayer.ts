@@ -152,6 +152,7 @@ export class Multiplayer extends Scene{
 
         UiManager.displayScoreLabels();
         UiManager.displayTimer();
+        UiManager.createNameLabels();
     }
     
     

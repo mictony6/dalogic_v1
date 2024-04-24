@@ -40,9 +40,11 @@ export class GameStateMachine {
         this.currentState.nextState = null;
         this.currentState.onExit(engine);
         this.previousState = this.currentState;
+        this.previousState.active = false;
       }
 
       this.currentState = this.states.get(name);
+      this.currentState.active = true;
       this.currentState.onEnter(engine);
     }
   }

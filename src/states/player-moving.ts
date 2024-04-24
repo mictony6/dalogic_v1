@@ -6,6 +6,7 @@ import {CaptureMove} from "@/components/capture-move";
 import {Capture} from "@/states/capture";
 import {SwitchingTurn} from "@/states/switching-turn";
 import {AiPlayer} from "@/actors/ai/ai-player";
+import {AudioType, GameAudio} from "@/audio/GameAudio";
 
 export class PlayerMoving extends GameState{
   static stateName = "playerMoving";
@@ -36,6 +37,11 @@ export class PlayerMoving extends GameState{
       if (destTile.children.length > 0){
         throw new Error("Tile already has a piece");
       } else {
+        if (board.currentPlayer instanceof AiPlayer && board.selectedMove instanceof CaptureMove){
+          new GameAudio().play(AudioType.SCORE);
+        }else {
+          new GameAudio().play(AudioType.MOVE);
+        }
         board.selectedMove.commit()
       }
 

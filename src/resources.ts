@@ -16,6 +16,8 @@ import score1 from './audio/score1.wav';
 import score2 from './audio/score2.wav';
 import score3 from './audio/score3.wav';
 import bgMusic from './audio/bg.wav';
+import move1 from './audio/move1.wav';
+import move2 from './audio/move2.wav';
 
 
 /**
@@ -39,7 +41,9 @@ const Resources = {
     Score1: new Sound(score1),
     Score2: new Sound(score2),
     Score3: new Sound(score3),
-    BGMusic: new Sound(bgMusic)
+    BGMusic: new Sound(bgMusic),
+    Move1: new Sound(move1),
+    Move2: new Sound(move2),
 
 }
 
