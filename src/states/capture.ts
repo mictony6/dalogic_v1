@@ -21,6 +21,11 @@ export class Capture extends GameState{
 
       console.log(e.detail, captureMove.points.toString(2));
       this.answeredCorrect = (parseInt(e.detail, 2) === captureMove.points);
+      if (this.answeredCorrect){
+        new GameAudio().play(AudioType.SCORE);
+      } else {
+        new GameAudio().play(AudioType.ERROR);
+      }
       this.modalClosed = true;
      })
 
@@ -85,9 +90,6 @@ export class Capture extends GameState{
       if (destTile.children.length > 0){
         throw new Error("Tile already has a piece");
       } else {
-        if (this.answeredCorrect){
-          new GameAudio().play(AudioType.SCORE);
-        }
         board.selectedMove.commit(this.answeredCorrect);
       }
       movingPiece.z = 1;

@@ -15,6 +15,8 @@ export class Multiplayer extends Scene{
     board: Board;
     private backgroundImage : Actor;
     private ui = document.getElementById('ui');
+    private pauseMenu: HTMLDialogElement;
+    
 
     onInitialize(engine: Engine) {
         // Background
@@ -120,9 +122,48 @@ export class Multiplayer extends Scene{
         }
 
         
+    this.pauseMenu = document.createElement('dialog');
+    this.pauseMenu.id = "pauseMenu";
+    this.pauseMenu.className = "dialog";
+    this.pauseMenu.innerHTML = `
+    <h2 class="dialog-title">Navigation</h2> 
+    <div class="dialog-content">
+      <button type="button" id="exitButton">Exit to Main Menu</button>
+      <button type="submit" class="close">Close</button>
+    </div>`;
+
+    
+
+    this.ui.appendChild(this.pauseMenu);
+
+    addEventListener("keydown", this.onPause);
+
+    const exitButton = document.getElementById("exitButton");
+    const closeButton = this.pauseMenu.getElementsByClassName("close")[0] as HTMLButtonElement;
+    exitButton.onclick = this.onExitButtonClick.bind(this);
+    closeButton.onclick = () => this.pauseMenu.close();
+
+
+        
     }
 
+    onPause(e:KeyboardEvent){
+        // NOTE: T.T i fucking hate this, i thot i was doing something wrong
+        // i realized pressing a key triggers the default button behaviour
+        // lesson learned, always call preventDefault method when overriding button behaviour
+        if (e.code == "Escape"){
+          e.preventDefault();
+          this.pauseMenu.showModal();
+        }
+      }
+    
+      onExitButtonClick() {
+        this.pauseMenu.close()
+        sceneManager.push("mainMenu");
+      }
+
     onDeactivate(_context: SceneActivationContext): void {
+        removeEventListener("keydown", this.onPause);
         this.ui.classList.remove('Multiplayer')
         this.ui.innerHTML = ""
         this.socket.disconnect();
