@@ -40,7 +40,7 @@ export class Capture extends GameState{
         } else {
           Swal.fire({
             title: 'Opponent Correct!',
-            icon: 'success',
+            icon: "info",
             toast: true,
             timer: 2000,
             customClass:{
@@ -64,8 +64,8 @@ export class Capture extends GameState{
           })
         } else {
           Swal.fire({
-            title: 'Ooops!',
-            icon: 'error',
+            title: 'Nice! Opponent Wrong.',
+            icon: 'info',
             confirmButtonText: `+${captureMove.points} points to you!`,
             toast: true,
             timer: 2000,
