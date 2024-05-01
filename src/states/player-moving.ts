@@ -32,7 +32,8 @@ export class PlayerMoving extends GameState{
 
     const destPos : Vector = destTile.getGlobalPos();
     const piecePos : Vector = movingPiece.getGlobalPos();
-    if (piecePos.squareDistance(destPos) <= 50){
+    const sqrDist = piecePos.squareDistance(destPos); 
+    if (sqrDist <= 50){
       // if the piece is close enough to the destination tile, move it there
       if (destTile.children.length > 0){
         throw new Error("Tile already has a piece");
@@ -54,7 +55,7 @@ export class PlayerMoving extends GameState{
     }else{
 
       // move the piece towards the destination tile
-      movingPiece.vel = movingPiece.pos.add(destPos.sub(piecePos).normalize().scale(300 ));
+      movingPiece.vel = destPos.sub(piecePos).normalize().scale(300);
 
     }
   }

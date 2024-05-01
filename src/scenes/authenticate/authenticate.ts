@@ -3,6 +3,7 @@ import {Resources} from "@/resources";
 import {sceneManager, state} from "@/store/store";
 import {addUser} from "@/store/gameDatabase";
 import { v4 as uuidv4 } from 'uuid';
+import { AudioType, GameAudio } from "@/audio/GameAudio";
 
 
 export class Authenticate extends Scene {
@@ -36,6 +37,7 @@ export class Authenticate extends Scene {
   }
 
   onActivate(context: SceneActivationContext<unknown>) {
+    new GameAudio().play(AudioType.TRANSITION);
     this.logoPlaceholder = document.createElement('h1');
     this.logoPlaceholder.textContent = 'DALOGIC';
     this.ui.appendChild(this.logoPlaceholder);

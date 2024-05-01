@@ -1,3 +1,4 @@
+import { AudioType, GameAudio } from "@/audio/GameAudio";
 import type {Engine} from "excalibur";
 
 export class SceneManager{
@@ -18,6 +19,7 @@ export class SceneManager{
     // push previous scene name here
     this.stack.push(sceneName);
     this.engine.goToScene(sceneName, data);
+
   }
 
   pop(){

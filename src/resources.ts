@@ -20,6 +20,7 @@ import bgMusic from './audio/bg.wav';
 import move1 from './audio/move1.wav';
 import move2 from './audio/move2.wav';
 import errorAudio from './audio/error.mp3';
+import transitionAudio from './audio/transition.wav';
 
 
 /**
@@ -48,6 +49,7 @@ const Resources = {
     Move1: new Sound(move1),
     Move2: new Sound(move2),
     ErrorAudio: new Sound(errorAudio),
+    Transition : new Sound(transitionAudio),
 
 }
 

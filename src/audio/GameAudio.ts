@@ -6,7 +6,8 @@ export enum AudioType{
   SCORE,
   BG,
   MOVE,
-  ERROR
+  ERROR,
+  TRANSITION
 }
 export class GameAudio{
 
@@ -27,7 +28,7 @@ export class GameAudio{
 
   }
 
-  public async play(type: AudioType, volume : number = 0.6, loop : boolean = false){
+  public async play(type: AudioType, volume : number = 0.4, loop : boolean = false){
     let audio:Sound;
     switch (type){
       case AudioType.SELECT:
@@ -44,6 +45,9 @@ export class GameAudio{
         break;
       case AudioType.ERROR:
         audio = Resources.ErrorAudio;
+        break;
+      case AudioType.TRANSITION:
+        audio = Resources.Transition;
         break;
 
 

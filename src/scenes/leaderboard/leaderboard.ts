@@ -1,3 +1,4 @@
+import { AudioType, GameAudio } from "@/audio/GameAudio";
 import { sceneManager } from "@/store/store";
 import {Actor, Color, type Engine, Scene, type SceneActivationContext} from "excalibur";
 import {getDatabase, ref, orderByChild, limitToLast, query, onValue} from "firebase/database";
@@ -11,6 +12,7 @@ export class Leaderboard extends Scene{
   }
 
   onActivate(context: SceneActivationContext<unknown>) {
+
     this.ui.classList.add('Leaderboard')
     const leaderboardContainer = document.createElement('div');
     leaderboardContainer.classList.add('leaderboard-container');
