@@ -2,7 +2,6 @@ import { Actor, Color, type Engine, Scene, type SceneActivationContext, vec} fro
 import {Resources} from "@/resources";
 import {UiManager} from "@/ui/ui-manager";
 import {state} from "@/store/store";
-import { GameAudio, AudioType } from "@/audio/GameAudio";
 
 
 export class MainMenu extends Scene {
@@ -28,7 +27,6 @@ export class MainMenu extends Scene {
 
 
   onActivate(context: SceneActivationContext<unknown>) {
-    new GameAudio().play(AudioType.TRANSITION);
 
     this.ui.classList.add('MainMenu')
     let playerLabel = document.createElement("h3");

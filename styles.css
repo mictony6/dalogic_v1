@@ -363,3 +363,24 @@ dialog::backdrop{
 
 
 }
+
+
+a{
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover{
+    color: black;
+    text-decoration: underline;
+
+}
+
+.transition {
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}
+
+.transition.show {
+    opacity: 1;
+}

@@ -1,5 +1,5 @@
 import '../styles.css';
-import {DisplayMode, Engine} from "excalibur";
+import {Color, DisplayMode, Engine} from "excalibur";
 import {initStore, sceneManager} from "@/store/store";
 import {MainMenu} from "@/scenes/main-menu/main-menu";
 import {LevelSelection} from "@/scenes/level-selection/level-selection";
@@ -24,6 +24,8 @@ class Game extends Engine {
   }
 
   public start() {
+
+    this.backgroundColor = Color.Black;
 
     initStore(this);
     const db = getDatabase();
