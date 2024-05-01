@@ -33,7 +33,9 @@ export class Capture extends GameState{
             title: 'alert-title',
             confirmButton: 'alert-button'
           }
-        });
+        }).then(() => {
+          this.modalClosed = true;
+        })
       } else {
         new GameAudio().play(AudioType.ERROR);
         Swal.fire({
@@ -44,9 +46,10 @@ export class Capture extends GameState{
             title: 'alert-title-error',
             confirmButton: 'alert-button-error'
           }
-        });
+        }).then(() => {
+          this.modalClosed = true;
+        })
       }
-      this.modalClosed = true;
      })
 
   }
