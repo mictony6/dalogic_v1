@@ -5,6 +5,7 @@ import type {CaptureMove} from "@/components/capture-move";
 import {type Engine, Vector} from "excalibur";
 import {CheckDoubleCapture} from "@/states/check-double-capture";
 import {AudioType, GameAudio} from "@/audio/GameAudio";
+import { SwitchingTurn } from "./switching-turn";
 
 export class Capture extends GameState{
   static stateName = "capture";
@@ -96,7 +97,11 @@ export class Capture extends GameState{
       movingPiece.vel = Vector.Zero;
       movingPiece.pos = Vector.Zero;
       board.resetSelections();
-      this.nextState =  CheckDoubleCapture.stateName;
+      if (board.selectedMove.destPos.tile.row > 0 &&  board.selectedMove.destPos.tile.row < 7){
+        this.nextState = CheckDoubleCapture.stateName;
+      } else{
+        this.nextState = SwitchingTurn.stateName; 
+      }
     }else{
         movingPiece.z = 9;
       // move the piece towards the destination tile

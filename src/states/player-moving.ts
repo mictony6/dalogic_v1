@@ -7,6 +7,7 @@ import {Capture} from "@/states/capture";
 import {SwitchingTurn} from "@/states/switching-turn";
 import {AiPlayer} from "@/actors/ai/ai-player";
 import {AudioType, GameAudio} from "@/audio/GameAudio";
+import { CheckDoubleCapture } from "./check-double-capture";
 
 export class PlayerMoving extends GameState{
   static stateName = "playerMoving";
@@ -51,11 +52,13 @@ export class PlayerMoving extends GameState{
       movingPiece.pos = Vector.Zero;
       // reset the board's selections
       board.resetSelections();
+
       this.nextState =  SwitchingTurn.stateName;
     }else{
 
       // move the piece towards the destination tile
       movingPiece.vel = destPos.sub(piecePos).normalize().scale(300);
+
 
     }
   }

@@ -2,10 +2,13 @@ import {Entity} from "excalibur";
 import type BoardCell from "@/components/board-cell";
 import type {Board} from "@/actors/board/board";
 import {CaptureMove} from "@/components/capture-move";
+import { state } from "@/store/store";
+import type { Piece } from "@/actors/piece/piece";
 
 export default class Move extends Entity{
   srcPos: BoardCell;
   destPos:BoardCell;
+  private removedPiece: Piece;
 
   constructor(src:BoardCell, dest: BoardCell) {
     super();
@@ -26,6 +29,15 @@ export default class Move extends Entity{
   commit(){
     // transfer ownership
     this.srcPos.transferPieceTo(this.destPos);
+
+    const board = state.boardManager.currentBoard;
+    if (this.destPos.tile.row === 7 || this.destPos.tile.row === 0 ){
+      const pieceValue = Math.max(this.removedPiece.value * 2, 1);
+      board.currentPlayer.addScore(pieceValue);
+      this.removedPiece = this.destPos.piece
+      board.removePieceFromBoard(this.removedPiece);
+      
+    }
   }
 
 
@@ -39,7 +51,15 @@ export default class Move extends Entity{
   }
 
   revert() {
+    const board = state.boardManager.currentBoard;
+    if (this.destPos.tile.row === 7 || this.destPos.tile.row === 0 ){
+      const pieceValue = Math.max(this.removedPiece.value * 2, 1);
+      board.currentPlayer.addScore(-pieceValue);
+      board.addPieceToBoard(this.removedPiece)
+       
+    }
     this.destPos.transferPieceTo(this.srcPos);
+
   }
 
   static fromHash(hash:string, board:Board){

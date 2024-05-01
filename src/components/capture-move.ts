@@ -50,17 +50,17 @@ export class CaptureMove extends Move{
   }
 
   revert(answeredCorrect : boolean = true) {
-    // do something about the score
-
-
+    
     // revert the captured piece
+    super.revert()
+    // do something about the score
     const board : Board= state.boardManager.currentBoard;
     board.addPieceToBoard(this.capturedPiece);
     if (answeredCorrect){
-      this.destPos.piece.owner.addScore(-this.points);
+      this.srcPos.piece.owner.addScore(-this.points);
     } else{
       this.capturedPiece.owner.addScore(-this.points);
     }
-    super.revert()
+
   }
 }

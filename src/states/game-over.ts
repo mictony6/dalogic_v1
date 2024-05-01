@@ -13,6 +13,7 @@ export class GameOver extends GameState{
 
   onEnter(engine: Engine){
 
+    
     sceneManager.push("gameOverScreen",{gameMode: state.gameMode, yourScore: state.player.score, opponentScore:state.opponent.score} )
 
   }

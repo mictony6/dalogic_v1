@@ -5,6 +5,7 @@ import {state} from "@/store/store";
 import type {CaptureMove} from "@/components/capture-move";
 import {SwitchingTurn} from "@/states/switching-turn";
 import {PlayerTurn} from "@/states/player-turn";
+import { AiPlayer } from "@/actors/ai/ai-player";
 
 export class CheckDoubleCapture extends GameState{
   static stateName = "checkDoubleCapture";
@@ -35,11 +36,13 @@ export class CheckDoubleCapture extends GameState{
   }
 
   onUpdate(engine: Engine, delta: number) {
-
+ 
     if (this.captureMoves.length === 0){
       this.nextState = SwitchingTurn.stateName;
       return;
     }
+
+
     // else if (this.captureMoves.length === 1){
     //   board.selectedMove = this.captureMoves[0];
     //   this.nextState = PlayerMoving.stateName;
