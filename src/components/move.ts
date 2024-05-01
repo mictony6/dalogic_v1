@@ -32,7 +32,7 @@ export default class Move extends Entity{
 
     const board = state.boardManager.currentBoard;
     if (this.destPos.tile.row === 7 || this.destPos.tile.row === 0 ){
-      const pieceValue = Math.max(this.removedPiece.value * 2, 1);
+      const pieceValue = Math.max(this.destPos.piece.value * 2, 1);
       board.currentPlayer.addScore(pieceValue);
       this.removedPiece = this.destPos.piece
       board.removePieceFromBoard(this.removedPiece);
