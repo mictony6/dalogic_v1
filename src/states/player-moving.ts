@@ -47,6 +47,7 @@ export class PlayerMoving extends GameState{
         board.selectedMove.commit()
       }
 
+      movingPiece.z = 1;
       // reset the piece's velocity and position
       movingPiece.vel = Vector.Zero;
       movingPiece.pos = Vector.Zero;
@@ -56,6 +57,7 @@ export class PlayerMoving extends GameState{
       this.nextState =  SwitchingTurn.stateName;
     }else{
 
+      movingPiece.z = 9;
       // move the piece towards the destination tile
       movingPiece.vel = destPos.sub(piecePos).normalize().scale(300);
 
