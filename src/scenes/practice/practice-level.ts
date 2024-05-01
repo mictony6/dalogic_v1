@@ -73,6 +73,13 @@ export class PracticeLevel extends Scene {
     this.pauseMenu.onclose = () => state.isPaused = false;
 
 
+    if (state.player ){
+      state.player.kill();
+    }
+
+    if (state.opponent){
+      state.opponent.kill();
+    }
     //initialize players
     //im just using a random number generator here
     state.player = new Player(-1, "practice"+Math.random());
@@ -104,6 +111,7 @@ export class PracticeLevel extends Scene {
     UiManager.displayTimer();
     UiManager.createNameLabels();
 
+    state.isPaused = false;
     const stateMachine : GameStateMachine = state.stateMachine;
     stateMachine.changeState(SwitchingTurn.stateName, this.engine);
 

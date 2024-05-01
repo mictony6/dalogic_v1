@@ -38,7 +38,9 @@ export class PlayerTurn extends GameState{
   onUpdate(_engine:Engine, _delta:number) {
     const board : Board = state.boardManager.currentBoard;
 
+    console.log(state.isPaused);
     if (board.currentPlayer.timer.isRunning && state.isPaused){
+      
       board.currentPlayer.timer.pause();
       return;
     } else if (!board.currentPlayer.timer.isRunning && !state.isPaused) {
@@ -48,7 +50,7 @@ export class PlayerTurn extends GameState{
     const currentTimeLeft  = millisecondsToMinutesSeconds(board.currentPlayer.timer.timeToNextAction);
     // only update timeleft if it changed in whole numbers 
     if (this.lastTimeLeft !== currentTimeLeft){
-      this.timeLeft = currentTimeLeft;
+      this.timeLeft = currentTimeLeft;      
       dispatchEvent(new CustomEvent("turntimer-tick", {detail:this.timeLeft}));
     }
 

@@ -143,6 +143,7 @@ export class Multiplayer extends Scene{
     exitButton.onclick = this.onExitButtonClick.bind(this);
     closeButton.onclick = () => this.pauseMenu.close();
 
+    state.isPaused = false;
 
         
     }
