@@ -28,14 +28,7 @@ class Game extends Engine {
     this.backgroundColor = Color.Black;
 
     initStore(this);
-    const db = getDatabase();
-    const usersRef = ref(db, 'users');
-    onValue(usersRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-    });
-
-
+  
     game.add('mainMenu', new MainMenu());
     game.add('levelSelection', new LevelSelection());
     game.add('practice', new PracticeLevel());

@@ -20,6 +20,10 @@ export class PlayerTurn extends GameState{
   onEnter(engine : Engine) {
     console.log("timer has started");
     const board : Board = state.boardManager.currentBoard;
+    if (board.isOver()){
+      this.nextState = "gameOver";
+      return;
+    }
     engine.add(board.currentPlayer.timer);
     board.currentPlayer.timer.start()
 

@@ -15,7 +15,8 @@ export class GameOver extends GameState{
 
     engine.removeTimer(state.player.timer);
     engine.removeTimer(state.opponent.timer);
-    
+
+   
     sceneManager.push("gameOverScreen",{gameMode: state.gameMode, yourScore: state.player.score, opponentScore:state.opponent.score} )
 
   }

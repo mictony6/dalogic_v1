@@ -38,7 +38,7 @@ export class AiTurn extends GameState{
         resolve(aiPlayer.getBestMove());
       }, 1000);
     }).then((move: Move) => {
-      if (board.isOver()){
+      if (board.isOver() || !move){
         this.nextState = GameOver.stateName;
         return;
       }else {

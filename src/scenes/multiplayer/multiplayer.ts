@@ -116,7 +116,6 @@ export class Multiplayer extends Scene{
             socket.emit("playerAnswer", {roomId:state.roomID, answer: e.detail});
         })
 
-
         textInput.oninput = (_e) => {
             socket.emit("playerTyping", {roomId:state.roomID, value:textInput.value});
         }
@@ -167,7 +166,11 @@ export class Multiplayer extends Scene{
         removeEventListener("keydown", this.onPause);
         this.ui.classList.remove('Multiplayer')
         this.ui.innerHTML = ""
-        this.socket.disconnect();
+
+        setTimeout(() => {
+            this.socket.disconnect();
+        }, 5000)
+        
         if (this.board){
             this.board.kill();
         }
