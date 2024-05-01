@@ -25,32 +25,59 @@ export class Capture extends GameState{
       this.answeredCorrect = (parseInt(e.detail, 2) === captureMove.points);
       if (this.answeredCorrect){
         new GameAudio().play(AudioType.SCORE);
-        Swal.fire({
-          title: 'Correct!',
-          icon: 'success',
-          confirmButtonText: `+${captureMove.points} points!`,
-          customClass:{
-            title: 'alert-title',
-            confirmButton: 'alert-button'
-          }
-        }).then(() => {
-          this.modalClosed = true;
-        })
+        if (state.currentPlayerID === state.player["playerID"]){
+          Swal.fire({
+            title: 'Correct!',
+            icon: 'success',
+            confirmButtonText: `+${captureMove.points} points!`,
+            toast: true,
+            timer: 2000,
+            customClass:{
+              title: 'alert-title',
+              confirmButton: 'alert-button'
+            }
+          })
+        } else {
+          Swal.fire({
+            title: 'Opponent Correct!',
+            icon: 'success',
+            toast: true,
+            timer: 2000,
+            customClass:{
+              title: 'alert-title',
+            }
+          })
+        }
       } else {
         new GameAudio().play(AudioType.ERROR);
-        Swal.fire({
-          title: 'Ooops!',
-          icon: 'error',
-          confirmButtonText: `You lost ${captureMove.points} points to opponent!`,
-          customClass:{
-            title: 'alert-title-error',
-            confirmButton: 'alert-button-error'
-          }
-        }).then(() => {
-          this.modalClosed = true;
-        })
+        if (state.currentPlayerID === state.player["playerID"]){
+          Swal.fire({
+            title: 'Ooops!',
+            icon: 'error',
+            confirmButtonText: `You lost ${captureMove.points} points to opponent!`,
+            toast: true,
+            timer: 2000,
+            customClass:{
+              title: 'alert-title-error',
+              confirmButton: 'alert-button-error'
+            }
+          })
+        } else {
+          Swal.fire({
+            title: 'Ooops!',
+            icon: 'error',
+            confirmButtonText: `+${captureMove.points} points to you!`,
+            toast: true,
+            timer: 2000,
+            customClass:{
+              title: 'alert-title-error',
+              confirmButton: 'alert-button-error'
+            }
+          });
+        }
       }
-     })
+      this.modalClosed = true;
+     });
 
   }
 
