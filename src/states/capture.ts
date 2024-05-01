@@ -29,6 +29,7 @@ export class Capture extends GameState{
           Swal.fire({
             title: 'Correct!',
             icon: 'success',
+            position: "bottom-left",
             confirmButtonText: `+${captureMove.points} points!`,
             toast: true,
             timer: 2000,
@@ -42,9 +43,10 @@ export class Capture extends GameState{
             title: 'Opponent Correct!',
             icon: "info",
             toast: true,
+            position: "bottom-left",
             timer: 2000,
             customClass:{
-              title: 'alert-title',
+              title: 'alert-title-error',
             }
           })
         }
@@ -54,6 +56,7 @@ export class Capture extends GameState{
           Swal.fire({
             title: 'Ooops!',
             icon: 'error',
+            position: "bottom-left",
             confirmButtonText: `You lost ${captureMove.points} points to opponent!`,
             toast: true,
             timer: 2000,
@@ -66,12 +69,13 @@ export class Capture extends GameState{
           Swal.fire({
             title: 'Nice! Opponent Wrong.',
             icon: 'info',
+            position: "bottom-left",
             confirmButtonText: `+${captureMove.points} points to you!`,
             toast: true,
             timer: 2000,
             customClass:{
-              title: 'alert-title-error',
-              confirmButton: 'alert-button-error'
+              title: 'alert-title',
+              confirmButton: 'alert-button'
             }
           });
         }
