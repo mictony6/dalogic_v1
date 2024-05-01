@@ -384,3 +384,29 @@ a:hover{
 .transition.show {
     opacity: 1;
 }
+
+.alert-title{
+    font-family: 'Upheaval', sans-serif;
+    color: green;
+}
+  
+
+.alert-button {
+font-family: 'Upheaval', sans-serif;
+background-color: red;
+color: white;
+}
+
+
+.alert-title-error{
+    font-family: 'Upheaval', sans-serif;
+    color: red;
+}
+  
+
+
+.alert-button-error{
+font-family: 'Upheaval', sans-serif;
+background-color: red;
+color: white;
+}

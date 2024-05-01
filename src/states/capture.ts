@@ -6,6 +6,7 @@ import {type Engine, Vector} from "excalibur";
 import {CheckDoubleCapture} from "@/states/check-double-capture";
 import {AudioType, GameAudio} from "@/audio/GameAudio";
 import { SwitchingTurn } from "./switching-turn";
+import Swal from "sweetalert2";
 
 export class Capture extends GameState{
   static stateName = "capture";
@@ -24,8 +25,26 @@ export class Capture extends GameState{
       this.answeredCorrect = (parseInt(e.detail, 2) === captureMove.points);
       if (this.answeredCorrect){
         new GameAudio().play(AudioType.SCORE);
+        Swal.fire({
+          title: 'Correct!',
+          icon: 'success',
+          confirmButtonText: `+${captureMove.points} points!`,
+          customClass:{
+            title: 'alert-title',
+            confirmButton: 'alert-button'
+          }
+        });
       } else {
         new GameAudio().play(AudioType.ERROR);
+        Swal.fire({
+          title: 'Ooops!',
+          icon: 'error',
+          confirmButtonText: `You lost ${captureMove.points} points to opponent!`,
+          customClass:{
+            title: 'alert-title-error',
+            confirmButton: 'alert-button-error'
+          }
+        });
       }
       this.modalClosed = true;
      })
@@ -103,7 +122,7 @@ export class Capture extends GameState{
         this.nextState = SwitchingTurn.stateName; 
       }
     }else{
-        movingPiece.z = 9;
+      movingPiece.z = 9;
       // move the piece towards the destination tile
       movingPiece.vel = movingPiece.pos.add(destPos.sub(piecePos).normalize().scale(300 ));
 

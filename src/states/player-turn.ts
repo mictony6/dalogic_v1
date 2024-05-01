@@ -38,7 +38,6 @@ export class PlayerTurn extends GameState{
   onUpdate(_engine:Engine, _delta:number) {
     const board : Board = state.boardManager.currentBoard;
 
-    console.log(state.isPaused);
     if (board.currentPlayer.timer.isRunning && state.isPaused){
       
       board.currentPlayer.timer.pause();
