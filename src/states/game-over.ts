@@ -13,8 +13,11 @@ export class GameOver extends GameState{
 
   onEnter(engine: Engine){
 
+    state.boardManager.currentBoard.kill();
     engine.removeTimer(state.player.timer);
     engine.removeTimer(state.opponent.timer);
+    state.player.kill()
+    state.opponent.kill()
 
    
     sceneManager.push("gameOverScreen",{gameMode: state.gameMode, yourScore: state.player.score, opponentScore:state.opponent.score} )
