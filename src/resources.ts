@@ -21,6 +21,8 @@ import move1 from './audio/move1.wav';
 import move2 from './audio/move2.wav';
 import errorAudio from './audio/error.mp3';
 import transitionAudio from './audio/transition.wav';
+import tutorialBg1 from './images/assets/tutorialBg1.png';
+
 
 
 /**
@@ -50,6 +52,7 @@ const Resources = {
     Move2: new Sound(move2),
     ErrorAudio: new Sound(errorAudio),
     Transition : new Sound(transitionAudio),
+    TutorialBg1 : new ImageSource(tutorialBg1),
 
 }
 
