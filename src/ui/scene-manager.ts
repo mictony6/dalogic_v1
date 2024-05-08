@@ -1,21 +1,23 @@
 import { AudioType, GameAudio } from "@/audio/GameAudio";
 import {type Scene, vec, type Engine, EasingFunctions} from "excalibur";
 
+
 export class SceneManager{
   stack : string[] = [];
+  backButton: HTMLButtonElement;
 
   constructor(private engine : Engine) {
-    // go back to levelSelection when escape key pressed
-    // addEventListener("keydown", e => {
-    //   if (e.code == "Escape"){
-    //     this.pop();
-    //   }
-    // })
+
+    this.backButton = document.getElementById("backButton") as HTMLButtonElement;
+    this.backButton.onclick = this.back.bind(this);
+    this.backButton.style.display = "none";
+
 
   }
 
 
   push(sceneName:string, data : any = undefined){
+
 
     if (sceneName === "authenticate" ){
       this.engine.goToScene(sceneName, data);
@@ -23,6 +25,18 @@ export class SceneManager{
     }
     // push previous scene name here
     this.stack.push(sceneName);
+    this.proceed(sceneName, data);
+
+  }
+
+
+  private proceed(sceneName: string, data: any={}) {
+    if (sceneName == "practice" || sceneName == "multiplayer" || sceneName == "authenticate" || sceneName == "mainMenu"  ){
+      this.backButton.style.display = 'none';
+    } else{
+      this.backButton.style.display = 'block';
+    }
+
     // Fade out all actors in the current scene
     this.engine.currentScene.actors.forEach(actor => {
       // let fadeOutActor = setInterval(()=>{
@@ -35,13 +49,13 @@ export class SceneManager{
       actor.actions.fade(0, 250);
     });
 
-    let ui : HTMLElement = document.getElementById('ui');
-      // Fade in the UI elements
+    let ui: HTMLElement = document.getElementById('ui');
+    // Fade in the UI elements
     let opacity = 1.0;
-    let fadeOut = setInterval(()=>{
+    let fadeOut = setInterval(() => {
       if (opacity < 0.1) {
         clearInterval(fadeOut);
-      ui.style.opacity = '1.0';
+        ui.style.opacity = '1.0';
 
       }
       opacity -= 0.1;
@@ -57,20 +71,20 @@ export class SceneManager{
       });
       // Fade in the UI elements
       opacity = 0;
-      let fadeIn = setInterval(()=>{
-        if (opacity >0.9) {
+      let fadeIn = setInterval(() => {
+        if (opacity > 0.9) {
           clearInterval(fadeIn);
-        ui.style.opacity = '1.0';
+          ui.style.opacity = '1.0';
 
         }
         opacity += 0.1;
         ui.style.opacity = opacity.toString();
       }, 10)
       this.engine.goToScene(sceneName, data);
-      if ((sceneName !== "practice") && (sceneName !== "multiplayer")  ){        
+      if ((sceneName !== "practice") && (sceneName !== "multiplayer")) {
         this.engine.currentScene.actors.forEach(actor => {
           actor.graphics.opacity = 0;
-          let fadeInActor = setInterval(()=>{
+          let fadeInActor = setInterval(() => {
             if (actor.graphics.opacity > 1.0) {
               clearInterval(fadeInActor);
               actor.graphics.opacity = 1;
@@ -78,25 +92,43 @@ export class SceneManager{
             actor.graphics.opacity += 0.1;
           }, 10)
         })
-      } else{
+      } else {
         this.engine.currentScene.actors.forEach(actor => {
           actor.graphics.opacity = 1;
         })
       }
     }, 250);
-
   }
-
-  
 
   pop(){
     console.log(this.stack)
     const top = this.stack.pop();
-    this.engine.goToScene(this.stack[this.stack.length-1]);
+    this.proceed(this.stack[this.stack.length-1]);
     return top;
   }
 
 
-
-
+  private back() {
+    switch(this.stack[this.stack.length-1]){
+      case "mainMenu":
+        break;
+      case "levelSelection":
+        this.pop();
+        break;
+      case "practice":
+        this.pop();
+        break;
+      case "authenticate":
+        break;
+      case "gameOverScreen":
+        this.push("mainMenu");
+        break;
+      case "leaderboard":
+        this.push("mainMenu");
+        break;
+      case "tutorial":
+        this.pop();
+        break;
+    }
+  }
 }

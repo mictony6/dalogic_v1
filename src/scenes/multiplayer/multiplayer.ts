@@ -157,10 +157,10 @@ export class Multiplayer extends Scene{
         }
       }
     
-      onExitButtonClick() {
-        this.pauseMenu.close()
-        sceneManager.push("mainMenu");
-      }
+    onExitButtonClick() {
+    this.pauseMenu.close()
+    sceneManager.push("mainMenu");
+    }
 
     onDeactivate(_context: SceneActivationContext): void {
         removeEventListener("keydown", this.onPause);
