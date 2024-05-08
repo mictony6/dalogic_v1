@@ -371,7 +371,6 @@ dialog::backdrop{
 
 
 a{
-    color: var(--primary);
     text-decoration: none;
 }
 
@@ -417,11 +416,11 @@ font-family: 'Upheaval', sans-serif;
 #persistent-ui{
     position: absolute;
     z-index: 9;
-    margin: 0.25rem 8rem;
 }
 
 
 #backButton{
+    margin: 1rem 8rem;
     font-family: 'Upheaval', sans-serif;
     font-size: 1.5rem;
     color: #000000;
@@ -429,7 +428,6 @@ font-family: 'Upheaval', sans-serif;
     background-color: #ececec;
     border-radius: 15px;
     padding: 10px 20px;
-    margin: 10px;
     border: 1px solid black;
     scale:100%
 }
@@ -442,4 +440,24 @@ button:active{
     background: green;
 }
 
+
+.center{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 98vw;
+    justify-content: center;
+
+}
+
+
+#turnIndicator{
+    display: none;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    margin-top: 0.2rem;
+    width: max-content;
+    background: rgba(188, 166, 86, 0.6);
+    color: white;
+}
 

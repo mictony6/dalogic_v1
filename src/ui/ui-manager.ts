@@ -15,8 +15,8 @@ export class UiManager {
         family:'Upheaval',
         bold: true,
         textAlign: TextAlign.Center,
-        size: 30,
-        color: Color.Red
+        size: 28,
+        color: Color.Azure
       }),
     });
 

@@ -1,16 +1,31 @@
-import { AudioType, GameAudio } from "@/audio/GameAudio";
-import {type Scene, vec, type Engine, EasingFunctions} from "excalibur";
+
+import {type Engine} from "excalibur";
 
 
 export class SceneManager{
   stack : string[] = [];
   backButton: HTMLButtonElement;
+  turnIndicator : HTMLElement;
 
   constructor(private engine : Engine) {
+
+    this.turnIndicator = document.getElementById("turnIndicator");
+    addEventListener("turn", (e:CustomEvent) => {
+      switch (e.detail){
+        case true:
+          this.turnIndicator.innerText = "Your Turn";
+          break;
+        case false:
+          this.turnIndicator.innerText = "Opponent's Turn";
+          break;
+      }
+    })
 
     this.backButton = document.getElementById("backButton") as HTMLButtonElement;
     this.backButton.onclick = this.back.bind(this);
     this.backButton.style.display = "none";
+
+
 
 
   }
@@ -31,9 +46,14 @@ export class SceneManager{
 
 
   private proceed(sceneName: string, data: any={}) {
-    if (sceneName == "practice" || sceneName == "multiplayer" || sceneName == "authenticate" || sceneName == "mainMenu"  ){
+    if (sceneName == "authenticate" || sceneName == "mainMenu"  ){
       this.backButton.style.display = 'none';
+      this.turnIndicator.style.display = "none";
+    } else  if(sceneName == "practice" || sceneName == "multiplayer" ){
+      this.backButton.style.display = 'none';
+      this.turnIndicator.style.display = "block";
     } else{
+      this.turnIndicator.style.display = "none";
       this.backButton.style.display = 'block';
     }
 

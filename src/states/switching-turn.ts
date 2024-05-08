@@ -26,6 +26,7 @@ export class SwitchingTurn extends GameState{
 
     dispatchEvent(new CustomEvent("score1",{detail:state.player.score.toString()} ));
     dispatchEvent(new CustomEvent("score2",{detail:state.opponent.score.toString()} ));
+    dispatchEvent(new CustomEvent("turn", {detail:(state.currentPlayerID === state.player.playerID)}));
 
     switch (state.gameMode){
       case GameMode.AIVsPlayer:

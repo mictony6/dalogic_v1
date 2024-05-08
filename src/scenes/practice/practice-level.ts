@@ -111,6 +111,7 @@ export class PracticeLevel extends Scene {
     UiManager.displayTimer();
     UiManager.createNameLabels();
 
+
     state.isPaused = false;
     const stateMachine : GameStateMachine = state.stateMachine;
     stateMachine.changeState(SwitchingTurn.stateName, this.engine);
