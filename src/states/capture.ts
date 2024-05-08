@@ -2,16 +2,28 @@ import {GameState} from "@/components/game-state";
 import type {Board} from "@/actors/board/board";
 import {state} from "@/store/store";
 import type {CaptureMove} from "@/components/capture-move";
-import {type Engine, Vector} from "excalibur";
+import {type Engine, Timer, Vector} from "excalibur";
 import {CheckDoubleCapture} from "@/states/check-double-capture";
 import {AudioType, GameAudio} from "@/audio/GameAudio";
 import { SwitchingTurn } from "./switching-turn";
 import Swal from "sweetalert2";
+import { millisecondsToMinutesSeconds } from "@/components/helpers";
 
 export class Capture extends GameState{
   static stateName = "capture";
   private modalClosed: boolean = false;
   private answeredCorrect:boolean = false;
+  private timer :  Timer = new Timer({
+    fcn: () => {
+      this.modalClosed = true;
+      const submit = this.getSubmitButtonElement();
+      submit.click();
+    },
+    interval: 30000,
+  
+  })
+  lastTimeLeft: string;
+  timeLeft: string;
 
   constructor() {
     super();
@@ -86,7 +98,7 @@ export class Capture extends GameState{
   }
 
 
-  onEnter() {
+  onEnter(engine: Engine) {
     this.modalClosed = false;
     this.answeredCorrect = false;
 
@@ -118,11 +130,28 @@ export class Capture extends GameState{
         console.error("Modal or input element not found");
       }
 
+    engine.add(this.timer);
+    this.timer.reset();
+    this.timer.start();
+  }
+
+  onExit(engine: Engine): void {
+    this.timer.reset();
+    engine.remove(this.timer);
   }
 
 
 
   onUpdate(engine:Engine, delta:number) {
+
+    const currentTimeLeft  = millisecondsToMinutesSeconds(this.timer.timeToNextAction);
+
+    
+    if (this.lastTimeLeft !== currentTimeLeft){
+      this.timeLeft = currentTimeLeft;      
+      dispatchEvent(new CustomEvent("input-timer-tick", {detail:this.timeLeft.substring(3)}));
+      this.lastTimeLeft = currentTimeLeft;
+    }
     // pause the game until the user answers the question
     if (!this.modalClosed){
       return;
