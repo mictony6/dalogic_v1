@@ -182,9 +182,19 @@ export class UiManager {
       }
     }
 
+    const timeLeft = document.createElement('div');
+    timeLeft.id = "time-left";
+    timeLeft.className = "time-left";
+    timeLeft.innerText = "Time Left: 30s";
+    addEventListener("input-timer-tick", (e : CustomEvent) => {
+
+      timeLeft.innerText = `Time Left: ${e.detail}s`
+    });
+
     form.appendChild(textInput);
     form.appendChild(submit);
     content.appendChild(equation);
+    content.appendChild(timeLeft);
     content.appendChild(form);
     dialog.appendChild(heading);
     dialog.appendChild(content);

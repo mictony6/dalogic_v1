@@ -55,6 +55,7 @@ export class PlayerTurn extends GameState{
     if (this.lastTimeLeft !== currentTimeLeft){
       this.timeLeft = currentTimeLeft;      
       dispatchEvent(new CustomEvent("turntimer-tick", {detail:this.timeLeft}));
+      this.lastTimeLeft = currentTimeLeft;
     }
 
     if (state.currentPlayerID !== state.player["playerID"]){

@@ -8,7 +8,7 @@ export class Player extends Entity {
   public playerID:string= "0"
   score: number = 0;
   timer: Timer = new Timer({
-    interval: 600000, // 10 minutes,
+    interval: 300000, // 5 minutes,
     fcn : this.onGameOver,
   });
 
