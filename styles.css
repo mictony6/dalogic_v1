@@ -429,7 +429,8 @@ font-family: 'Upheaval', sans-serif;
     border-radius: 15px;
     padding: 10px 20px;
     border: 1px solid black;
-    scale:100%
+    scale:100%;
+    display:none;
 }
 
 #backButton:hover{
