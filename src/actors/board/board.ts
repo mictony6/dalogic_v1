@@ -323,9 +323,8 @@ export class Board extends Actor {
 
   evaluate(currentPlayer:Player) {
     const opponent: Player = currentPlayer.playerID === state.player["playerID"] ? state.opponent : state.player;
-    let p1WeightedPieceScore : number;
-    let p2WeightedPieceScore : number
-    ;
+    let p1WeightedPieceScore : number = 0;
+    let p2WeightedPieceScore : number = 0;
 
 
 
@@ -342,7 +341,9 @@ export class Board extends Actor {
     })
 
 
-    return currentPlayer.score - opponent.score + (p1WeightedPieceScore-p2WeightedPieceScore);
+
+
+    return (currentPlayer.score - opponent.score + (p1WeightedPieceScore-p2WeightedPieceScore));
   }
 
 

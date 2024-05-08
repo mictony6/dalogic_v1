@@ -9,9 +9,9 @@ import type {CaptureMove} from "@/components/capture-move";
 
 export class MinimaxAi extends AiPlayer {
 
-  minimax(depth : number, maximizingPlayer : boolean, board : Board){
+  minimax(depth : number, maximizingPlayer : boolean, board : Board, pos: Move|CaptureMove) : [number, Move | CaptureMove]{
     if (depth === 0 || board.isOver()){
-      return board.evaluate(this);
+      return [board.evaluate(this), pos];
     }
 
     if (maximizingPlayer){
@@ -23,7 +23,7 @@ export class MinimaxAi extends AiPlayer {
       let moves = board.getAllValidMoves(this);
       for (let move of moves) {
         move.commit();
-        let currentEval  = this.minimax(depth-1, false,board )[0];
+        let currentEval  = this.minimax(depth-1, false,board, move )[0];
         move.revert()
 
         if(currentEval >= maxEval){
@@ -41,7 +41,7 @@ export class MinimaxAi extends AiPlayer {
 
       for (let move of moves) {
         move.commit();
-        let currentEval = this.minimax( depth - 1, true, board)[0];
+        let currentEval = this.minimax( depth - 1, true, board, move)[0];
         move.revert();
 
         if (currentEval <= minEval) {
@@ -54,7 +54,7 @@ export class MinimaxAi extends AiPlayer {
 
   getBestMove(): Move | CaptureMove {
     const board : Board =state.boardManager.currentBoard;
-    return this.minimax(3, true, board)[1];
+    return this.minimax(3, true, board, null)[1];
   }
 
   takeTurn() {

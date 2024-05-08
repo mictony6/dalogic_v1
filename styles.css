@@ -223,6 +223,11 @@ html{
     border: solid 2px #2e2e2e;
     cursor: pointer;
     border-radius: 15px;
+    scale: 100%;
+}
+
+#ui.authenticate button:hover{
+    scale: 110%;
 }
 
 
@@ -415,16 +420,26 @@ font-family: 'Upheaval', sans-serif;
     margin: 0.25rem 8rem;
 }
 
+
 #backButton{
     font-family: 'Upheaval', sans-serif;
     font-size: 1.5rem;
     color: #000000;
     cursor: pointer;
     background-color: #ececec;
-    border: none;
     border-radius: 15px;
     padding: 10px 20px;
     margin: 10px;
     border: 1px solid black;
+    scale:100%
 }
+
+#backButton:hover{
+    scale: 110% !important;
+}
+
+button:active{
+    background: green;
+}
+
 

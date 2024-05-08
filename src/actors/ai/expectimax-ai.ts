@@ -6,9 +6,9 @@ import type {CaptureMove} from "@/components/capture-move";
 
 export class ExpectimaxAi extends AiPlayer{
 
-  private expectimax(depth: number, maximizingPlayer: boolean, board: Board) {
+  private expectimax(depth: number, maximizingPlayer: boolean, board: Board, pos: Move|CaptureMove) : [number, Move|CaptureMove] {
     if (depth === 0 || board.isOver()){
-      return board.evaluate(this);
+      return [board.evaluate(this), pos];
     }
 
     if (maximizingPlayer){
@@ -20,7 +20,7 @@ export class ExpectimaxAi extends AiPlayer{
       let moves = board.getAllValidMoves(this);
       for (let move of moves) {
         move.commit();
-        let currentEval  = this.expectimax(depth-1, false,board )[0];
+        let currentEval  = this.expectimax(depth-1, false,board, move )[0];
         move.revert()
 
         if(currentEval >= maxEval){
@@ -38,7 +38,7 @@ export class ExpectimaxAi extends AiPlayer{
       let total : number = 0
       for (let move of moves) {
         move.commit();
-        let currentEval = this.expectimax( depth - 1, true, board)[0];
+        let currentEval = this.expectimax( depth - 1, true, board, move)[0];
         move.revert();
 
         total += currentEval;
@@ -51,7 +51,7 @@ export class ExpectimaxAi extends AiPlayer{
 
   getBestMove(): Move | CaptureMove {
     let board : Board =state.boardManager.currentBoard;
-    return this.expectimax(4, true, board)[1];
+    return this.expectimax(4, true, board, null)[1];
   }
 
   takeTurn() {
