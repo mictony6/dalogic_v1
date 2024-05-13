@@ -31,12 +31,14 @@ export class AiTurn extends GameState{
     engine.add(aiPlayer.timer);
     aiPlayer.timer.start()
 
+    const randomTime = Math.floor(Math.random() * 1000) + 1000;    
+
     // use promise to simulate a delay in move aka bot is thinking hehe
     new Promise<Move>((resolve) => {
       setTimeout(() => {
         // aiPlayer.takeTurn();
         resolve(aiPlayer.getBestMove());
-      }, 1000);
+      }, randomTime);
     }).then((move: Move) => {
       if (board.isOver() || !move){
         this.nextState = GameOver.stateName;
@@ -49,14 +51,6 @@ export class AiTurn extends GameState{
       }
 
     })
-
-    // aiPlayer.takeTurn();
-    // if (board.isGameOver){
-    //   this.nextState = GameOver.stateName;
-    // }else {
-    //
-    //   this.nextState = SwitchingTurn.stateName;
-    // }
 
   }
 
