@@ -25,7 +25,7 @@ export class AlphaBetaAi extends AiPlayer {
         let currentEval  = this.minimax(depth-1, false,board, alpha, beta , move)[0];
         move.revert()
 
-        if(currentEval >= maxEval){
+        if(currentEval > maxEval){
           maxEval = currentEval;
           bestMove = move;
         }
@@ -48,7 +48,7 @@ export class AlphaBetaAi extends AiPlayer {
         let currentEval = this.minimax( depth - 1, true, board, alpha, beta, move)[0];
         move.revert();
 
-        if (currentEval <= minEval) {
+        if (currentEval < minEval) {
           minEval = currentEval;
         }
 
@@ -64,7 +64,9 @@ export class AlphaBetaAi extends AiPlayer {
 
   getBestMove(){
     const board : Board = state.boardManager.currentBoard;
-    return this.minimax(6, true, board, -Infinity, Infinity, null)[1];
+    let res= this.minimax(3, true, board, -Infinity, Infinity, null);
+    console.log(res[0]);
+    return res[1]
 
   }
 

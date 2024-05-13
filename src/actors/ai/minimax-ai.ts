@@ -26,7 +26,7 @@ export class MinimaxAi extends AiPlayer {
         let currentEval  = this.minimax(depth-1, false,board, move )[0];
         move.revert()
 
-        if(currentEval >= maxEval){
+        if(currentEval > maxEval){
           maxEval = currentEval;
           bestMove = move;
         }
@@ -44,7 +44,7 @@ export class MinimaxAi extends AiPlayer {
         let currentEval = this.minimax( depth - 1, true, board, move)[0];
         move.revert();
 
-        if (currentEval <= minEval) {
+        if (currentEval < minEval) {
           minEval = currentEval;
         }
       }

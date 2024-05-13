@@ -23,7 +23,7 @@ export class ExpectimaxAi extends AiPlayer{
         let currentEval  = this.expectimax(depth-1, false,board, move )[0];
         move.revert()
 
-        if(currentEval >= maxEval){
+        if(currentEval > maxEval){
           maxEval = currentEval;
           bestMove = move;
         }
