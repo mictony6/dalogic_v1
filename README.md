@@ -1,3 +1,6 @@
+# Game is available on itch.io [here](https://mictony6.itch.io/dalogic-game)
+
+
 # Excalibur TypeScript & Webpack Starter
 
 This is a barebones [Excalibur](https://excaliburjs.com) game engine starter built using Typescript 4 & Webpack 5. It's a great starting place to jumpstart building your game! This repo is a template and can be used to [create your own repository](https://github.com/excaliburjs/template-ts-webpack/generate) in GitHub.
